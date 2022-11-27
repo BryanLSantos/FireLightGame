@@ -23,6 +23,12 @@ class Battle extends Phaser.Scene{
             frameHeight: 180
         });
 
+        this.load.spritesheet('nami_attack','Nami/attack1gOOD.png',
+        {
+            frameWidth: 180,
+            frameHeight: 180
+        });
+
         this.load.spritesheet('enemy','enemigos/king/king_idle.png',
         {
             frameWidth: 128,
@@ -89,7 +95,40 @@ class Battle extends Phaser.Scene{
             frameRate: 10
         });
 
+        this.anims.create({
+            // Nombre de la animación
+            key: 'nami_attack',
+            // Se cargan los frames por números
+            // NOTA: generateFrameNames() se
+            // usa cuando ya existe un Atlas
+            frames: this.anims.generateFrameNumbers('nami_attack', {
+                start: 0,
+                end: 5
+            }),
+            
+            repeat: 0,
+            frameRate: 10
+        });
+
         this.nami.anims.play('nami_idle');
+
+        this.anims.create({
+            // Nombre de la animación
+            key: 'enemy_idle',
+            // Se cargan los frames por números
+            // NOTA: generateFrameNames() se
+            // usa cuando ya existe un Atlas
+            frames: this.anims.generateFrameNumbers('enemy', {
+                start: 0,
+                end: 17
+            }),
+            
+            repeat: -1,
+            frameRate: 9
+        });
+
+        this.enemy.anims.play('enemy_idle');
+
 
         this.grupo = this.physics.add.group({
             key: 'hearts',
@@ -157,11 +196,12 @@ class Battle extends Phaser.Scene{
             pocion.body.setAllowGravity(false);
         } );
 
+        
         this.grupoEnemy2.playAnimation('potions');
 
         this.btn1.on(eventos.POINTER_OVER, function() {
             // this.btn1.setC
-            console.log("btn1");
+            // console.log("btn1");
             this.setTint(0x7d7264);
             // this.setAlpha(0.8);
         });
@@ -172,8 +212,17 @@ class Battle extends Phaser.Scene{
             // this.setAlpha(1);
         });
 
+        this.btn1.on('pointerdown',()=>{
+            this.nami.anims.play('nami_attack');
+
+            setTimeout(() => {
+                // console.log("idle");
+                this.nami.anims.play('nami_idle');
+            }, 900);
+        });
+
         this.btn2.on(eventos.POINTER_OVER, function() {
-            console.log("btn2");
+            // console.log("btn2");
             this.setTint(0x7d7264);
             // this.setScale(1.2);
         });
@@ -185,7 +234,7 @@ class Battle extends Phaser.Scene{
         });
 
         this.btn3.on(eventos.POINTER_OVER, function() {
-            console.log("btn3");
+            // console.log("btn3");
             this.setTint(0x7d7264);
             // this.setScale(1.2);
         });
@@ -197,7 +246,7 @@ class Battle extends Phaser.Scene{
         });
 
         this.btn4.on(eventos.POINTER_OVER, function() {
-            console.log("btn4");
+            // console.log("btn4");
             this.setTint(0x7d7264);
             // this.setScale(1.2);
         });
