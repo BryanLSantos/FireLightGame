@@ -40,6 +40,12 @@ class Level extends Phaser.Scene{
             frameHeight: 180,
         })
 
+        this.load.spritesheet('nami_takehit','Nami/Take_Hit.png',
+        {
+            frameWidth: 180,
+            frameHeight: 180,
+        })
+
         this.load.spritesheet('nami_jump','Nami/jumpgOOD.png',
         {
             frameWidth: 180,
@@ -328,6 +334,20 @@ class Level extends Phaser.Scene{
 
         this.anims.create({
             // Nombre de la animación
+            key: 'nami_takehit',
+            // Se cargan los frames por números
+            // NOTA: generateFrameNames() se
+            // usa cuando ya existe un Atlas
+            frames: this.anims.generateFrameNumbers('nami_takehit', {
+                start: 0,
+                end: 3
+            }),
+            repeat: 1,
+            frameRate: 6
+        });
+
+        this.anims.create({
+            // Nombre de la animación
             key: 'nami_jump',
             // Se cargan los frames por números
             // NOTA: generateFrameNames() se
@@ -457,7 +477,7 @@ class Level extends Phaser.Scene{
         });
         this.teclas.kspc.on('up', ()=>{
             //this.nami.anims.stop();
-            this.nami.play('nami_jump');
+            this.nami.anims.play('nami_fall');
             this.teclas.kspc.enabled = false;
             setTimeout(() => {
                 this.nami.play('nami_idle');
@@ -634,6 +654,23 @@ class Level extends Phaser.Scene{
             // tiempo en milisegundos, intensidad en [0,1]
             .shake(500, 0.03);
             //this.cameras.main.fadeIn(500);
+            //setVelocity(200);
+            setTimeout(() => {
+                this.nami.setVelocityX( this.nami.body.velocity.x += 50);
+                this.nami.setVelocityY( this.nami.body.velocity.y -= 100);
+                this.nami.anims.play('nami_takehit');
+                
+            }, 100);
+            setTimeout(() => {
+                this.nami.body.velocity.x = 0;
+                this.nami.body.velocity.y = 0;
+            }, 400);
+            
+            // this.nami.setVelocityX(this.nami.body.velocity.x -=20);
+            // this.nami.setVelocityY(0);
+            // this.nami.setVelocityX( this.nami.body.velocity.x -= 100);
+            // this.nami.setVelocityY( this.nami.body.velocity.y += 500);   
+           
         });
         this.grupoO4.playAnimation('pinchos');
 
@@ -785,9 +822,14 @@ class Level extends Phaser.Scene{
         }
 
         if (this.teclas.kspc.isDown) {
-            
+            this.banderasalto = true;
         }
-        if(this.teclas.kspc.isDown && this.nami.x >= 300+300 && this.nami.x <= 300 + 50+300)
+      
+        // if(this.teclas.kspc.isUp && this.banderasalto == true && this.nami.body.velocity.y ==800)
+        // {
+            
+        // }
+        if(this.teclas.kspc.isDown && this.nami.y >= 300+300 && this.nami.x <= 300 + 50+300)
         {
             // setInterval(() => {
             //     console.log("esta haciendo algo");
