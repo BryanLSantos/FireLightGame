@@ -253,8 +253,6 @@ class Level extends Phaser.Scene{
         //this.cuadro = this.add.image(1200, 400, 'cuadro').setScale(0.15).setDepth(0);
         this.cuadros = [];
         for(let index = 0; index < 10; index++) {
-            // this.puertas[index] = this.add.image(index*1000, 770, "puertaCerrada").setOrigin(1, 1).setDepth(0);
-            //this.puertas[index].setScale(0.6);
             // if(index%2==0){
                 this.cuadros[index] = this.add.image((index*1100)+220, 580, "cuadro").setDepth(0);
                 this.cuadros[index].setScale(0.25);
@@ -282,23 +280,14 @@ class Level extends Phaser.Scene{
         //visible false 
         this.suelo.setVisible(false);
         //FISICAS nami
-        //this.nami = this.add.sprite(300, 520, 'nami', 0).setScale(5);
         this.nami = this.physics.add.sprite(1000, 120, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
         //this.physics.add.existing(this.nami, true); //FORMA2 true
         this.nami.body.setCollideWorldBounds(false);
-        // this.nami.body.setCircle(25);
-        // this.nami.body.setSquare(25);
         this.nami.body.setSize(48, 45, true);
         this.nami.body.setOffset(72, 70);
-        this.physics.add.collider(this.nami, this.suelo, () => {
-            //this.yoshi.setVelocity(0);
-            //this.yoshi.setAcceleration(0);
-        });
+        this.physics.add.collider(this.nami, this.suelo, () => {});
         // this.nami = this.physics.add.image(300, 720, 'nami');
         // this.nami.body.setAllowGravity(false);
-        //this.text = this.add.text(500, 250, 'PRESIONA\t[→] [D]', {
-        //     fontFamily: 'Consolas', fontSize: '30px'
-        // }).setDepth(10);
 
         //Animaciones del personaje nami
         this.anims.create({
@@ -403,19 +392,6 @@ class Level extends Phaser.Scene{
         // });
         this.cameras.main.setSize(1920,1080);
         this.cameras.main.startFollow(this.nami);
-        // this.anims.create({
-        //     // Nombre de la animación
-        //     key: 'antorchab_iddle',
-        //     // Se cargan los frames por números
-        //     // NOTA: generateFrameNames() se
-        //     // usa cuando ya existe un Atlas
-        //     frames: this.anims.generateFrameNumbers('antorchab', {
-        //         start: 0,
-        //         end: 5
-        //     }),
-        //     repeat: -1,
-        //     frameRate: 6
-        // });
         
         //Mapeo de teclas
         this.teclas = this.input.keyboard.addKeys({
@@ -543,13 +519,13 @@ class Level extends Phaser.Scene{
                 stepX: 800
             }
         });
-        
         this.grupoC.children.iterate((corazon) => {
             corazon.setScale(1);
             corazon.body.setAllowGravity(false);
         });
         this.grupoC.playAnimation('hearts');
-
+         
+        //Nami obtiene salud
         this.physics.add.collider(this.nami, this.grupoC, () => {
             this.grupoC.getChildren()[0].destroy();
             this.grupo.getChildren()[this.contadorVida].visible = true;
@@ -653,10 +629,10 @@ class Level extends Phaser.Scene{
             pincho.setImmovable(true);
             //pincho.body.setOffset(62, 50);
         } );
-        this.physics.add.collider(this.nami, this.grupoO4, () => {
-            // this.nami.setVelocity(0);
-            // this.nami.setAcceleration(0);
-            console.log("colision rey con pinchos");
+        //Nami colisiona con un pincho
+        this.physics.add.collider(this.nami, this.grupoO4, () => {    
+            
+            console.log("colision nami con pinchos");
             this.cameras.main
             .setBackgroundColor(0x000000)
             //.fadeOut(500);
@@ -668,7 +644,6 @@ class Level extends Phaser.Scene{
                 this.nami.setVelocityX( this.nami.body.velocity.x += 50);
                 this.nami.setVelocityY( this.nami.body.velocity.y -= 100);
                 this.nami.anims.play('nami_takehit');
-                
             }, 100);
             setTimeout(() => {
                 this.nami.body.velocity.x = 0;
@@ -679,8 +654,13 @@ class Level extends Phaser.Scene{
             // this.nami.setVelocityY(0);
             // this.nami.setVelocityX( this.nami.body.velocity.x -= 100);
             // this.nami.setVelocityY( this.nami.body.velocity.y += 500);   
-           
+            setInterval(() => {
+                this.colisionPinchos = true;
+            }, 1000);
+            
         });
+
+       
         this.grupoO4.playAnimation('pinchos');
 
         for (let index = 0; index < 10; index++) {
@@ -693,9 +673,16 @@ class Level extends Phaser.Scene{
         // this.cofre.anims.play('cofreanimado');
     }
     update(time, delta) {
+        if(this.colisionPinchos==true){
+            setInterval(() => {
+                this.grupo.getChildren()[this.contadorVida].visible = false;
+                this.contadorVida--;
+                this.colisionPinchos = false;
+            }, 1000);
+        }
         var x = 0;
         var y = 0;
- //////////////
+        //////////////////////
         // if (this.bgs[1].x >= - this.bgs[1].displayWidth + 1920) {
         //     this.bgs[0].x -= 2;
         //     this.bgs[1].x -= 2;
@@ -720,7 +707,7 @@ class Level extends Phaser.Scene{
                 }
             }
         }
-///////////////////////77
+        ///////////////////////77
         if (this.teclas.der.isDown)
         {
             this.nami.body.setOffset(72, 70);
@@ -821,23 +808,11 @@ class Level extends Phaser.Scene{
         }
 
         if (this.teclas.powQ.isDown)
-        {
-            
-        }
+        {}
 
         if (this.teclas.powR.isDown)
-        {
-            
-        }
+        {}
 
-        if (this.teclas.kspc.isDown) {
-            this.banderasalto = true;
-        }
-      
-        // if(this.teclas.kspc.isUp && this.banderasalto == true && this.nami.body.velocity.y ==800)
-        // {
-            
-        // }
         if(this.teclas.kspc.isDown && this.nami.y >= 300+300 && this.nami.x <= 300 + 50+300)
         {
             // setInterval(() => {
@@ -859,20 +834,10 @@ class Level extends Phaser.Scene{
        
             
         }
-        // if(this.nami.x >= 450 && //this.grupo.getChildren()[0].x
-        // this.nami.x <= 450 + 50) //this.grupo.getChildren()[0].x
-        // {
-        //     //this.grupoC.getChildren()[0].destroy();
-        //     this.grupo.children.iterate( (corazon) => {
-        //         //this.grupoC.getChildren()[0].visible = false;
-        //         this.grupoC.getChildren()[0].destroy();
-        //     } );
-        //     //this.grupo.getChildren()[1].destroy();
-        // }
         
         if(this.nami.x >= 750 && this.nami.x <= 750 + 50)
         {
-            //     this.grupoC.getChildren()[0].visible = false;
+            //this.grupoC.getChildren()[0].visible = false;
 
             // this.grupo.getChildren()[3].visible = true;
         }
@@ -882,13 +847,6 @@ class Level extends Phaser.Scene{
             //     this.grupoC.getChildren()[1].visible = false;
 
             // this.grupo.getChildren()[4].visible = true;
-        }
-        if(this.nami.x >= 1800 && this.nami.x <= 1800 + 50)
-        {
-
-            //     this.grupoC.getChildren()[2].visible = false;
-
-            // this.grupo.getChildren()[5].visible = true;
         }
     }
 
