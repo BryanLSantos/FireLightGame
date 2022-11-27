@@ -492,7 +492,7 @@ class Level extends Phaser.Scene{
         //Grupo de corazones ARRIBA
         this.grupo = this.physics.add.group({
             key: 'hearts',
-            repeat: 6,
+            repeat: 5,
             setXY: {
             x: 350,
             y: 100,
@@ -505,9 +505,9 @@ class Level extends Phaser.Scene{
             } );
         this.grupo.playAnimation('hearts');
         this.contadorVida = 3; 
+        this.grupo.getChildren()[3].visible = false;
         this.grupo.getChildren()[4].visible = false;
         this.grupo.getChildren()[5].visible = false;
-        this.grupo.getChildren()[6].visible = false;
 
         //Grupo de corazones ABAJO
         this.grupoC = this.physics.add.group({
@@ -629,9 +629,10 @@ class Level extends Phaser.Scene{
             pincho.setImmovable(true);
             //pincho.body.setOffset(62, 50);
         } );
+        
         //Nami colisiona con un pincho
         this.physics.add.collider(this.nami, this.grupoO4, () => {    
-            
+            this.ok = 1;
             console.log("colision nami con pinchos");
             this.cameras.main
             .setBackgroundColor(0x000000)
@@ -648,8 +649,18 @@ class Level extends Phaser.Scene{
             setTimeout(() => {
                 this.nami.body.velocity.x = 0;
                 this.nami.body.velocity.y = 0;
-            }, 400);
-            // this.events.once('addImage', this.handler, this);
+             }, 400);
+             this.physics.add.overlap(this.nami,this.grupo04,() => {
+                this.grupo.getChildren()[this.contadorVida].visible = false;
+                this.contadorVida--;});
+            // this.nami.once(Phaser.Animations.Events.SPRITE_ANIMATION_COMPLETE, () => {
+            //     this.grupo.getChildren()[this.contadorVida].visible = false;
+            //     this.contadorVida--;
+            // });
+           
+             // restarVida();
+            //this.events.off('restarVida');
+            //this.events.once('addImage', this.handler, this);
             // this.nami.setVelocityX(this.nami.body.velocity.x -=20);
             // this.nami.setVelocityY(0);
             // this.nami.setVelocityX( this.nami.body.velocity.x -= 100);
@@ -664,7 +675,10 @@ class Level extends Phaser.Scene{
             //         }, 1000);
             
         });
-
+        function restarVida() {
+            this.grupo.getChildren()[this.contadorVida].visible = false;
+            this.contadorVida--;
+        }
        
         this.grupoO4.playAnimation('pinchos');
 
