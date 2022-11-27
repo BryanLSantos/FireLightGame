@@ -16,37 +16,197 @@ class Battle extends Phaser.Scene{
 
         this.load.image('1', 'Battle/1.png');
         this.load.image('Button', 'Battle/Button.png');
+
+        this.load.spritesheet('nami','Nami/idlegOOD.png',
+        {
+            frameWidth: 180,
+            frameHeight: 180
+        });
+
+        this.load.spritesheet('enemy','enemigos/king/king_idle.png',
+        {
+            frameWidth: 128,
+            frameHeight: 128
+        });
+
+        this.load.atlas('hearts','hearts/hearts.png','hearts/hearts_atlas.json');
+        this.load.animation('heartsAnim','hearts/hearts_anim.json');
+        this.load.atlas('potions','potions/potions.png','potions/potions_atlas.json');
+        this.load.animation('potionsAnim','potions/potions_anim.json');
+
     }
 
     create(){
+        const eventos = Phaser.Input.Events;
+
         this.battle = this.add.image(this.width/2, this.height/2, '1');
 
-        this.btn1 = this.add.image(this.width/4, this.height/8, 'Button').setScale(0.35, 0.15);
-        this.btn2 = this.add.image(this.width/4, this.height/3.5, 'Button').setScale(0.35, 0.15);
-        this.btn3 = this.add.image(this.width/1.5, this.height/8, 'Button').setScale(0.35, 0.15);
-        this.btn4 = this.add.image(this.width/1.5, this.height/3.5, 'Button').setScale(0.35, 0.15);
+        this.btn1 = this.add.image(500, this.height/8, 'Button').setScale(0.3, 0.1).setInteractive();
+        this.btn2 = this.add.image(500, this.height/3.5, 'Button').setScale(0.3, 0.1).setInteractive();
+        this.btn3 = this.add.image(1420, this.height/8, 'Button').setScale(0.3, 0.1).setInteractive();
+        this.btn4 = this.add.image(1420, this.height/3.5, 'Button').setScale(0.3, 0.1).setInteractive();
 
-        this.btn5 = this.add.image(this.width/4, this.height/2, 'Button').setScale(0.35, 0.15);
-        this.btn6 = this.add.image(this.width/4, this.height/1.5, 'Button').setScale(0.35, 0.15);
-        this.btn7 = this.add.image(this.width/1.5, this.height/2, 'Button').setScale(0.35, 0.15);
-        this.btn8 = this.add.image(this.width/1.5, this.height/1.5, 'Button').setScale(0.35, 0.15);
-
-        this.btn9 = this.add.image(this.width/1.5, this.height/1.15, 'Button').setScale(0.35, 0.15);
-        this.btn10 = this.add.image(this.width/4, this.height/1.15, 'Button').setScale(0.35, 0.15);
-
-        this.txt4 = this.add.text(250, 700, "Akaya Telivigala", {fontFamily: 'Akaya Telivigala', fontSize: '45px', color: 'black'});
-        this.txt3 = this.add.text(1030, 115, "IM Fell English SC", {fontFamily: 'IM Fell English SC', fontSize: '45px', color: 'black'});
-        this.txt5 = this.add.text(250, 520, "Alegreya Sans SC", {fontFamily: 'Alegreya Sans SC', fontSize: '45px', color: 'black'});
-        this.txt7 = this.add.text(1030, 520, "Rock Salt", {fontFamily: 'Rock Salt', fontSize: '45px', color: 'black'});
+        this.txt1 = this.add.text(425, 110, "Ataque 1", {fontFamily: 'Akaya Telivigala', fontSize: '45px', color: 'black'});
+        this.txt2 = this.add.text(1340, 110, "Ataque 2", {fontFamily: 'Akaya Telivigala', fontSize: '45px', color: 'black'});
+        this.txt3 = this.add.text(445, 285, "Pocion", {fontFamily: 'Akaya Telivigala', fontSize: '45px', color: 'black'});
+        this.txt4 = this.add.text(1345, 285, "Cubrirse", {fontFamily: 'Akaya Telivigala', fontSize: '45px', color: 'black'});
         
-        this.txt8 = this.add.text(1030, 700, "Bebas Neue", {fontFamily: 'Bebas Neue', fontSize: '45px', color: 'black'});
-        this.txt1 = this.add.text(250, 115, "Teko", {fontFamily: 'Teko', fontSize: '45px', color: 'black'});
-        this.txt2 = this.add.text(250, 285, "Unica One", {fontFamily: 'Unica One', fontSize: '45px', color: 'black'});
-        this.txt6 = this.add.text(1030, 285, "VT323", {fontFamily: 'VT323', fontSize: '45px', color: 'black'});
+        this.suelo = this.physics.add.image(300, 1000, 'BlockBlock');
+        this.suelo.body.setAllowGravity(false);
+        this.suelo.setImmovable();
+        this.suelo.body.setSize(100000, 55, true);
+        //visible false 
+        this.suelo.setVisible(false);
 
-        this.txt9 = this.add.text(250, 920, "Rubik Mono One", {fontFamily: 'Rubik Mono One', fontSize: '45px', color: 'black'});
-        this.txt10 = this.add.text(1030, 920, "Six Caps", {fontFamily: 'Six Caps', fontSize: '45px', color: 'black'});
 
+        this.nami = this.physics.add.sprite(450, 820, 'nami').setScale(6);
+        this.nami.body.setCollideWorldBounds(false);
+
+        this.nami.body.setSize(48, 45, true);
+        this.nami.body.setOffset(72, 70);
+        this.physics.add.collider(this.nami, this.suelo, () => {});
+
+        this.enemy = this.physics.add.sprite(1450, 853, 'enemy').setScale(9);
+        this.enemy.body.setCollideWorldBounds(false);
+
+        this.enemy.body.setSize(20, 25, true);
+        // this.enemy.body.setOffset(72, 70);
+        this.physics.add.collider(this.enemy, this.suelo, () => {});
+        this.enemy.flipX = true;
+
+        this.anims.create({
+            // Nombre de la animación
+            key: 'nami_idle',
+            // Se cargan los frames por números
+            // NOTA: generateFrameNames() se
+            // usa cuando ya existe un Atlas
+            frames: this.anims.generateFrameNumbers('nami', {
+                start: 0,
+                end: 10
+            }),
+            
+            repeat: -1,
+            frameRate: 10
+        });
+
+        this.nami.anims.play('nami_idle');
+
+        this.grupo = this.physics.add.group({
+            key: 'hearts',
+            repeat: 5,
+            setXY: {
+            x: 450,
+            y: this.nami.y - 210,
+            stepX: 35
+            }
+        });
+
+        this.grupo.children.iterate( (corazon) => {
+                corazon.setScale(.4);
+                corazon.body.setAllowGravity(false);
+        } );
+
+        this.grupo.playAnimation('hearts');
+
+        this.grupo2 = this.physics.add.group({
+            key: 'potions',
+            repeat: 3,
+            setXY: {
+            x: 485,
+            y: this.nami.y - 170,
+            stepX: 35,
+            }
+        });
+
+        this.grupo2.children.iterate( (pocion) => {
+            pocion.setScale(0.2);
+            pocion.body.setAllowGravity(false);
+        } );
+
+        this.grupo2.playAnimation('potions');
+
+        this.grupoEnemy = this.physics.add.group({
+            key: 'hearts',
+            repeat: 5,
+            setXY: {
+            x: 1475,
+            y: this.enemy.y - 340,
+            stepX: -35
+            }
+        });
+
+        this.grupoEnemy.children.iterate( (corazon) => {
+                corazon.setScale(.4);
+                corazon.body.setAllowGravity(false);
+        } );
+
+        this.grupoEnemy.playAnimation('hearts');
+
+        this.grupoEnemy2 = this.physics.add.group({
+            key: 'potions',
+            repeat: 3,
+            setXY: {
+            x: 1440,
+            y: this.enemy.y - 300,
+            stepX: -35,
+            }
+        });
+
+        this.grupoEnemy2.children.iterate( (pocion) => {
+            pocion.setScale(0.2);
+            pocion.body.setAllowGravity(false);
+        } );
+
+        this.grupoEnemy2.playAnimation('potions');
+
+        this.btn1.on(eventos.POINTER_OVER, function() {
+            // this.btn1.setC
+            console.log("btn1");
+            this.setTint(0x7d7264);
+            // this.setAlpha(0.8);
+        });
+        this.btn1.on(eventos.POINTER_OUT, function() {
+            // this.btn1.setC
+            // console.log("btn1");
+            this.clearTint();
+            // this.setAlpha(1);
+        });
+
+        this.btn2.on(eventos.POINTER_OVER, function() {
+            console.log("btn2");
+            this.setTint(0x7d7264);
+            // this.setScale(1.2);
+        });
+        this.btn2.on(eventos.POINTER_OUT, function() {
+            // this.btn1.setC
+            // console.log("btn1");
+            this.clearTint();
+            // this.setAlpha(1);
+        });
+
+        this.btn3.on(eventos.POINTER_OVER, function() {
+            console.log("btn3");
+            this.setTint(0x7d7264);
+            // this.setScale(1.2);
+        });
+        this.btn3.on(eventos.POINTER_OUT, function() {
+            // this.btn1.setC
+            // console.log("btn1");
+            this.clearTint();
+            // this.setAlpha(1);
+        });
+
+        this.btn4.on(eventos.POINTER_OVER, function() {
+            console.log("btn4");
+            this.setTint(0x7d7264);
+            // this.setScale(1.2);
+        });
+        this.btn4.on(eventos.POINTER_OUT, function() {
+            // this.btn1.setC
+            // console.log("btn1");
+            this.clearTint();
+            // this.setAlpha(1);
+        });
 
     }
 

@@ -499,9 +499,9 @@ class Level extends Phaser.Scene{
             stepX: 100,
             }
             });
-        this.grupo2.children.iterate( (posion) => {
+        this.grupo2.children.iterate( (pocion) => {
             posion.setScale(0.8);
-            posion.body.setAllowGravity(false);
+            pocion.body.setAllowGravity(false);
         } );
         this.grupo2.playAnimation('potions');
 
