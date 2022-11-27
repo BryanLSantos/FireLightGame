@@ -513,12 +513,12 @@ class Level extends Phaser.Scene{
                 
             
         // });
-        //Grupo de corazones
+        //Grupo de corazones ARRIBA
         this.grupo = this.physics.add.group({
             key: 'hearts',
-            repeat: 5,
+            repeat: 6,
             setXY: {
-            x: 150,
+            x: 350,
             y: 100,
             stepX: 100
             }
@@ -528,26 +528,35 @@ class Level extends Phaser.Scene{
                 corazon.body.setAllowGravity(false);
             } );
         this.grupo.playAnimation('hearts');
-
-        this.grupo.getChildren()[3].visible = false;
+        this.contadorVida = 3; 
         this.grupo.getChildren()[4].visible = false;
         this.grupo.getChildren()[5].visible = false;
+        this.grupo.getChildren()[6].visible = false;
 
-        // this.grupoC = this.physics.add.group({
-        //     key: 'hearts',
-        //     repeat: 2,
-        //     setXY: {
-        //         x: 1000,
-        //         y: 700,
-        //         stepX: 750
-        //     }
-        // });
-        // this.grupoC.children.iterate((corazon) => {
-        //     corazon.setScale(1);
-        //     corazon.body.setAllowGravity(false);
-        // });
-        // this.grupoC.playAnimation('hearts');
+        //Grupo de corazones ABAJO
+        this.grupoC = this.physics.add.group({
+            key: 'hearts',
+            repeat: 2,
+            setXY: {
+                x: 1000,
+                y: 700,
+                stepX: 800
+            }
+        });
+        
+        this.grupoC.children.iterate((corazon) => {
+            corazon.setScale(1);
+            corazon.body.setAllowGravity(false);
+        });
+        this.grupoC.playAnimation('hearts');
 
+        this.physics.add.collider(this.nami, this.grupoC, () => {
+            this.grupoC.getChildren()[0].destroy();
+            this.grupo.getChildren()[this.contadorVida].visible = true;
+            this.contadorVida++;
+        });
+   
+            
         //Grupo de pociones
         this.grupo2 = this.physics.add.group({
             key: 'potions',
