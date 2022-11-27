@@ -9,6 +9,8 @@ class Battle extends Phaser.Scene{
         console.log('Escena Battle');
         this.width = this.sys.game.canvas.width;
         this.height = this.sys.game.canvas.height;
+
+        this.turn == true;
     }
 
     preload(){
@@ -215,10 +217,25 @@ class Battle extends Phaser.Scene{
         this.btn1.on('pointerdown',()=>{
             this.nami.anims.play('nami_attack');
 
+            this.btn1.disableInteractive();
+            this.btn2.disableInteractive();
+            this.btn3.disableInteractive();
+            this.btn4.disableInteractive();
+
             setTimeout(() => {
                 // console.log("idle");
                 this.nami.anims.play('nami_idle');
+                this.btn1.setInteractive();
+                this.btn2.setInteractive();
+                this.btn3.setInteractive();
+                this.btn4.setInteractive();
+                
             }, 900);
+
+            setTimeout(() => {
+                // console.log("idle");
+                this.turn == false;
+            }, 1500);
         });
 
         this.btn2.on(eventos.POINTER_OVER, function() {
