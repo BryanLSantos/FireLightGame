@@ -650,9 +650,9 @@ class Level extends Phaser.Scene{
                 this.nami.body.velocity.x = 0;
                 this.nami.body.velocity.y = 0;
              }, 400);
-             this.physics.add.overlap(this.nami,this.grupo04,() => {
-                this.grupo.getChildren()[this.contadorVida].visible = false;
-                this.contadorVida--;});
+            //  this.physics.add.overlap(this.nami,this.grupo04,() => {
+            //     this.grupo.getChildren()[this.contadorVida].visible = false;
+            //     this.contadorVida--;});
             // this.nami.once(Phaser.Animations.Events.SPRITE_ANIMATION_COMPLETE, () => {
             //     this.grupo.getChildren()[this.contadorVida].visible = false;
             //     this.contadorVida--;
@@ -832,7 +832,7 @@ class Level extends Phaser.Scene{
         if (this.teclas.powR.isDown)
         {}
 
-        if(this.teclas.kspc.isDown && this.nami.y >= 300+300 && this.nami.x <= 300 + 50+300)
+        if(this.teclas.kspc.isDown && this.nami.x >= 300+300 && this.nami.x <= 300 + 50+300)
         {
             // setInterval(() => {
             //     console.log("esta haciendo algo");
@@ -843,9 +843,9 @@ class Level extends Phaser.Scene{
             this.puertas[0].anims.play('puerta');
             // setTimeout(() => {
 
-                    escena("Room4",this.scene);
+                escena("Room1",this.scene);
 
-                escena("Room4",this.scene);
+                // escena("Room4",this.scene);
                     
             // }, 1500);
                 // this.scene.start("Room1", {
