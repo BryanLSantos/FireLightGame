@@ -649,14 +649,19 @@ class Level extends Phaser.Scene{
                 this.nami.body.velocity.x = 0;
                 this.nami.body.velocity.y = 0;
             }, 400);
-            
+            // this.events.once('addImage', this.handler, this);
             // this.nami.setVelocityX(this.nami.body.velocity.x -=20);
             // this.nami.setVelocityY(0);
             // this.nami.setVelocityX( this.nami.body.velocity.x -= 100);
             // this.nami.setVelocityY( this.nami.body.velocity.y += 500);   
-            setInterval(() => {
-                this.colisionPinchos = true;
-            }, 1000);
+            // setInterval(() => {
+            //     this.colisionPinchos = true;
+            // }, 1000);
+            // if(this.colisionPinchos)
+            // setInterval(() => {
+            //             if(colision);
+            //             bandera == false;
+            //         }, 1000);
             
         });
 
@@ -673,13 +678,13 @@ class Level extends Phaser.Scene{
         // this.cofre.anims.play('cofreanimado');
     }
     update(time, delta) {
-        if(this.colisionPinchos==true){
-            setInterval(() => {
-                this.grupo.getChildren()[this.contadorVida].visible = false;
-                this.contadorVida--;
-                this.colisionPinchos = false;
-            }, 1000);
-        }
+        // if(this.colisionPinchos==true){
+        //     setInterval(() => {
+        //         this.grupo.getChildren()[this.contadorVida].visible = false;
+        //         this.contadorVida--;
+        //         this.colisionPinchos = false;
+        //     }, 1000);
+        // }
         var x = 0;
         var y = 0;
         //////////////////////
