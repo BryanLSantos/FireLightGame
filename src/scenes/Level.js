@@ -703,7 +703,13 @@ class Level extends Phaser.Scene{
                     setTimeout(() => {
                         this.nami.anims.stop();
                         this.nami.anims.play("nami_death");
-                    }, 100);
+                        
+                    }, 1000);
+                    
+                    setTimeout(() => {
+                        escena("Level",this.scene);
+                    }, 4000);
+
                 }
                 else{
                     this.grupo.getChildren()[this.contadorVida-1].visible = false;
