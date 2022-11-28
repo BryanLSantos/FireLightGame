@@ -62,6 +62,13 @@ class Level3 extends Phaser.Scene{
             frameHeight: 100,
         })
 
+        
+        this.load.spritesheet('portal_idle','scenalevel3/portal.png',
+        {
+            frameWidth: 490,
+            frameHeight: 400,
+        })
+
         this.load.atlas('hearts','hearts/hearts.png','hearts/hearts_atlas.json');
         this.load.animation('heartsAnim','hearts/hearts_anim.json');
         this.load.atlas('potions','potions/potions.png','potions/potions_atlas.json');
@@ -107,6 +114,7 @@ class Level3 extends Phaser.Scene{
         //FISICAS nami
         this.nami = this.physics.add.sprite(230, 120, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
         this.lava = this.physics.add.sprite(0, 0, 'lava_idle').setVisible(false);//AQUI SE AGREGA EL SPRITE
+        this.lava = this.physics.add.sprite(230, 120, 'portal_idle')//AQUI SE AGREGA EL SPRITE
 
         this.grupolava = this.physics.add.group({
             key: 'lava_idle',
@@ -141,6 +149,21 @@ class Level3 extends Phaser.Scene{
         this.physics.add.collider(this.nami, this.techo, () => {});
         // this.nami = this.physics.add.image(300, 720, 'nami');
         // this.nami.body.setAllowGravity(false);
+
+        this.anims.create({
+            // Nombre de la animación
+            key: 'portal_idle',
+            // Se cargan los frames por números
+            // NOTA: generateFrameNames() se
+            // usa cuando ya existe un Atlas
+            frames: this.anims.generateFrameNumbers('portal_idle', {
+                start: 0,
+                end: 6
+            }),
+            
+            repeat: -1,
+            frameRate: 8
+        });
 
         this.anims.create({
             // Nombre de la animación
