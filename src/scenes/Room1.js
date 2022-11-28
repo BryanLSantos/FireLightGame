@@ -91,39 +91,36 @@ class Room1 extends Phaser.Scene {
         this.suelo.setVisible(false);
 
 
-        this.bloques = [];
-
-      
-
-        this.bloques[0] = this.physics.add.image(35, 550, 'BlockBlock');
-        this.bloques[0].setScale(1);
-        this.bloques[0].body.setAllowGravity(false);
-        this.bloques[0].setImmovable();
-        this.bloques[0].setVisible(false);
-        this.bloques[1] = this.physics.add.image(99, 550, 'BlockBlock');
-        this.bloques[1].setScale(1);
-        this.bloques[1].body.setAllowGravity(false);
-        this.bloques[1].setImmovable();
-        this.bloques[1].setVisible(false);
-        this.bloques[2] = this.physics.add.image(163, 610, 'BlockBlock');
-        this.bloques[2].setScale(1);
-        this.bloques[2].body.setAllowGravity(false);
-        this.bloques[2].setImmovable();
-        this.bloques[2].setVisible(false);
-        this.bloques[3] = this.physics.add.image(227, 675, 'BlockBlock');
-        this.bloques[3].setScale(1);
-        this.bloques[3].body.setAllowGravity(false);
-        this.bloques[3].setImmovable();
-        this.bloques[3].setVisible(false);
-        this.bloques[4] = this.physics.add.image(291, 740, 'BlockBlock');
-        this.bloques[4].setScale(1);
-        this.bloques[4].body.setAllowGravity(false);
-        this.bloques[4].setImmovable();
-        this.bloques[4].setVisible(false);
+        // this.bloques = [];
+        // this.bloques[0] = this.physics.add.image(35, 550, 'BlockBlock');
+        // this.bloques[0].setScale(1);
+        // this.bloques[0].body.setAllowGravity(false);
+        // this.bloques[0].setImmovable();
+        // this.bloques[0].setVisible(false);
+        // this.bloques[1] = this.physics.add.image(99, 550, 'BlockBlock');
+        // this.bloques[1].setScale(1);
+        // this.bloques[1].body.setAllowGravity(false);
+        // this.bloques[1].setImmovable();
+        // this.bloques[1].setVisible(false);
+        // this.bloques[2] = this.physics.add.image(163, 610, 'BlockBlock');
+        // this.bloques[2].setScale(1);
+        // this.bloques[2].body.setAllowGravity(false);
+        // this.bloques[2].setImmovable();
+        // this.bloques[2].setVisible(false);
+        // this.bloques[3] = this.physics.add.image(227, 675, 'BlockBlock');
+        // this.bloques[3].setScale(1);
+        // this.bloques[3].body.setAllowGravity(false);
+        // this.bloques[3].setImmovable();
+        // this.bloques[3].setVisible(false);
+        // this.bloques[4] = this.physics.add.image(291, 740, 'BlockBlock');
+        // this.bloques[4].setScale(1);
+        // this.bloques[4].body.setAllowGravity(false);
+        // this.bloques[4].setImmovable();
+        // this.bloques[4].setVisible(false);
         
 
-        this.puertas = this.add.sprite(90, 350, "puertaclosed").setDepth(0);
-        this.puertas.setScale(1.8);
+        this.puertas = this.add.sprite(140, 565, "puertaclosed").setDepth(0);
+        this.puertas.setScale(2.1);
 
         this.fondo = this.add.image(0, 0, "blueroom").setOrigin(0, 0).setDepth(-1);
         // this.maku = this.add.sprite(1300, 550, "Puntero", 0).setDepth(0).setScale(15);

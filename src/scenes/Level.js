@@ -613,7 +613,7 @@ class Level extends Phaser.Scene{
         //Grupo de pinchos
         this.grupoO4 = this.physics.add.group({
             key: 'pinchos',
-            repeat: 5,
+            repeat: 10,
             setXY: {
                 x: 1200,
                 y: 750,
