@@ -279,6 +279,15 @@ class Level extends Phaser.Scene{
         this.suelo.body.setSize(100000, 55, true);
         //visible false 
         this.suelo.setVisible(false);
+
+        this.techo = this.physics.add.image(300, 100, 'BlockBlock');
+        this.techo.body.setAllowGravity(false);
+        this.techo.setImmovable();
+        this.techo.body.setSize(100000, 55, true);
+        //visible false 
+        this.techo.setVisible(false);
+        this.suelo.setVisible(false);
+
         //FISICAS nami
         this.nami = this.physics.add.sprite(1000, 120, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
         //this.physics.add.existing(this.nami, true); //FORMA2 true
@@ -290,6 +299,7 @@ class Level extends Phaser.Scene{
 
        
         this.physics.add.collider(this.nami, this.suelo, () => {});
+        this.physics.add.collider(this.nami, this.techo, () => {});
         // this.nami = this.physics.add.image(300, 720, 'nami');
         // this.nami.body.setAllowGravity(false);
 
