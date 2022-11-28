@@ -476,9 +476,9 @@ class Level3 extends Phaser.Scene{
         // this.cofre.anims.play('cofreanimado');
     }
     update(time, delta) {
-        if(this.nami.x >= 10500)
+        if(this.nami.x >= 10055)
         {
-            this.nami.x = 10500;
+            this.nami.x = 10055;
         }
         // if(this.colisionPinchos==true){
         //     setInterval(() => {
