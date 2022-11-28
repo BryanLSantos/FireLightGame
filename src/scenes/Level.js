@@ -635,7 +635,7 @@ class Level extends Phaser.Scene{
             pincho.body.setSize(27, 15, true);
             //pincho.body.setOffset(72, 70);
         } );
-        
+        this.daño = 0;
         //Nami colisiona con un pincho
         this.physics.add.collider(this.nami, this.grupoO4, () => {    
             this.ok = 1;
@@ -655,10 +655,16 @@ class Level extends Phaser.Scene{
             setTimeout(() => {
                 this.nami.body.velocity.x = 0;
                 this.nami.body.velocity.y = 0;
-             }, 400);
-            //  this.physics.add.overlap(this.nami,this.grupo04,() => {
-            //     this.grupo.getChildren()[this.contadorVida].visible = false;
-            //     this.contadorVida--;});
+             }, 400); 
+            this.daño++;
+            if(this.daño >= 10)
+            {
+               this.grupo.getChildren()[this.contadorVida-1].visible = false;
+               this.contadorVida--;
+               this.daño = 0;
+               console.log("hacer daño");
+               //checar si tiene 0 corazones si es el caso muere
+            }
             // this.nami.once(Phaser.Animations.Events.SPRITE_ANIMATION_COMPLETE, () => {
             //     this.grupo.getChildren()[this.contadorVida].visible = false;
             //     this.contadorVida--;
@@ -670,15 +676,34 @@ class Level extends Phaser.Scene{
             // this.nami.setVelocityX(this.nami.body.velocity.x -=20);
             // this.nami.setVelocityY(0);
             // this.nami.setVelocityX( this.nami.body.velocity.x -= 100);
-            // this.nami.setVelocityY( this.nami.body.velocity.y += 500);   
-            // setInterval(() => {
-            //     this.colisionPinchos = true;
-            // }, 1000);
-            // if(this.colisionPinchos)
-            // setInterval(() => {
-            //             if(colision);
-            //             bandera == false;
-            //         }, 1000);
+            // this.nami.setVelocityY( this.nami.body.velocity.y += 500);  
+            // this.timeline = this.tweens.createTimeline({
+            //     targets: this.nami, 
+            //     ease: 'Linear',
+            //     duration: 3000,
+            //     // tweens: [{
+            //     //     // x: 600
+            //     // },
+            //     // {
+            //     //     // y: 500,
+            //     //     // offset: '-=500'
+            //     // },
+            //     // {
+            //     //     // x: 100,
+            //     //     // offset: '-=500'
+            //     // },
+            //     // {
+            //     //     // y: 100,
+            //     //     // offset: '-=500'
+            //     // }],
+            //     onComplete: function() {
+            //         // this.grupo.getChildren()[3].visible = false;
+            //         // this.grupo.getChildren()[this.contadorVida].visible = false;
+            //         this.contadorVida--;
+            //         console.log("se colisiono ahora en tween");
+            //     }
+            // }); 
+            // this.timeline.play();
             
         });
         function restarVida() {
@@ -698,6 +723,10 @@ class Level extends Phaser.Scene{
         // this.cofre.anims.play('cofreanimado');
     }
     update(time, delta) {
+        if(this.nami.x >= 8150)
+        {
+            this.nami.x = 8150;
+        }
         // if(this.colisionPinchos==true){
         //     setInterval(() => {
         //         this.grupo.getChildren()[this.contadorVida].visible = false;
@@ -712,7 +741,7 @@ class Level extends Phaser.Scene{
         //     this.bgs[0].x -= 2;
         //     this.bgs[1].x -= 2;
         // }
-
+       
         if (this.teclas.izq.isDown)
         {
             // this.nami.body.setOffset(60, 70);
@@ -741,7 +770,7 @@ class Level extends Phaser.Scene{
             this.nami.body.setOffset(85,60);
             
             if(!this.teclas.izq.isDown){
-                this.nami.x += 3;
+                this.nami.x += 6;
                 this.grupo.children.iterate( (corazon) => {
                     corazon.x = (-800 + this.nami.x ) + (y*100);
                     y++;
@@ -800,7 +829,7 @@ class Level extends Phaser.Scene{
         if (this.teclas.izq.isDown)
         {
             if(!this.teclas.der.isDown){
-                this.nami.x -= 3;
+                this.nami.x -= 6;
                 this.grupo.children.iterate( (corazon) => {
                     corazon.x = (-800 + this.nami.x) + (y*100);
                     y++;
@@ -864,19 +893,7 @@ class Level extends Phaser.Scene{
             
         }
         
-        if(this.nami.x >= 750 && this.nami.x <= 750 + 50)
-        {
-            //this.grupoC.getChildren()[0].visible = false;
-
-            // this.grupo.getChildren()[3].visible = true;
-        }
-        if(this.nami.x >= 1350 && this.nami.x <= 1350 + 50) 
-        {
-
-            //     this.grupoC.getChildren()[1].visible = false;
-
-            // this.grupo.getChildren()[4].visible = true;
-        }
+        
     }
 
 }
