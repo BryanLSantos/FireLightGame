@@ -119,7 +119,7 @@ class Room1 extends Phaser.Scene {
         // this.bloques[4].setVisible(false);
         
 
-        this.puertas = this.add.sprite(140, 565, "puertaclosed").setDepth(0);
+        this.puertas = this.add.sprite(150, 565, "puertaclosed").setDepth(0);
         this.puertas.setScale(2.1);
 
         this.fondo = this.add.image(0, 0, "blueroom").setOrigin(0, 0).setDepth(-1);
@@ -128,7 +128,7 @@ class Room1 extends Phaser.Scene {
         this.kemi.flipX = true;
         this.kemi.anims.play("kemi");
 
-        this.nami = this.physics.add.sprite(1000, 120, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
+        this.nami = this.physics.add.sprite(150, 500, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
         //this.physics.add.existing(this.nami, true); //FORMA2 true
         this.nami.body.setCollideWorldBounds(false);
         this.nami.body.setSize(48, 45, true);
@@ -255,6 +255,7 @@ class Room1 extends Phaser.Scene {
         });
 
         this.teclas.izq.on('down', ()=>{
+            // this.nami.anims.stop();
             this.nami.flipX = true;
             this.nami.anims.play('nami_run');
             this.nami.body.setAcceleration(0);
@@ -268,6 +269,7 @@ class Room1 extends Phaser.Scene {
         });
 
         this.teclas.der.on('down', ()=>{
+            // this.nami.anims.stop();
             this.nami.flipX = false;
             this.nami.anims.play('nami_run');
             this.nami.body.setAcceleration(0);
@@ -340,7 +342,32 @@ class Room1 extends Phaser.Scene {
                 // } );
             }
         }
+        if(this.teclas.kspc.isDown && this.nami.x >= 10 && this.nami.x <= 100 + 200)
+        {
+            // setInterval(() => {
+            //     console.log("esta haciendo algo");
+            //     this.puertas[0].anims.play('puerta');
+                
+            // }, 1500);
+            
+            this.puertas.anims.play('puerta');
+            // setTimeout(() => {
+
+                escena("Level",this.scene);
+
+                // escena("Room4",this.scene);
+                    
+            // }, 1500);
+                // this.scene.start("Room1", {
+                // });
+       
+            
+        }
+        
     }
 }
-
+function escena(params, params2) {
+    params2.start(params,{
+    });
+}
 export default Room1;

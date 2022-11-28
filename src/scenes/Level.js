@@ -832,7 +832,7 @@ class Level extends Phaser.Scene{
         if (this.teclas.powR.isDown)
         {}
 
-        if(this.teclas.kspc.isDown && this.nami.x >= 300+300 && this.nami.x <= 300 + 50+300)
+        if(this.teclas.kspc.isDown && this.nami.x >= 300+300 && this.nami.x <= 300 + 50+500)
         {
             // setInterval(() => {
             //     console.log("esta haciendo algo");
@@ -843,7 +843,7 @@ class Level extends Phaser.Scene{
             this.puertas[0].anims.play('puerta');
             // setTimeout(() => {
 
-                escena("Room1",this.scene);
+                escena("Room3",this.scene);
 
                 // escena("Room4",this.scene);
                     
