@@ -282,9 +282,13 @@ class Level extends Phaser.Scene{
         //FISICAS nami
         this.nami = this.physics.add.sprite(1000, 120, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
         //this.physics.add.existing(this.nami, true); //FORMA2 true
-        this.nami.body.setCollideWorldBounds(false);
-        this.nami.body.setSize(48, 45, true);
-        this.nami.body.setOffset(72, 70);
+        // this.nami.body.setCollideWorldBounds(false);
+        // this.nami.body.setSize(48, 45, true);
+        // this.nami.body.setOffset(72, 70);
+        this.nami.body.setSize(23, 50, true);
+        this.nami.body.setOffset(85,60);
+
+       
         this.physics.add.collider(this.nami, this.suelo, () => {});
         // this.nami = this.physics.add.image(300, 720, 'nami');
         // this.nami.body.setAllowGravity(false);
@@ -448,8 +452,8 @@ class Level extends Phaser.Scene{
         this.teclas.kspc.on('down', ()=>{
             this.nami.play('nami_jump');
             this.nami.body.setVelocityY(-800);
-            // this.nami.body.setSize(23, 50, true); //this.nami.body.setSize(48, 45, true);
-            // this.nami.body.setOffset(88,60); //this.nami.body.setOffset(72, 70);
+            this.nami.body.setSize(23, 50, true); //this.nami.body.setSize(48, 45, true);
+            this.nami.body.setOffset(85,60); //this.nami.body.setOffset(72, 70);
         });
         this.teclas.kspc.on('up', ()=>{
             //this.nami.anims.stop();
@@ -628,6 +632,8 @@ class Level extends Phaser.Scene{
             this.physics.add.existing(pincho, true); //FORMA2 true
             pincho.setImmovable(true);
             //pincho.body.setOffset(62, 50);
+            pincho.body.setSize(27, 15, true);
+            //pincho.body.setOffset(72, 70);
         } );
         
         //Nami colisiona con un pincho
@@ -709,10 +715,11 @@ class Level extends Phaser.Scene{
 
         if (this.teclas.izq.isDown)
         {
-            this.nami.body.setOffset(60, 70);
-
+            // this.nami.body.setOffset(60, 70);
+            this.nami.body.setSize(23, 50, true);
+            this.nami.body.setOffset(70,60);
             if (this.nami.x <= 100) {
-                this.nami.x = 100;
+                    this.nami.x = 100;
             }
 
             if (this.bgs[0].x <= 0) {
@@ -729,7 +736,10 @@ class Level extends Phaser.Scene{
         ///////////////////////77
         if (this.teclas.der.isDown)
         {
-            this.nami.body.setOffset(72, 70);
+            // this.nami.body.setOffset(72, 70);
+            this.nami.body.setSize(23, 50, true); 
+            this.nami.body.setOffset(85,60);
+            
             if(!this.teclas.izq.isDown){
                 this.nami.x += 3;
                 this.grupo.children.iterate( (corazon) => {

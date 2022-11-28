@@ -112,8 +112,11 @@ class Level3 extends Phaser.Scene{
         //this.physics.add.existing(this.nami, true); //FORMA2 true
         this.nami.body.setCollideWorldBounds(false);
         //HITBOX 38
-        this.nami.body.setSize(18, 45, true);
-        this.nami.body.setOffset(20, 70);
+        // this.nami.body.setSize(18, 45, true);
+        // this.nami.body.setOffset(20, 70);
+        this.nami.body.setSize(23, 50, true);
+        this.nami.body.setOffset(85,60);
+
         this.physics.add.collider(this.nami, this.suelo, () => {});
         this.physics.add.collider(this.lava, this.suelo, () => {});
         // this.nami = this.physics.add.image(300, 720, 'nami');
@@ -267,8 +270,8 @@ class Level3 extends Phaser.Scene{
         this.teclas.kspc.on('down', ()=>{
             this.nami.play('nami_jump');
             this.nami.body.setVelocityY(-800);
-            // this.nami.body.setSize(23, 50, true); //this.nami.body.setSize(48, 45, true);
-            // this.nami.body.setOffset(88,60); //this.nami.body.setOffset(72, 70);
+            this.nami.body.setSize(23, 50, true); //this.nami.body.setSize(48, 45, true);
+            this.nami.body.setOffset(85,60); //this.nami.body.setOffset(72, 70);
         });
         this.teclas.kspc.on('up', ()=>{
             //this.nami.anims.stop();
@@ -436,7 +439,9 @@ class Level3 extends Phaser.Scene{
 
         if (this.teclas.izq.isDown)
         {
-            this.nami.body.setOffset(60, 70);
+            // this.nami.body.setOffset(60, 70);
+            this.nami.body.setSize(23, 50, true);
+            this.nami.body.setOffset(70,60);
 
             if (this.nami.x <= 100) {
                 this.nami.x = 100;
@@ -456,7 +461,9 @@ class Level3 extends Phaser.Scene{
         ///////////////////////77
         if (this.teclas.der.isDown)
         {
-            this.nami.body.setOffset(72, 70);
+            // this.nami.body.setOffset(72, 70);
+            this.nami.body.setSize(23, 50, true); 
+            this.nami.body.setOffset(85,60);
             if(!this.teclas.izq.isDown){
                 this.nami.x += 3;
                 this.grupo.children.iterate( (corazon) => {
