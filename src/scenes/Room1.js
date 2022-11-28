@@ -124,9 +124,9 @@ class Room1 extends Phaser.Scene {
 
         this.fondo = this.add.image(0, 0, "blueroom").setOrigin(0, 0).setDepth(-1);
         // this.maku = this.add.sprite(1300, 550, "Puntero", 0).setDepth(0).setScale(15);
-        this.kemi = this.add.sprite(1200, 627, "Puntero", 0).setDepth(0).setScale(7.6);
-        this.kemi.flipX = true;
-        this.kemi.anims.play("kemi");
+        this.maku = this.add.sprite(1300, 558, "Puntero", 0).setDepth(0).setScale(5);
+        this.maku.flipX = true;
+        this.maku.anims.play("makuiddle");
 
         this.nami = this.physics.add.sprite(150, 500, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
         //this.physics.add.existing(this.nami, true); //FORMA2 true
