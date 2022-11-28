@@ -56,7 +56,11 @@ class Level extends Phaser.Scene{
             frameWidth: 180,
             frameHeight: 180,
         })
-
+        this.load.spritesheet('nami_death','Nami/deathgOOD.png',
+        {
+            frameWidth: 180,
+            frameHeight: 180,
+        })
         // this.load.spritesheet('nami_q','Medieval nami/Sprites/Attack1.png',
         // {
         //     frameWidth: 160,
@@ -378,6 +382,20 @@ class Level extends Phaser.Scene{
             frameRate: 11
         });
 
+        this.anims.create({
+            // Nombre de la animación
+            key: 'nami_death',
+            // Se cargan los frames por números
+            // NOTA: generateFrameNames() se
+            // usa cuando ya existe un Atlas
+            frames: this.anims.generateFrameNumbers('nami_death', {
+                start: 0,
+                end: 10
+            }),
+            repeat: 0,
+            frameRate: 6
+        });
+
         // this.anims.create({
         //     // Nombre de la animación
         //     key: 'nami_attack',
@@ -649,7 +667,6 @@ class Level extends Phaser.Scene{
         this.daño = 0;
         //Nami colisiona con un pincho
         this.physics.add.collider(this.nami, this.grupoO4, () => {    
-            this.ok = 1;
             console.log("colision nami con pinchos");
             this.cameras.main
             .setBackgroundColor(0x000000)
@@ -670,11 +687,32 @@ class Level extends Phaser.Scene{
             this.daño++;
             if(this.daño >= 10)
             {
-               this.grupo.getChildren()[this.contadorVida-1].visible = false;
-               this.contadorVida--;
-               this.daño = 0;
-               console.log("hacer daño");
-               //checar si tiene 0 corazones si es el caso muere
+                if(this.contadorVida == 1)
+                {
+                    // this.nami.anims.play("nami_death");
+                    this.grupo.getChildren()[this.contadorVida-1].visible = false;
+                    this.contadorVida--;
+                    this.daño = 0;
+                    console.log("muere nami :(");
+                    this.teclas.kspc.enabled = false;
+                    this.teclas.izq.enabled = false;
+                    this.teclas.der.enabled = false;
+                    this.nami.body.moves = false;
+                    this.nami.body.x = this.nami.body.x;
+                    this.nami.body.y = this.nami.body.y;
+                    setTimeout(() => {
+                        this.nami.anims.stop();
+                        this.nami.anims.play("nami_death");
+                    }, 100);
+                }
+                else{
+                    this.grupo.getChildren()[this.contadorVida-1].visible = false;
+                    this.contadorVida--;
+                    this.daño = 0;
+                    console.log("hacer daño");
+                    //checar si tiene 0 corazones si es el caso muere
+                }
+               
             }
             // this.nami.once(Phaser.Animations.Events.SPRITE_ANIMATION_COMPLETE, () => {
             //     this.grupo.getChildren()[this.contadorVida].visible = false;
