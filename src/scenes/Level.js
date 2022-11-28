@@ -907,6 +907,7 @@ class Level extends Phaser.Scene{
         {
             this.cofre.anims.play('cofreanimado');
             this.banderacofre1 = true;
+
         }
         
     }

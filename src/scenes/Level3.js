@@ -448,14 +448,15 @@ class Level3 extends Phaser.Scene{
         }
        
 
-
-       
-        
         
         //animacion de cofre
         // this.cofre.anims.play('cofreanimado');
     }
     update(time, delta) {
+        if(this.nami.x >= 10500)
+        {
+            this.nami.x = 10500;
+        }
         // if(this.colisionPinchos==true){
         //     setInterval(() => {
         //         this.grupo.getChildren()[this.contadorVida].visible = false;
