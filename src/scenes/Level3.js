@@ -94,20 +94,39 @@ class Level3 extends Phaser.Scene{
         
         //visible false 
         this.suelo.setVisible(false);
+
+        this.techo = this.physics.add.image(300, 100, 'BlockBlock');
+        this.techo.body.setAllowGravity(false);
+        this.techo.setImmovable();
+        this.techo.body.setSize(100000, 55, true);
+        //visible false 
+        this.techo.setVisible(false);
+        this.suelo.setVisible(false);
+
+        
         //FISICAS nami
-        this.nami = this.physics.add.sprite(1000, 120, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
+        this.nami = this.physics.add.sprite(230, 120, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
         this.lava = this.physics.add.sprite(0, 0, 'lava_idle').setVisible(false);//AQUI SE AGREGA EL SPRITE
 
         this.grupolava = this.physics.add.group({
             key: 'lava_idle',
-            repeat: 10,
+            repeat: 9,
             setXY: {
                 x: 490,
                 y: 790,
-                stepX: 700
+                stepX: 570
             }  
         });
 
+        this.grupolava2 = this.physics.add.group({
+            key: 'lava_idle',
+            repeat: 9,
+            setXY: {
+                x: 6250,
+                y: 790,
+                stepX: 570
+            }  
+        });
        
         //this.physics.add.existing(this.nami, true); //FORMA2 true
         this.nami.body.setCollideWorldBounds(false);
@@ -119,6 +138,7 @@ class Level3 extends Phaser.Scene{
 
         this.physics.add.collider(this.nami, this.suelo, () => {});
         this.physics.add.collider(this.lava, this.suelo, () => {});
+        this.physics.add.collider(this.nami, this.techo, () => {});
         // this.nami = this.physics.add.image(300, 720, 'nami');
         // this.nami.body.setAllowGravity(false);
 
@@ -369,11 +389,7 @@ class Level3 extends Phaser.Scene{
             console.log("colision nami con lava");
             this.cameras.main
             .setBackgroundColor(0x000000)
-            //.fadeOut(500);
-            // tiempo en milisegundos, intensidad en [0,1]
             .shake(500, 0.03);
-            //this.cameras.main.fadeIn(500);
-            //setVelocity(200);
             setTimeout(() => {
                 this.nami.setVelocityX( this.nami.body.velocity.x += 50);
                 this.nami.setVelocityY( this.nami.body.velocity.y -= 100);
@@ -383,31 +399,44 @@ class Level3 extends Phaser.Scene{
                 this.nami.body.velocity.x = 0;
                 this.nami.body.velocity.y = 0;
              }, 400);
-            //  this.physics.add.overlap(this.nami,this.grupo04,() => {
-            //     this.grupo.getChildren()[this.contadorVida].visible = false;
-            //     this.contadorVida--;});
-            // this.nami.once(Phaser.Animations.Events.SPRITE_ANIMATION_COMPLETE, () => {
-            //     this.grupo.getChildren()[this.contadorVida].visible = false;
-            //     this.contadorVida--;
-            // });
-           
-             // restarVida();
-            //this.events.off('restarVida');
-            //this.events.once('addImage', this.handler, this);
-            // this.nami.setVelocityX(this.nami.body.velocity.x -=20);
-            // this.nami.setVelocityY(0);
-            // this.nami.setVelocityX( this.nami.body.velocity.x -= 100);
-            // this.nami.setVelocityY( this.nami.body.velocity.y += 500);   
-            // setInterval(() => {
-            //     this.colisionPinchos = true;
-            // }, 1000);
-            // if(this.colisionPinchos)
-            // setInterval(() => {
-            //             if(colision);
-            //             bandera == false;
-            //         }, 1000);
+
+             
+            
             
         });
+
+        this.grupolava2.children.iterate( (lava) => {
+            lava.body.setAllowGravity(false);
+            lava.setScale(1.3);
+            //FISICAS Pincho
+            this.physics.add.existing(lava, true); //FORMA2 true
+            lava.setImmovable(true);
+            lava.body.setSize(150,110);
+            lava.anims.play("lava_idle");
+        } );
+
+        this.physics.add.collider(this.nami, this.grupolava2, () => {    
+            this.ok = 1;
+            console.log("colision nami con lava");
+            this.cameras.main
+            .setBackgroundColor(0x000000)
+            .shake(500, 0.03);
+            setTimeout(() => {
+                this.nami.setVelocityX( this.nami.body.velocity.x += 50);
+                this.nami.setVelocityY( this.nami.body.velocity.y -= 100);
+                this.nami.anims.play('nami_takehit');
+            }, 100);
+            setTimeout(() => {
+                this.nami.body.velocity.x = 0;
+                this.nami.body.velocity.y = 0;
+             }, 400);
+
+             
+            
+            
+        });
+
+        
         function restarVida() {
             this.grupo.getChildren()[this.contadorVida].visible = false;
             this.contadorVida--;
@@ -465,7 +494,7 @@ class Level3 extends Phaser.Scene{
             this.nami.body.setSize(23, 50, true); 
             this.nami.body.setOffset(85,60);
             if(!this.teclas.izq.isDown){
-                this.nami.x += 3;
+                this.nami.x += 6;
                 this.grupo.children.iterate( (corazon) => {
                     corazon.x = (-800 + this.nami.x ) + (y*100);
                     y++;
@@ -518,7 +547,7 @@ class Level3 extends Phaser.Scene{
         if (this.teclas.izq.isDown)
         {
             if(!this.teclas.der.isDown){
-                this.nami.x -= 3;
+                this.nami.x -= 6;
                 this.grupo.children.iterate( (corazon) => {
                     corazon.x = (-800 + this.nami.x) + (y*100);
                     y++;

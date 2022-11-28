@@ -32,11 +32,11 @@ class Map extends Phaser.Scene {
         this.fondo = this.add.image(0, 0, "MapaA").setOrigin(0, 0).setDepth(-1).setScale(1.5),
 
         //Imagen de Titulo
-        this.title = this.add.image(
-            this.width / 2,
-            this.height / 2 - 250,
-            "Title",
-        ).setDepth(0).setScale(1.1);
+        // this.title = this.add.image(
+        //     this.width / 2,
+        //     this.height / 2 - 250,
+        //     "Title",
+        // ).setDepth(0).setScale(1.1);
         //Circulos
         this.circle1 = this.add.image(
             this.width / 2 - 350,
