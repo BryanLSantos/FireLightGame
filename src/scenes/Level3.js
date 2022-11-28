@@ -382,7 +382,7 @@ class Level3 extends Phaser.Scene{
             lava.anims.play("lava_idle");
         } );
         
-        
+        this.daño = 0;
         //Nami colisiona con un pincho
         this.physics.add.collider(this.nami, this.grupolava, () => {    
             this.ok = 1;
@@ -398,11 +398,16 @@ class Level3 extends Phaser.Scene{
             setTimeout(() => {
                 this.nami.body.velocity.x = 0;
                 this.nami.body.velocity.y = 0;
-             }, 400);
-
-             
-            
-            
+            }, 400);
+            this.daño++;
+            if(this.daño >= 10)
+            {
+                this.grupo.getChildren()[this.contadorVida-1].visible = false;
+                this.contadorVida--;
+                this.daño = 0;
+                console.log("hacer daño");
+                //checar si tiene 0 corazones si es el caso muere
+            }
         });
 
         this.grupolava2.children.iterate( (lava) => {
