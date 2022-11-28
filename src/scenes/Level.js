@@ -270,8 +270,6 @@ class Level extends Phaser.Scene{
             // }
         }
 
-        //Creacion de cofre de prueba
-        //this.cofre = this.add.sprite(1100, 680, 'cofreanimado', 0).setScale(0.8);
         
         this.suelo = this.physics.add.image(300, 800, 'BlockBlock');
         this.suelo.body.setAllowGravity(false);
@@ -287,6 +285,9 @@ class Level extends Phaser.Scene{
         //visible false 
         this.techo.setVisible(false);
         this.suelo.setVisible(false);
+
+        //Creacion de cofre de prueba
+        this.cofre = this.add.sprite(1000, 680, 'cofreestatico', 0).setScale(0.8);
 
         //FISICAS nami
         this.nami = this.physics.add.sprite(1000, 120, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
@@ -728,7 +729,7 @@ class Level extends Phaser.Scene{
         }
        
         
-        
+        this.banderacofre1 = false;
         //animacion de cofre
         // this.cofre.anims.play('cofreanimado');
     }
@@ -881,7 +882,7 @@ class Level extends Phaser.Scene{
         if (this.teclas.powR.isDown)
         {}
 
-        if(this.teclas.kspc.isDown && this.nami.x >= 300+300 && this.nami.x <= 300 + 50+500)
+        if(this.teclas.powX.isDown && this.nami.x >= 300+300 && this.nami.x <= 300 + 50+500)
         {
             // setInterval(() => {
             //     console.log("esta haciendo algo");
@@ -902,7 +903,11 @@ class Level extends Phaser.Scene{
        
             
         }
-        
+        if(this.teclas.powX.isDown && this.nami.x >= 950 && this.nami.x <= 50+950 && this.banderacofre1==false)
+        {
+            this.cofre.anims.play('cofreanimado');
+            this.banderacofre1 = true;
+        }
         
     }
 
