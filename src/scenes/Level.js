@@ -283,7 +283,36 @@ class Level extends Phaser.Scene{
             // }
         }
 
+        //CREACION TEXTO
+        this.texto = [];
+        this.index = 0;
+        this.texto[0] = "La mejor parte de una aventura no es llegar \nal destino, sino todas las cosas maravillosas \nque suceden en el camino."; 
+        this.texto[1] = "Inicia la aventura con Nami... \n[A] Avanzar Izquierda  [D] Avanzar Derecha\n[SPACE] Saltar";
+        this.texto[2] = "Para obtener pociones extra posicionate \nfrente a los cofres y oprime [X]";
+        this.texto[3] = "Las puertas conllevan aventuras sorpresa \nasi que comienza a explorar... ";
+        this.texto[4] = "No todos los que deambulan están perdidos,\nalgunos están en busca de aventuras que \nnutran su existencia.";
+        this.texto[5] = "Posicionate frente a las puertas y oprime [X], \nla mejor aventura es la que aún no ha llegado...";
+        this.texto[6] = "Cubre la tierra antes de que \nla tierra te cubra a ti...";
         
+        this.parrafo = this.add.text(300, 880, "", {fontFamily: 'IM Fell English SC', fontSize: '30px', color: 'white'}).setDepth(10);
+        
+        this.parrafo.alpha = 0.0; 
+
+         setInterval(() => {
+            if(this.index < this.texto.length){
+                this.parrafo.setText(this.texto[this.index]); 
+                this.index++;
+                show(this,this.parrafo);
+                setTimeout(() => {
+                    hide(this,this.parrafo);
+                }, 6000);
+            }
+            else{
+                this.index = 0;
+            }
+            
+         }, 12000); 
+
         this.suelo = this.physics.add.image(300, 800, 'BlockBlock');
         this.suelo.body.setAllowGravity(false);
         this.suelo.setImmovable();
@@ -321,7 +350,7 @@ class Level extends Phaser.Scene{
         // this.physics.add.collider(this.fuego, this.suelo, () => {});
         // this.nami = this.physics.add.image(300, 720, 'nami');
         // this.nami.body.setAllowGravity(false);
-
+        this.parrafo.x = this.nami.x - 620;  
         //Animaciones del personaje nami
         this.anims.create({
             // Nombre de la animación
@@ -795,7 +824,7 @@ class Level extends Phaser.Scene{
         function restarVida() {
             this.grupo.getChildren()[this.contadorVida].visible = false;
             this.contadorVida--;
-        }
+        } 
        
         this.grupoO4.playAnimation('pinchos');
 
@@ -858,9 +887,10 @@ class Level extends Phaser.Scene{
             if(!this.teclas.izq.isDown){
                 this.nami.x += 6;
                 this.fuego.x = this.nami.x - 750;
-                this.contenedorfuego.x = this.nami.x - 850;
+                this.contenedorfuego.x = this.nami.x - 850; 
                 this.contenedorfuegofondo.x = this.nami.x - 850;
-                this.contenedor.x = this.nami.x - 650;
+                this.contenedor.x = this.nami.x - 650; 
+                this.parrafo.x = this.nami.x - 620;  
                 this.grupo.children.iterate( (corazon) => {
                     corazon.x = (-800 + this.nami.x ) + (y*100);
                     y++;
@@ -924,6 +954,8 @@ class Level extends Phaser.Scene{
                 this.contenedorfuego.x = this.nami.x - 850;
                 this.contenedorfuegofondo.x = this.nami.x - 850;
                 this.contenedor.x = this.nami.x - 650;
+                this.parrafo.x = this.nami.x - 620; 
+                
                 this.grupo.children.iterate( (corazon) => {
                     corazon.x = (-800 + this.nami.x) + (y*100);
                     y++;
@@ -976,7 +1008,7 @@ class Level extends Phaser.Scene{
             this.puertas[0].anims.play('puerta');
             // setTimeout(() => {
 
-                escena("Level3",this.scene);
+                escena("Room1",this.scene);
 
                 // escena("Room4",this.scene);
                     
@@ -998,6 +1030,21 @@ class Level extends Phaser.Scene{
 }
 function escena(params, params2) {
     params2.start(params,{
+    });
+}
+function show(params, text) {
+    params.tweens = params.add.tween({
+        targets: [text],
+        alpha: 1,
+        duration: 1500
+    });
+}
+
+function hide(params, text) {
+    params.tweens = params.add.tween({
+        targets: [text],
+        alpha: 0,
+        duration: 1500
     });
 }
 export default Level;
