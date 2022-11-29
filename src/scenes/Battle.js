@@ -10,8 +10,8 @@ class Battle extends Phaser.Scene{
         this.width = this.sys.game.canvas.width;
         this.height = this.sys.game.canvas.height;
 
-        this.vida_res = 4;
-        this.pocion_res = 2;
+        this.vida_res = 6;
+        this.pocion_res = 5;
         this.vida = 5;
         this.pociones = 4;
         this.vidaEnemy = 5;
@@ -779,43 +779,127 @@ class Battle extends Phaser.Scene{
                 }, 2000);
 
                 setTimeout(() => {
-                    this.enemy.anims.play('enemy_attack');
-                    setTimeout(() => {
-                        this.enemy.anims.play('enemy_idle');
-                        this.nami.anims.play('nami_hit');
-                        this.nami.setTint(0xff0000);
-                        this.grupo.getChildren()[this.vida].visible = false;
-                        this.vida--;
-                        setTimeout(() => {
-                            this.nami.clearTint();
+                    if (this.vidaEnemy < 0) {
+                        this.enemy.anims.play('enemy_dead');
+                        show(this, this.txtWin);
+                    } else {
+                        this.opc = getRandomInt(99) + 1;
+                        console.log(this.opc);
+                        if (this.opc % 2 == 0) {
+                            this.enemy.anims.play('enemy_attack');
                             setTimeout(() => {
+                                this.enemy.anims.play('enemy_idle');
+                                this.nami.anims.play('nami_hit');
                                 this.nami.setTint(0xff0000);
+                                this.grupo.getChildren()[this.vida].visible = false;
+                                this.vida--;
                                 setTimeout(() => {
                                     this.nami.clearTint();
                                     setTimeout(() => {
                                         this.nami.setTint(0xff0000);
                                         setTimeout(() => {
                                             this.nami.clearTint();
-                                            this.nami.anims.play('nami_idle');
                                             setTimeout(() => {
-                                                if (this.vida < 0) {
-                                                    this.nami.anims.play('nami_die');
-                                                    show(this, this.txtLose);
-                                                } else {
-                                                    show(this, this.txtTurn);
-                                                    this.btn1.setInteractive();
-                                                    this.btn2.setInteractive();
-                                                    this.btn3.setInteractive();
-                                                    this.btn4.setInteractive();
-                                                }
-                                            }, 1000);
+                                                this.nami.setTint(0xff0000);
+                                                setTimeout(() => {
+                                                    this.nami.clearTint();
+                                                    this.nami.anims.play('nami_idle');
+                                                    setTimeout(() => {
+                                                        if (this.vida < 0) {
+                                                            this.nami.anims.play('nami_die');
+                                                            show(this, this.txtLose);
+                                                        } else {
+                                                            show(this, this.txtTurn);
+                                                            this.btn1.setInteractive();
+                                                            this.btn2.setInteractive();
+                                                            this.btn3.setInteractive();
+                                                            this.btn4.setInteractive();
+                                                        }
+                                                    }, 1000);
+                                                }, 200);
+                                            }, 200);
                                         }, 200);
                                     }, 200);
                                 }, 200);
-                            }, 200);
-                        }, 200);
-                    }, 4500);
-                }, 4500);
+                            }, 4500);
+                        } else {
+                            if (this.pocionesEnemy >= 0) {
+                                this.health_enemy.setVisible(true);
+                                this.health_enemy2.setVisible(true);
+                                this.health_enemy3.setVisible(true);
+                                this.health_enemy.anims.play('health');
+                                this.health_enemy2.anims.play('health');
+                                this.health_enemy3.anims.play('health');
+        
+                                this.grupoEnemy2.getChildren()[this.pocionesEnemy].visible = false;
+                                this.pocionesEnemy--;
+        
+                                setTimeout(() => {
+                                    // this.turn == false;
+                                    this.health_enemy.setVisible(false);
+                                    this.health_enemy2.setVisible(false);
+                                    this.health_enemy3.setVisible(false);
+                                    this.health_enemy.anims.stop();
+                                    this.health_enemy2.anims.stop();
+                                    this.health_enemy3.anims.stop();
+                                    if (this.vidaEnemy < 5) {
+                                        this.vidaEnemy++;
+                                        this.grupoEnemy.getChildren()[this.vidaEnemy].visible = true;
+                                        if (this.vidaEnemy < 5) {
+                                            this.vidaEnemy++;
+                                            this.grupoEnemy.getChildren()[this.vidaEnemy].visible = true;
+                                        }
+                                    }
+        
+                                    setTimeout(() => {
+                                        show(this, this.txtTurn);
+                                        this.btn1.setInteractive();
+                                        this.btn2.setInteractive();
+                                        this.btn3.setInteractive();
+                                        this.btn4.setInteractive();
+                                    }, 1000);
+                                }, 2000);
+                            } else {
+                                this.enemy.anims.play('enemy_attack');
+                                setTimeout(() => {
+                                    this.enemy.anims.play('enemy_idle');
+                                    this.nami.anims.play('nami_hit');
+                                    this.nami.setTint(0xff0000);
+                                    this.grupo.getChildren()[this.vida].visible = false;
+                                    this.vida--;
+                                    setTimeout(() => {
+                                        this.nami.clearTint();
+                                        setTimeout(() => {
+                                            this.nami.setTint(0xff0000);
+                                            setTimeout(() => {
+                                                this.nami.clearTint();
+                                                setTimeout(() => {
+                                                    this.nami.setTint(0xff0000);
+                                                    setTimeout(() => {
+                                                        this.nami.clearTint();
+                                                        this.nami.anims.play('nami_idle');
+                                                        setTimeout(() => {
+                                                            if (this.vida < 0) {
+                                                                this.nami.anims.play('nami_die');
+                                                                show(this, this.txtLose);
+                                                            } else {
+                                                                show(this, this.txtTurn);
+                                                                this.btn1.setInteractive();
+                                                                this.btn2.setInteractive();
+                                                                this.btn3.setInteractive();
+                                                                this.btn4.setInteractive();
+                                                            }
+                                                        }, 1000);
+                                                    }, 200);
+                                                }, 200);
+                                            }, 200);
+                                        }, 200);
+                                    }, 200);
+                                }, 4500);
+                            }
+                        }
+                    }
+                }, 3500);
             }
             else
             {
@@ -829,42 +913,126 @@ class Battle extends Phaser.Scene{
                 }, 1000);
 
                 setTimeout(() => {
-                    this.enemy.anims.play('enemy_attack');
-                    setTimeout(() => {
-                        this.enemy.anims.play('enemy_idle');
-                        this.nami.anims.play('nami_hit');
-                        this.nami.setTint(0xff0000);
-                        this.grupo.getChildren()[this.vida].visible = false;
-                        this.vida--;
-                        setTimeout(() => {
-                            this.nami.clearTint();
+                    if (this.vidaEnemy < 0) {
+                        this.enemy.anims.play('enemy_dead');
+                        show(this, this.txtWin);
+                    } else {
+                        this.opc = getRandomInt(99) + 1;
+                        console.log(this.opc);
+                        if (this.opc % 2 == 0) {
+                            this.enemy.anims.play('enemy_attack');
                             setTimeout(() => {
+                                this.enemy.anims.play('enemy_idle');
+                                this.nami.anims.play('nami_hit');
                                 this.nami.setTint(0xff0000);
+                                this.grupo.getChildren()[this.vida].visible = false;
+                                this.vida--;
                                 setTimeout(() => {
                                     this.nami.clearTint();
                                     setTimeout(() => {
                                         this.nami.setTint(0xff0000);
                                         setTimeout(() => {
                                             this.nami.clearTint();
-                                            this.nami.anims.play('nami_idle');
                                             setTimeout(() => {
-                                                if (this.vida < 0) {
-                                                    this.nami.anims.play('nami_die');
-                                                    show(this, this.txtLose);
-                                                } else {
-                                                    show(this, this.txtTurn);
-                                                    this.btn1.setInteractive();
-                                                    this.btn2.setInteractive();
-                                                    this.btn3.setInteractive();
-                                                    this.btn4.setInteractive();
-                                                }
-                                            }, 1000);
+                                                this.nami.setTint(0xff0000);
+                                                setTimeout(() => {
+                                                    this.nami.clearTint();
+                                                    this.nami.anims.play('nami_idle');
+                                                    setTimeout(() => {
+                                                        if (this.vida < 0) {
+                                                            this.nami.anims.play('nami_die');
+                                                            show(this, this.txtLose);
+                                                        } else {
+                                                            show(this, this.txtTurn);
+                                                            this.btn1.setInteractive();
+                                                            this.btn2.setInteractive();
+                                                            this.btn3.setInteractive();
+                                                            this.btn4.setInteractive();
+                                                        }
+                                                    }, 1000);
+                                                }, 200);
+                                            }, 200);
                                         }, 200);
                                     }, 200);
                                 }, 200);
-                            }, 200);
-                        }, 200);
-                    }, 4500);
+                            }, 4500);
+                        } else {
+                            if (this.pocionesEnemy >= 0) {
+                                this.health_enemy.setVisible(true);
+                                this.health_enemy2.setVisible(true);
+                                this.health_enemy3.setVisible(true);
+                                this.health_enemy.anims.play('health');
+                                this.health_enemy2.anims.play('health');
+                                this.health_enemy3.anims.play('health');
+        
+                                this.grupoEnemy2.getChildren()[this.pocionesEnemy].visible = false;
+                                this.pocionesEnemy--;
+        
+                                setTimeout(() => {
+                                    // this.turn == false;
+                                    this.health_enemy.setVisible(false);
+                                    this.health_enemy2.setVisible(false);
+                                    this.health_enemy3.setVisible(false);
+                                    this.health_enemy.anims.stop();
+                                    this.health_enemy2.anims.stop();
+                                    this.health_enemy3.anims.stop();
+                                    if (this.vidaEnemy < 5) {
+                                        this.vidaEnemy++;
+                                        this.grupoEnemy.getChildren()[this.vidaEnemy].visible = true;
+                                        if (this.vidaEnemy < 5) {
+                                            this.vidaEnemy++;
+                                            this.grupoEnemy.getChildren()[this.vidaEnemy].visible = true;
+                                        }
+                                    }
+        
+                                    setTimeout(() => {
+                                        show(this, this.txtTurn);
+                                        this.btn1.setInteractive();
+                                        this.btn2.setInteractive();
+                                        this.btn3.setInteractive();
+                                        this.btn4.setInteractive();
+                                    }, 1000);
+                                }, 2000);
+                            } else {
+                                this.enemy.anims.play('enemy_attack');
+                                setTimeout(() => {
+                                    this.enemy.anims.play('enemy_idle');
+                                    this.nami.anims.play('nami_hit');
+                                    this.nami.setTint(0xff0000);
+                                    this.grupo.getChildren()[this.vida].visible = false;
+                                    this.vida--;
+                                    setTimeout(() => {
+                                        this.nami.clearTint();
+                                        setTimeout(() => {
+                                            this.nami.setTint(0xff0000);
+                                            setTimeout(() => {
+                                                this.nami.clearTint();
+                                                setTimeout(() => {
+                                                    this.nami.setTint(0xff0000);
+                                                    setTimeout(() => {
+                                                        this.nami.clearTint();
+                                                        this.nami.anims.play('nami_idle');
+                                                        setTimeout(() => {
+                                                            if (this.vida < 0) {
+                                                                this.nami.anims.play('nami_die');
+                                                                show(this, this.txtLose);
+                                                            } else {
+                                                                show(this, this.txtTurn);
+                                                                this.btn1.setInteractive();
+                                                                this.btn2.setInteractive();
+                                                                this.btn3.setInteractive();
+                                                                this.btn4.setInteractive();
+                                                            }
+                                                        }, 1000);
+                                                    }, 200);
+                                                }, 200);
+                                            }, 200);
+                                        }, 200);
+                                    }, 200);
+                                }, 4500);
+                            }
+                        }
+                    }
                 }, 3000);
             }
         });
@@ -892,36 +1060,114 @@ class Battle extends Phaser.Scene{
             }, 2000);
 
             setTimeout(() => {
-                this.enemy.anims.play('enemy_attack');
-                setTimeout(() => {
-                    this.enemy.anims.play('enemy_idle');
-                    // this.nami.setTint(0xff0000);
-                    setTimeout(() => {
-                        this.shield.setVisible(false);
-                        // this.nami.clearTint();
+                if (this.vidaEnemy < 0) {
+                    this.enemy.anims.play('enemy_dead');
+                    show(this, this.txtWin);
+                } else {
+                    this.opc = getRandomInt(99) + 1;
+                    console.log(this.opc);
+                    if (this.opc % 2 == 0) {
+                        this.enemy.anims.play('enemy_attack');
                         setTimeout(() => {
+                            this.enemy.anims.play('enemy_idle');
                             // this.nami.setTint(0xff0000);
                             setTimeout(() => {
+                                this.shield.setVisible(false);
                                 // this.nami.clearTint();
                                 setTimeout(() => {
                                     // this.nami.setTint(0xff0000);
                                     setTimeout(() => {
-                                        this.nami.clearTint();
-                                        // this.nami.anims.play('nami_idle');
+                                        // this.nami.clearTint();
                                         setTimeout(() => {
-                                            show(this, this.txtTurn);
-                                            this.btn1.setInteractive();
-                                            this.btn2.setInteractive();
-                                            this.btn3.setInteractive();
-                                            this.btn4.setInteractive();
-                                        }, 1000);
+                                            // this.nami.setTint(0xff0000);
+                                            setTimeout(() => {
+                                                this.nami.clearTint();
+                                                // this.nami.anims.play('nami_idle');
+                                                setTimeout(() => {
+                                                    show(this, this.txtTurn);
+                                                    this.btn1.setInteractive();
+                                                    this.btn2.setInteractive();
+                                                    this.btn3.setInteractive();
+                                                    this.btn4.setInteractive();
+                                                }, 1000);
+                                            }, 200);
+                                        }, 200);
                                     }, 200);
                                 }, 200);
                             }, 200);
-                        }, 200);
-                    }, 200);
-                }, 4500);
-            }, 4500);
+                        }, 4500);
+                    } else {
+                        if (this.pocionesEnemy >= 0) {
+                            this.health_enemy.setVisible(true);
+                            this.health_enemy2.setVisible(true);
+                            this.health_enemy3.setVisible(true);
+                            this.health_enemy.anims.play('health');
+                            this.health_enemy2.anims.play('health');
+                            this.health_enemy3.anims.play('health');
+    
+                            this.grupoEnemy2.getChildren()[this.pocionesEnemy].visible = false;
+                            this.pocionesEnemy--;
+    
+                            setTimeout(() => {
+                                // this.turn == false;
+                                this.health_enemy.setVisible(false);
+                                this.health_enemy2.setVisible(false);
+                                this.health_enemy3.setVisible(false);
+                                this.health_enemy.anims.stop();
+                                this.health_enemy2.anims.stop();
+                                this.health_enemy3.anims.stop();
+                                this.shield.setVisible(false);
+                                if (this.vidaEnemy < 5) {
+                                    this.vidaEnemy++;
+                                    this.grupoEnemy.getChildren()[this.vidaEnemy].visible = true;
+                                    if (this.vidaEnemy < 5) {
+                                        this.vidaEnemy++;
+                                        this.grupoEnemy.getChildren()[this.vidaEnemy].visible = true;
+                                    }
+                                }
+    
+                                setTimeout(() => {
+                                    show(this, this.txtTurn);
+                                    this.btn1.setInteractive();
+                                    this.btn2.setInteractive();
+                                    this.btn3.setInteractive();
+                                    this.btn4.setInteractive();
+                                }, 1000);
+                            }, 2000);
+                        } else {
+                            this.enemy.anims.play('enemy_attack');
+                            setTimeout(() => {
+                                this.enemy.anims.play('enemy_idle');
+                                // this.nami.setTint(0xff0000);
+                                setTimeout(() => {
+                                    this.shield.setVisible(false);
+                                    // this.nami.clearTint();
+                                    setTimeout(() => {
+                                        // this.nami.setTint(0xff0000);
+                                        setTimeout(() => {
+                                            // this.nami.clearTint();
+                                            setTimeout(() => {
+                                                // this.nami.setTint(0xff0000);
+                                                setTimeout(() => {
+                                                    this.nami.clearTint();
+                                                    // this.nami.anims.play('nami_idle');
+                                                    setTimeout(() => {
+                                                        show(this, this.txtTurn);
+                                                        this.btn1.setInteractive();
+                                                        this.btn2.setInteractive();
+                                                        this.btn3.setInteractive();
+                                                        this.btn4.setInteractive();
+                                                    }, 1000);
+                                                }, 200);
+                                            }, 200);
+                                        }, 200);
+                                    }, 200);
+                                }, 200);
+                            }, 4500);
+                        }
+                    }
+                }
+            }, 3500);
         });
 
     }
