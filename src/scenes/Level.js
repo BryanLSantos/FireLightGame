@@ -25,6 +25,9 @@ class Level extends Phaser.Scene{
         this.load.image('cuadro', 'scenalevel/cuadro.png');
         this.load.image('cuadrodragon', 'scenalevel/cuadrodragon.png');
         this.load.image('puertaclosed', 'scenalevel/puertaclosed.png');
+        this.load.image('contenedortxt', 'scenalevel/contenedor.png');
+        this.load.image('contenedorfuego', 'scenalevel/marco.png');
+        this.load.image('contenedorfuegofondo', 'scenalevel/marcofondo.png');
 
 
         //AQUI SE CREA EL SPRITESHEET
@@ -60,6 +63,12 @@ class Level extends Phaser.Scene{
         {
             frameWidth: 180,
             frameHeight: 180,
+        })
+
+        this.load.spritesheet('fuego_idle','scenalevel/fireball.png',
+        {
+            frameWidth: 288,
+            frameHeight: 288,
         })
         // this.load.spritesheet('nami_q','Medieval nami/Sprites/Attack1.png',
         // {
@@ -246,6 +255,10 @@ class Level extends Phaser.Scene{
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         const eventos = Phaser.Input.Events;
 
+        this.contenedor = this.add.image(300, 830, "contenedortxt").setOrigin(0, 0).setDepth(6).setScale(.45);
+        this.contenedorfuego = this.add.image(100, 830, "contenedorfuego").setOrigin(0, 0).setDepth(8).setScale(.45);
+        this.contenedorfuegofondo = this.add.image(100, 830, "contenedorfuegofondo").setOrigin(0, 0).setDepth(6).setScale(.45);
+
         //Creacion Antorchas
         this.antorchas = [];
         for(let index = 0; index < 10; index++) {
@@ -295,6 +308,7 @@ class Level extends Phaser.Scene{
 
         //FISICAS nami
         this.nami = this.physics.add.sprite(1000, 120, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
+        this.fuego = this.add.sprite(195, 895, 'fuego_idle').setOrigin(0.5,0.39).setScale(.6).setDepth(7);//AQUI SE AGREGA EL SPRITEa
         //this.physics.add.existing(this.nami, true); //FORMA2 true
         // this.nami.body.setCollideWorldBounds(false);
         // this.nami.body.setSize(48, 45, true);
@@ -305,6 +319,7 @@ class Level extends Phaser.Scene{
        
         this.physics.add.collider(this.nami, this.suelo, () => {});
         this.physics.add.collider(this.nami, this.techo, () => {});
+        // this.physics.add.collider(this.fuego, this.suelo, () => {});
         // this.nami = this.physics.add.image(300, 720, 'nami');
         // this.nami.body.setAllowGravity(false);
 
@@ -325,6 +340,23 @@ class Level extends Phaser.Scene{
         });
 
         this.nami.anims.play('nami_idle');
+
+        this.anims.create({
+            // Nombre de la animación
+            key: 'fuego_idle',
+            // Se cargan los frames por números
+            // NOTA: generateFrameNames() se
+            // usa cuando ya existe un Atlas
+            frames: this.anims.generateFrameNumbers('fuego_idle', {
+                start: 0,
+                end: 11
+            }),
+            
+            repeat: -1,
+            frameRate: 12
+        });
+
+        this.fuego.anims.play('fuego_idle');
 
         this.anims.create({
             // Nombre de la animación
@@ -826,6 +858,10 @@ class Level extends Phaser.Scene{
             
             if(!this.teclas.izq.isDown){
                 this.nami.x += 6;
+                this.fuego.x = this.nami.x + 300;
+                this.contenedorfuego.x = this.nami.x + 300;
+                this.contenedor.x = this.nami.x + 300;
+                this.contenedorfuegofondo.x = this.nami.x + 200;
                 this.grupo.children.iterate( (corazon) => {
                     corazon.x = (-800 + this.nami.x ) + (y*100);
                     y++;
@@ -885,6 +921,10 @@ class Level extends Phaser.Scene{
         {
             if(!this.teclas.der.isDown){
                 this.nami.x -= 6;
+                this.fuego.x = this.nami.x - 300;
+                this.contenedorfuego.x = this.nami.x - 200;
+                this.contenedorfuegofondo.x = this.nami.x - 200;
+                this.contenedor.x = this.nami.x - 200;
                 this.grupo.children.iterate( (corazon) => {
                     corazon.x = (-800 + this.nami.x) + (y*100);
                     y++;
