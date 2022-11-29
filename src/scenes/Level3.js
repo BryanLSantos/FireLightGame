@@ -112,9 +112,9 @@ class Level3 extends Phaser.Scene{
 
         
         //FISICAS nami
-        this.nami = this.physics.add.sprite(230, 120, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
+        this.nami = this.physics.add.sprite(230, 120, 'nami').setOrigin(0.5,0.39).setScale(5).setDepth(4);//AQUI SE AGREGA EL SPRITE
         this.lava = this.physics.add.sprite(0, 0, 'lava_idle').setVisible(false);//AQUI SE AGREGA EL SPRITE
-        this.lava = this.physics.add.sprite(230, 120, 'portal_idle')//AQUI SE AGREGA EL SPRITE
+        this.portal = this.physics.add.sprite(0, 0, 'portal_idle').setVisible(false).setDepth(-1);//AQUI SE AGREGA EL SPRITE
 
         this.grupolava = this.physics.add.group({
             key: 'lava_idle',
@@ -135,7 +135,17 @@ class Level3 extends Phaser.Scene{
                 stepX: 570
             }  
         });
-       
+        
+        this.grupoportal = this.physics.add.group({
+            key: 'portal_idle',
+            repeat: 3,
+            setXY: {
+                x: 1790,
+                y: 390,
+                stepX: 2530
+            }  
+        });
+
         //this.physics.add.existing(this.nami, true); //FORMA2 true
         this.nami.body.setCollideWorldBounds(false);
         //HITBOX 38
@@ -152,21 +162,6 @@ class Level3 extends Phaser.Scene{
 
         this.anims.create({
             // Nombre de la animación
-            key: 'portal_idle',
-            // Se cargan los frames por números
-            // NOTA: generateFrameNames() se
-            // usa cuando ya existe un Atlas
-            frames: this.anims.generateFrameNumbers('portal_idle', {
-                start: 0,
-                end: 6
-            }),
-            
-            repeat: -1,
-            frameRate: 8
-        });
-
-        this.anims.create({
-            // Nombre de la animación
             key: 'lava_idle',
             // Se cargan los frames por números
             // NOTA: generateFrameNames() se
@@ -180,6 +175,20 @@ class Level3 extends Phaser.Scene{
             frameRate: 8
         });
 
+        this.anims.create({
+            // Nombre de la animación
+            key: 'portal_idle',
+            // Se cargan los frames por números
+            // NOTA: generateFrameNames() se
+            // usa cuando ya existe un Atlas
+            frames: this.anims.generateFrameNumbers('portal_idle', {
+                start: 0,
+                end: 5
+            }),
+            
+            repeat: -1,
+            frameRate: 8
+        });
 
         //Animaciones del personaje nami
         this.anims.create({
@@ -464,7 +473,16 @@ class Level3 extends Phaser.Scene{
             
         });
 
-        
+        this.grupoportal.children.iterate( (portal) => {
+            portal.body.setAllowGravity(false);
+            portal.setScale(1.3);
+            //FISICAS Pincho
+            this.physics.add.existing(portal, true); //FORMA2 true
+            portal.setImmovable(true);
+            portal.body.setSize(150,110);
+            portal.anims.play("portal_idle");
+        } );
+
         function restarVida() {
             this.grupo.getChildren()[this.contadorVida].visible = false;
             this.contadorVida--;
