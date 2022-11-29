@@ -440,7 +440,11 @@ class Level3 extends Phaser.Scene{
             console.log("colision nami con lava");
             this.cameras.main
             .setBackgroundColor(0x000000)
+            //.fadeOut(500);
+            // tiempo en milisegundos, intensidad en [0,1]
             .shake(500, 0.03);
+            //this.cameras.main.fadeIn(500);
+            //setVelocity(200);
             setTimeout(() => {
                 this.nami.setVelocityX( this.nami.body.velocity.x += 50);
                 this.nami.setVelocityY( this.nami.body.velocity.y -= 100);
@@ -449,10 +453,8 @@ class Level3 extends Phaser.Scene{
             setTimeout(() => {
                 this.nami.body.velocity.x = 0;
                 this.nami.body.velocity.y = 0;
-            }, 400);
-
-            this.daño++;  
-            //checar si tiene 0 corazones si es el caso muere
+             }, 400); 
+            this.daño++;
             if(this.daño >= 10)
             {
                 if(this.contadorVida == 1)
@@ -477,6 +479,7 @@ class Level3 extends Phaser.Scene{
                     setTimeout(() => {
                         escena("Level3",this.scene);
                     }, 4000);
+
                 }
                 else{
                     this.grupo.getChildren()[this.contadorVida-1].visible = false;
@@ -485,6 +488,7 @@ class Level3 extends Phaser.Scene{
                     console.log("hacer daño");
                     //checar si tiene 0 corazones si es el caso muere
                 }
+               
             }
         });
 
@@ -502,7 +506,11 @@ class Level3 extends Phaser.Scene{
             console.log("colision nami con lava");
             this.cameras.main
             .setBackgroundColor(0x000000)
+            //.fadeOut(500);
+            // tiempo en milisegundos, intensidad en [0,1]
             .shake(500, 0.03);
+            //this.cameras.main.fadeIn(500);
+            //setVelocity(200);
             setTimeout(() => {
                 this.nami.setVelocityX( this.nami.body.velocity.x += 50);
                 this.nami.setVelocityY( this.nami.body.velocity.y -= 100);
@@ -511,7 +519,7 @@ class Level3 extends Phaser.Scene{
             setTimeout(() => {
                 this.nami.body.velocity.x = 0;
                 this.nami.body.velocity.y = 0;
-             }, 400);
+             }, 400); 
             this.daño++;
             if(this.daño >= 10)
             {
@@ -535,7 +543,7 @@ class Level3 extends Phaser.Scene{
                     }, 1000);
                     
                     setTimeout(() => {
-                        escena("Level",this.scene);
+                        escena("Level3",this.scene);
                     }, 4000);
 
                 }
@@ -546,6 +554,7 @@ class Level3 extends Phaser.Scene{
                     console.log("hacer daño");
                     //checar si tiene 0 corazones si es el caso muere
                 }
+               
             }
         });
 
