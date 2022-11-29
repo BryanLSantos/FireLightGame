@@ -330,6 +330,8 @@ class Level extends Phaser.Scene{
 
         //Creacion de cofre de prueba
         this.cofre = this.add.sprite(1000, 680, 'cofreestatico', 0).setScale(0.8);
+        this.cofre2 = this.add.sprite(2450, 680, 'cofreestatico', 0).setScale(0.8);
+        this.cofre3 = this.add.sprite(3400, 680, 'cofreestatico', 0).setScale(0.8);
 
         //FISICAS nami
         this.nami = this.physics.add.sprite(1000, 120, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
@@ -627,6 +629,7 @@ class Level extends Phaser.Scene{
    
             
         //Grupo de pociones
+        
         this.grupo2 = this.physics.add.group({
             key: 'potions',
             repeat: 3,
@@ -640,6 +643,10 @@ class Level extends Phaser.Scene{
             posion.setScale(0.8);
             posion.body.setAllowGravity(false);
         } );
+        this.contadorPocion = 1;
+        this.grupo2.getChildren()[1].visible = false;
+        this.grupo2.getChildren()[2].visible = false;
+        this.grupo2.getChildren()[3].visible = false;
         this.grupo2.playAnimation('potions');
 
         //Grupo linea de bloques
@@ -834,6 +841,9 @@ class Level extends Phaser.Scene{
        
         
         this.banderacofre1 = false;
+        this.banderacofre2 = false;
+        this.banderacofre3 = false;
+       
         //animacion de cofre
         // this.cofre.anims.play('cofreanimado');
     }
@@ -1012,19 +1022,46 @@ class Level extends Phaser.Scene{
 
                 // escena("Room4",this.scene);
                     
-            // }, 1500);
-                // this.scene.start("Room1", {
-                // });
-       
-            
+            // }, 1500);       
+        }
+        if(this.teclas.powX.isDown && this.nami.x >= 3420+300 && this.nami.x <= 3460 + 50+500) //this.nami.x >= 1250+300 && this.nami.x <= 1350 + 50+500
+        { //4ta puerta this.nami.x >= 3420+300 && this.nami.x <= 3460 + 50+500
+            this.puertas[1].anims.play('puerta');
+            escena("Room2",this.scene);
+        }
+        if(this.teclas.powX.isDown && this.nami.x >= 5520+300 && this.nami.x <= 5760 + 50+500) //this.nami.x >= 2120+300 && this.nami.x <= 2360 + 50+500
+        {   //5ta puerta this.nami.x >= 4520+300 && this.nami.x <= 4560 + 50+500
+            this.puertas[2].anims.play('puerta');
+            escena("Room3",this.scene);
+        }
+        if(this.teclas.powX.isDown && this.nami.x >= 6720+300 && this.nami.x <= 6860 + 50+500)
+        {//6tapuerta this.nami.x >= 5520+300 && this.nami.x <= 5760 + 50+500
+            this.puertas[3].anims.play('puerta');
+            escena("Room4",this.scene);
         }
         if(this.teclas.powX.isDown && this.nami.x >= 950 && this.nami.x <= 50+950 && this.banderacofre1==false)
         {
             this.cofre.anims.play('cofreanimado');
             this.banderacofre1 = true;
-
+            this.grupo2.getChildren()[this.contadorPocion].visible = true;
+            this.contadorPocion++;
         }
-        
+        if(this.teclas.powX.isDown && this.nami.x >= 2350 && this.nami.x <= 50+2450 && this.banderacofre2==false)
+        {
+            this.cofre2.anims.play('cofreanimado');
+            this.banderacofre2 = true;
+            this.grupo2.getChildren()[this.contadorPocion].visible = true;
+            this.contadorPocion++;
+        }
+        if(this.teclas.powX.isDown && this.nami.x >= 3350 && this.nami.x <= 50+3450 && this.banderacofre3==false)
+        {
+            this.cofre3.anims.play('cofreanimado');
+            this.banderacofre3 = true;
+            this.grupo2.getChildren()[this.contadorPocion].visible = true;
+            this.contadorPocion++;
+        }
+
+        console.log(this.nami.x);
     }
 
 }
