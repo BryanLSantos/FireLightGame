@@ -255,11 +255,7 @@ class Level extends Phaser.Scene{
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         const eventos = Phaser.Input.Events;
 
-        this.contenedor = this.add.image(300, 830, "contenedortxt").setOrigin(0, 0).setDepth(6).setScale(.45);
-        this.contenedorfuego = this.add.image(100, 830, "contenedorfuego").setOrigin(0, 0).setDepth(8).setScale(.45);
-        this.contenedorfuegofondo = this.add.image(100, 830, "contenedorfuegofondo").setOrigin(0, 0).setDepth(6).setScale(.45);
-
-        //Creacion Antorchas
+       //Creacion Antorchas
         this.antorchas = [];
         for(let index = 0; index < 10; index++) {
             this.antorchas[index] = this.add.sprite((index*1100 )+200, 300, 'antorchab');
@@ -308,14 +304,17 @@ class Level extends Phaser.Scene{
 
         //FISICAS nami
         this.nami = this.physics.add.sprite(1000, 120, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
-        this.fuego = this.add.sprite(195, 895, 'fuego_idle').setOrigin(0.5,0.39).setScale(.6).setDepth(7);//AQUI SE AGREGA EL SPRITEa
+        this.fuego = this.add.sprite(this.nami.x - 750, 895, 'fuego_idle').setOrigin(0.5,0.39).setScale(.6).setDepth(7);//AQUI SE AGREGA EL SPRITEa
+        this.contenedor = this.add.image(this.nami.x - 650, 830, "contenedortxt").setOrigin(0, 0).setDepth(6).setScale(.45);
+        this.contenedorfuego = this.add.image(this.nami.x - 850, 830, "contenedorfuego").setOrigin(0, 0).setDepth(8).setScale(.45);
+        this.contenedorfuegofondo = this.add.image(this.nami.x - 850, 830, "contenedorfuegofondo").setOrigin(0, 0).setDepth(6).setScale(.45);
+     
         //this.physics.add.existing(this.nami, true); //FORMA2 true
         // this.nami.body.setCollideWorldBounds(false);
         // this.nami.body.setSize(48, 45, true);
         // this.nami.body.setOffset(72, 70);
         this.nami.body.setSize(23, 50, true);
         this.nami.body.setOffset(85,60);
-
        
         this.physics.add.collider(this.nami, this.suelo, () => {});
         this.physics.add.collider(this.nami, this.techo, () => {});
@@ -858,10 +857,10 @@ class Level extends Phaser.Scene{
             
             if(!this.teclas.izq.isDown){
                 this.nami.x += 6;
-                this.fuego.x = this.nami.x - 500;
-                this.contenedorfuego.x = this.nami.x - 600;
-                this.contenedorfuegofondo.x = this.nami.x - 600;
-                this.contenedor.x = this.nami.x - 400;
+                this.fuego.x = this.nami.x - 750;
+                this.contenedorfuego.x = this.nami.x - 850;
+                this.contenedorfuegofondo.x = this.nami.x - 850;
+                this.contenedor.x = this.nami.x - 650;
                 this.grupo.children.iterate( (corazon) => {
                     corazon.x = (-800 + this.nami.x ) + (y*100);
                     y++;
@@ -921,10 +920,10 @@ class Level extends Phaser.Scene{
         {
             if(!this.teclas.der.isDown){
                 this.nami.x -= 6;
-                this.fuego.x = this.nami.x - 500;
-                this.contenedorfuego.x = this.nami.x - 600;
-                this.contenedorfuegofondo.x = this.nami.x - 600;
-                this.contenedor.x = this.nami.x - 400;
+                this.fuego.x = this.nami.x - 750;
+                this.contenedorfuego.x = this.nami.x - 850;
+                this.contenedorfuegofondo.x = this.nami.x - 850;
+                this.contenedor.x = this.nami.x - 650;
                 this.grupo.children.iterate( (corazon) => {
                     corazon.x = (-800 + this.nami.x) + (y*100);
                     y++;
