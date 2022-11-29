@@ -858,10 +858,10 @@ class Level extends Phaser.Scene{
             
             if(!this.teclas.izq.isDown){
                 this.nami.x += 6;
-                this.fuego.x = this.nami.x + 300;
-                this.contenedorfuego.x = this.nami.x + 300;
-                this.contenedor.x = this.nami.x + 300;
-                this.contenedorfuegofondo.x = this.nami.x + 200;
+                this.fuego.x = this.nami.x - 500;
+                this.contenedorfuego.x = this.nami.x - 600;
+                this.contenedorfuegofondo.x = this.nami.x - 600;
+                this.contenedor.x = this.nami.x - 400;
                 this.grupo.children.iterate( (corazon) => {
                     corazon.x = (-800 + this.nami.x ) + (y*100);
                     y++;
@@ -921,10 +921,10 @@ class Level extends Phaser.Scene{
         {
             if(!this.teclas.der.isDown){
                 this.nami.x -= 6;
-                this.fuego.x = this.nami.x - 300;
-                this.contenedorfuego.x = this.nami.x - 200;
-                this.contenedorfuegofondo.x = this.nami.x - 200;
-                this.contenedor.x = this.nami.x - 200;
+                this.fuego.x = this.nami.x - 500;
+                this.contenedorfuego.x = this.nami.x - 600;
+                this.contenedorfuegofondo.x = this.nami.x - 600;
+                this.contenedor.x = this.nami.x - 400;
                 this.grupo.children.iterate( (corazon) => {
                     corazon.x = (-800 + this.nami.x) + (y*100);
                     y++;
