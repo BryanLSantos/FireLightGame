@@ -17,7 +17,7 @@ class Room2 extends Phaser.Scene {
     }
     init(dato) {
         console.log('Escena ScenaA');
-        console.log('Haz hecho', dato, 'puntos');
+        // console.log('Haz hecho', dato, 'puntos');
         }
     
     preload() {
@@ -29,6 +29,7 @@ class Room2 extends Phaser.Scene {
         this.load.image('lineBlock', 'scenalevel/lineBlock.png');
         this.load.image('BlockBlock', 'scenalevel/blockBlock.png');
         this.load.image('puertaclosed', 'scenalevel/puertaclosed.png');
+        this.load.image('dialogo', 'scenaroom/textbox.png');
 
         this.load.atlas('makuiddle','Maku/MakuIddle/original/makuiddle.png','Maku/MakuIddle/original/makuiddle_atlas.json');
         this.load.animation('makuAnim','Maku/makuiddle_anim/makuiddle_anim.json');
@@ -298,7 +299,52 @@ class Room2 extends Phaser.Scene {
         // const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         // // const eventos = Phaser.Input.Events;
 
+        this.texto = [];
+        this.index = 0;
+        this.texto[0] = "El mundo en verdad está lleno de peligros,\ny en él hay muchos lugares oscuros;\n pero todavía..."; 
+        this.texto[1] = "hay muchos que son justos, y aunque en \ntodas las tierras el amor se mezcla con \nel dolor,puede que crezca más.";
+        this.texto[2] = "Toma esta bola de cristal y con ella guia \ntu destino.";
+        this.texto[3] = "No te apresures a dar muerte y juicio. \nIncluso los más sabios no ven todos\nlos fines... ";
+        
+        this.parrafo = this.add.text(1280, 865, "", {fontFamily: 'IM Fell English SC', fontSize: '20px', color: 'white'}).setDepth(10);
+        
+        this.parrafo.alpha = 0.0; 
 
+         this.physics.add.collider(this.nami, this.maku, () => {    
+            console.log("colision nami con maku");
+            this.cameras.main
+
+            if(this.banderadialogo==false){
+                this.dialogo = this.add.image(1450,900, "dialogo").setDepth(6).setVisible(true);
+                
+                setInterval(() => {
+                    if(this.index < this.texto.length){
+                        this.parrafo.setText(this.texto[this.index]); 
+                        this.index++;
+                        show(this,this.parrafo);
+                        setTimeout(() => {
+                            hide(this,this.parrafo);
+                        }, 6000);
+                        if(this.banderaitem == false){
+                            setTimeout(() => {
+                                
+                                this.bola_idle.anims.play('bola_idle');
+                                this.bola_idle.setVisible(true);
+                                this.banderaitem == true;
+                            }, 19000);
+                        }
+                    }
+                    else{
+                        this.index = 0;
+                    }
+                    
+                 }, 9000); 
+
+                this.banderadialogo = true;
+            }
+
+            
+        });
 
     }
     update(time, delta) {
@@ -345,10 +391,33 @@ class Room2 extends Phaser.Scene {
        
             
         }
+
+        if(this.nami.x >= 1100 )
+        {
+            this.dialogo = this.add.image(1450,900, "dialogo").setDepth(3).setVisible(true);
+       
+            
+        }
+
     }
 }
 function escena(params, params2) {
     params2.start(params,{
+    });
+}
+function show(params, text) {
+    params.tweens = params.add.tween({
+        targets: [text],
+        alpha: 1,
+        duration: 1500
+    });
+}
+
+function hide(params, text) {
+    params.tweens = params.add.tween({
+        targets: [text],
+        alpha: 0,
+        duration: 1500
     });
 }
 export default Room2;

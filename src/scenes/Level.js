@@ -298,7 +298,7 @@ class Level extends Phaser.Scene{
         
         this.parrafo.alpha = 0.0; 
 
-         setInterval(() => {
+        this.textos = setInterval(() => {
             if(this.index < this.texto.length){
                 this.parrafo.setText(this.texto[this.index]); 
                 this.index++;
@@ -1017,8 +1017,10 @@ class Level extends Phaser.Scene{
             
             this.puertas[0].anims.play('puerta');
             // setTimeout(() => {
-
+                clearInterval(this.textos);
                 escena("Room1",this.scene);
+
+
 
                 // escena("Room4",this.scene);
                     
@@ -1061,7 +1063,7 @@ class Level extends Phaser.Scene{
             this.contadorPocion++;
         }
 
-        console.log(this.nami.x);
+        //console.log(this.nami.x);
     }
 
 }
