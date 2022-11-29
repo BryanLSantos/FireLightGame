@@ -29,6 +29,7 @@ class Room1 extends Phaser.Scene {
         this.load.image('lineBlock', 'scenalevel/lineBlock.png');
         this.load.image('BlockBlock', 'scenalevel/blockBlock.png');
         this.load.image('puertaclosed', 'scenalevel/puertaclosed.png');
+        this.load.image('dialogo', 'scenaroom/textbox.png');
 
         this.load.atlas('makuiddle','Maku/MakuIddle/original/makuiddle.png','Maku/MakuIddle/original/makuiddle_atlas.json');
         this.load.animation('makuAnim','Maku/makuiddle_anim/makuiddle_anim.json');
@@ -71,6 +72,9 @@ class Room1 extends Phaser.Scene {
     }
 
     create(){
+
+        this.scene.stop('Level');
+
         this.cameras.main.setBackgroundColor(0x000000)
         // tiempo en milisegundos
         .fadeIn(2000);
@@ -117,12 +121,15 @@ class Room1 extends Phaser.Scene {
         // this.bloques[4].body.setAllowGravity(false);
         // this.bloques[4].setImmovable();
         // this.bloques[4].setVisible(false);
+
+        this.banderadialogo==false;
         
 
         this.puertas = this.add.sprite(150, 565, "puertaclosed").setDepth(0);
         this.puertas.setScale(2.1);
 
         this.fondo = this.add.image(0, 0, "blueroom").setOrigin(0, 0).setDepth(-1);
+        
         // this.maku = this.add.sprite(1300, 550, "Puntero", 0).setDepth(0).setScale(15);
         this.maku = this.add.sprite(1300, 558, "Puntero", 0).setDepth(0).setScale(5);
         this.maku.flipX = true;
@@ -318,6 +325,35 @@ class Room1 extends Phaser.Scene {
            
         });
 
+
+        this.texto = [];
+        this.index = 0;
+        this.texto[0] = "La mejor parte de una aventura no es llegar \nal destino, sino todas las cosas maravillosas \nque suceden en el camino."; 
+        this.texto[1] = "Inicia la aventura con Nami... \n[A] Avanzar Izquierda  [D] Avanzar Derecha\n[SPACE] Saltar";
+        this.texto[2] = "Para obtener pociones extra posicionate \nfrente a los cofres y oprime [X]";
+        this.texto[3] = "Las puertas conllevan aventuras sorpresa \nasi que comienza a explorar... ";
+        this.texto[4] = "No todos los que deambulan están perdidos,\nalgunos están en busca de aventuras que \nnutran su existencia.";
+        this.texto[5] = "Posicionate frente a las puertas y oprime [X], \nla mejor aventura es la que aún no ha llegado...";
+        this.texto[6] = "Cubre la tierra antes de que \nla tierra te cubra a ti...";
+        
+        this.parrafo = this.add.text(1280, 865, "", {fontFamily: 'IM Fell English SC', fontSize: '20px', color: 'white'}).setDepth(10);
+        
+        this.parrafo.alpha = 0.0; 
+
+         setInterval(() => {
+            if(this.index < this.texto.length){
+                this.parrafo.setText(this.texto[this.index]); 
+                this.index++;
+                show(this,this.parrafo);
+                setTimeout(() => {
+                    hide(this,this.parrafo);
+                }, 4000);
+            }
+            else{
+                this.index = 0;
+            }
+            
+         }, 8000); 
     }
     update(time, delta) {
         if (this.teclas.izq.isDown)
@@ -363,11 +399,48 @@ class Room1 extends Phaser.Scene {
        
             
         }
+
+        if(this.nami.x >= 1100 )
+        {
+            this.dialogo = this.add.image(1450,900, "dialogo").setDepth(3).setVisible(true);
+       
+            
+        }
+
+        
+
+            // if(this.nami.x < 1100){
+            //     this.dialogo.setVisible(false);
+                
+            //     // this.dialogo.visible==fal;se;
+            // }
+            // //this.dialogo.setVisible(false);
+            // // this.dialogo.visible=false;
+            
+        
+
+        
         
     }
 }
 function escena(params, params2) {
     params2.start(params,{
+    });
+}
+
+function show(params, text) {
+    params.tweens = params.add.tween({
+        targets: [text],
+        alpha: 1,
+        duration: 1500
+    });
+}
+
+function hide(params, text) {
+    params.tweens = params.add.tween({
+        targets: [text],
+        alpha: 0,
+        duration: 1500
     });
 }
 export default Room1;
