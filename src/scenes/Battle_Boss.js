@@ -1,7 +1,7 @@
-class Battle extends Phaser.Scene{
+class Battle_Boss extends Phaser.Scene{
     
     constructor(){
-        super({ key: 'Battle' });
+        super({ key: 'Battle_Boss' });
     }
 
     init(){
@@ -66,22 +66,22 @@ class Battle extends Phaser.Scene{
             frameHeight: 180
         });
 
-        this.load.spritesheet('enemy','enemigos/tauro/tauro_idle.png',
+        this.load.spritesheet('enemy','enemigos/boss/boss_idle.png',
         {
-            frameWidth: 690,
-            frameHeight: 690
+            frameWidth: 480,
+            frameHeight: 480
         });
 
-        this.load.spritesheet('enemy_at','enemigos/tauro/tauro_at.png',
+        this.load.spritesheet('enemy_at','enemigos/boss/boss_at.png',
         {
-            frameWidth: 690,
-            frameHeight: 690
+            frameWidth: 480,
+            frameHeight: 480
         });
 
-        this.load.spritesheet('enemy_dead','enemigos/tauro/tauro_dead.png',
+        this.load.spritesheet('enemy_dead','enemigos/boss/boss_dead.png',
         {
-            frameWidth: 690,
-            frameHeight: 690
+            frameWidth: 480,
+            frameHeight: 480
         });
 
         this.load.atlas('hearts','hearts/hearts.png','hearts/hearts_atlas.json');
@@ -145,17 +145,17 @@ class Battle extends Phaser.Scene{
         this.nami.body.setOffset(72, 70);
         this.physics.add.collider(this.nami, this.suelo, () => {});
 
-        this.enemy = this.physics.add.sprite(1450, 600, 'enemy').setScale(1.5);
+        this.enemy = this.physics.add.sprite(1450, 452, 'enemy').setScale(3);
         this.enemy.body.setCollideWorldBounds(false);
 
-        this.enemy.body.setSize(100, 200, true);
-        this.enemy.body.setOffset(300, 390);
+        this.enemy.body.setSize(200, 200, true);
+        this.enemy.body.setOffset(100, 210);
         this.physics.add.collider(this.enemy, this.suelo, () => {});
         this.enemy.flipX = true;
 
-        this.health_enemy = this.physics.add.sprite(1380, this.enemy.y + 10   , 'health').setScale(.2);
-        this.health_enemy2 = this.physics.add.sprite(1500, this.enemy.y - 20, 'health').setScale(.2);
-        this.health_enemy3 = this.physics.add.sprite(1440, this.enemy.y + 70, 'health').setScale(.2);
+        this.health_enemy = this.physics.add.sprite(1380, this.enemy.y + 60 , 'health').setScale(.2);
+        this.health_enemy2 = this.physics.add.sprite(1500, this.enemy.y + 70, 'health').setScale(.2);
+        this.health_enemy3 = this.physics.add.sprite(1440, this.enemy.y + 150, 'health').setScale(.2);
         this.health_enemy.body.setAllowGravity(false);
         this.health_enemy.body.setSize(100, 100);
         this.health_enemy2.body.setAllowGravity(false);
@@ -265,7 +265,7 @@ class Battle extends Phaser.Scene{
             // usa cuando ya existe un Atlas
             frames: this.anims.generateFrameNumbers('enemy', {
                 start: 0,
-                end: 13
+                end: 27
             }),
             
             repeat: -1,
@@ -280,7 +280,7 @@ class Battle extends Phaser.Scene{
             // usa cuando ya existe un Atlas
             frames: this.anims.generateFrameNumbers('enemy_at', {
                 start: 0,
-                end: 17
+                end: 23
             }),
             
             repeat: 0,
@@ -295,11 +295,11 @@ class Battle extends Phaser.Scene{
             // usa cuando ya existe un Atlas
             frames: this.anims.generateFrameNumbers('enemy_dead', {
                 start: 0,
-                end: 11
+                end: 23
             }),
             
             repeat: 0,
-            frameRate: 10
+            frameRate: 9
         });
 
         this.anims.create({
@@ -369,7 +369,7 @@ class Battle extends Phaser.Scene{
             repeat: this.vidaEnemy,
             setXY: {
             x: 1475,
-            y: this.enemy.y - 150,
+            y: this.enemy.y - 40,
             stepX: -35
             }
         });
@@ -386,7 +386,7 @@ class Battle extends Phaser.Scene{
             repeat: this.pocionesEnemy,
             setXY: {
             x: 1440,
-            y: this.enemy.y - 110,
+            y: this.enemy.y,
             stepX: -35,
             }
         });
@@ -486,7 +486,7 @@ class Battle extends Phaser.Scene{
                                     }, 200);
                                 }, 200);
                             }, 200);
-                        }, 1500);
+                        }, 2100);
                     } else {
                         if (this.pocionesEnemy >= 0) {
                             this.health_enemy.setVisible(true);
@@ -560,7 +560,7 @@ class Battle extends Phaser.Scene{
                                         }, 200);
                                     }, 200);
                                 }, 200);
-                            }, 1500);
+                            }, 2100);
                         }
                     }
                 }
@@ -653,7 +653,7 @@ class Battle extends Phaser.Scene{
                                     }, 200);
                                 }, 200);
                             }, 200);
-                        }, 1500);
+                        }, 2100);
                     } else {
                         if (this.pocionesEnemy >= 0) {
                             this.health_enemy.setVisible(true);
@@ -727,7 +727,7 @@ class Battle extends Phaser.Scene{
                                         }, 200);
                                     }, 200);
                                 }, 200);
-                            }, 1500);
+                            }, 2100);
                         }
                     }
                 }
@@ -820,7 +820,7 @@ class Battle extends Phaser.Scene{
                                         }, 200);
                                     }, 200);
                                 }, 200);
-                            }, 1500);
+                            }, 2100);
                         } else {
                             if (this.pocionesEnemy >= 0) {
                                 this.health_enemy.setVisible(true);
@@ -894,7 +894,7 @@ class Battle extends Phaser.Scene{
                                             }, 200);
                                         }, 200);
                                     }, 200);
-                                }, 1500);
+                                }, 2100);
                             }
                         }
                     }
@@ -954,7 +954,7 @@ class Battle extends Phaser.Scene{
                                         }, 200);
                                     }, 200);
                                 }, 200);
-                            }, 1500);
+                            }, 2100);
                         } else {
                             if (this.pocionesEnemy >= 0) {
                                 this.health_enemy.setVisible(true);
@@ -1028,7 +1028,7 @@ class Battle extends Phaser.Scene{
                                             }, 200);
                                         }, 200);
                                     }, 200);
-                                }, 1500);
+                                }, 2100);
                             }
                         }
                     }
@@ -1094,7 +1094,7 @@ class Battle extends Phaser.Scene{
                                     }, 200);
                                 }, 200);
                             }, 200);
-                        }, 1500);
+                        }, 2100);
                     } else {
                         if (this.pocionesEnemy >= 0) {
                             this.health_enemy.setVisible(true);
@@ -1162,7 +1162,7 @@ class Battle extends Phaser.Scene{
                                         }, 200);
                                     }, 200);
                                 }, 200);
-                            }, 1500);
+                            }, 2100);
                         }
                     }
                 }
@@ -1196,4 +1196,4 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-export default Battle;
+export default Battle_Boss;

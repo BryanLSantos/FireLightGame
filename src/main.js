@@ -6,6 +6,10 @@ import Room2 from "./scenes/Room2.js"
 import Room3 from "./scenes/Room3.js"
 import Room4 from "./scenes/Room4.js";
 import Battle from "./scenes/Battle.js";
+import Battle_Esq from "./scenes/Battle_Esq.js"
+import Battle_Go from "./scenes/Battle_Go.js"
+import Battle_King from "./scenes/Battle_King.js"
+import Battle_Boss from "./scenes/Battle_Boss.js"
 
 
 
