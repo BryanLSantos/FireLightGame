@@ -68,10 +68,10 @@ class Room2 extends Phaser.Scene {
             frameWidth: 54,
             frameHeight: 44
         })
-        this.load.spritesheet('bola_idle','scenaroom/bola.png',
+        this.load.spritesheet('bola_idle','scenaroom/espada.png',
         {
-            frameWidth: 400,
-            frameHeight: 486,
+            frameWidth: 280,
+            frameHeight: 266,
         });
     }
 
@@ -119,7 +119,7 @@ class Room2 extends Phaser.Scene {
       
 
         this.nami = this.physics.add.sprite(150, 500, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
-        this.bola_idle = this.physics.add.sprite(1130, 480, 'bola_idle').setOrigin(0.5,0.39).setScale(.2).setVisible(false);//AQUI SE AGREGA EL SPRITE
+        this.bola_idle = this.physics.add.sprite(1130, 480, 'bola_idle').setOrigin(0.5,0.39).setScale(.4).setVisible(false);//AQUI SE AGREGA EL SPRITE
         
         this.bola_idle.body.setAllowGravity(false);
         this.bola_idle.setImmovable();
@@ -158,6 +158,21 @@ class Room2 extends Phaser.Scene {
         });
 
         this.nami.anims.play('nami_idle');
+
+        this.anims.create({
+            // Nombre de la animación
+            key: 'bola_idle',
+            // Se cargan los frames por números
+            // NOTA: generateFrameNames() se
+            // usa cuando ya existe un Atlas
+            frames: this.anims.generateFrameNumbers('bola_idle', {
+                start: 0,
+                end: 15
+            }),
+            
+            repeat: -1,
+            frameRate: 16
+        });
 
         this.anims.create({
             // Nombre de la animación
@@ -295,58 +310,57 @@ class Room2 extends Phaser.Scene {
 
         this.texto = [];
         this.index = 0;
-        this.texto[0] = "El mundo en verdad está lleno de peligros,\ny en él hay muchos lugares oscuros;\n pero todavía..."; 
-        this.texto[1] = "hay muchos que son justos, y aunque en \ntodas las tierras el amor se mezcla con \nel dolor,puede que crezca más.";
-        this.texto[2] = "Toma esta bola de cristal y con ella guia \ntu destino.";
-        this.texto[3] = "No te apresures a dar muerte y juicio. \nIncluso los más sabios no ven todos\nlos fines... ";
+        this.texto[0] = "Todo lo que tenemos que decidir es qué \nhacer con el tiempo que se nos da..."; 
+        this.texto[1] = "Muchas veces la esperanza nace cuando\ntodo está abandonado...";
+        this.texto[2] = "Toma esta espada y con ella llevanos \n hacia la libertad!";
         
         this.parrafo = this.add.text(1280, 865, "", {fontFamily: 'IM Fell English SC', fontSize: '20px', color: 'white'}).setDepth(10);
         
         this.parrafo.alpha = 0.0; 
 
-        // this.physics.add.collider(this.nami, this.warrior, () => {    
-        //     console.log("colision nami con warrior");
-        //     this.cameras.main
+        this.physics.add.collider(this.nami, this.warrior, () => {    
+            console.log("colision nami con warrior");
+            this.cameras.main
 
-        //     if(this.banderadialogo==false){
-        //         this.dialogo = this.add.image(1450,900, "dialogo").setDepth(6).setVisible(true);
+            if(this.banderadialogo==false){
+                this.dialogo = this.add.image(1450,900, "dialogo").setDepth(6).setVisible(true);
                 
-        //         setInterval(() => {
-        //             if(this.index < this.texto.length){
-        //                 this.parrafo.setText(this.texto[this.index]); 
-        //                 this.index++;
-        //                 show(this,this.parrafo);
-        //                 setTimeout(() => {
-        //                     hide(this,this.parrafo);
-        //                 }, 6000);
-        //                 if(this.banderaitem == false){
-        //                     setTimeout(() => {
+                setInterval(() => {
+                    if(this.index < this.texto.length){
+                        this.parrafo.setText(this.texto[this.index]); 
+                        this.index++;
+                        show(this,this.parrafo);
+                        setTimeout(() => {
+                            hide(this,this.parrafo);
+                        }, 6000);
+                        if(this.banderaitem == false){
+                            setTimeout(() => {
                                 
-        //                         this.bola_idle.anims.play('bola_idle');
-        //                         this.bola_idle.setVisible(true);
-        //                         this.banderaitem == true;
-        //                     }, 19000);
-        //                 }
-        //             }
-        //             else{
-        //                 this.index = 0;
-        //             }
+                                this.bola_idle.anims.play('bola_idle');
+                                this.bola_idle.setVisible(true);
+                                this.banderaitem == true;
+                            }, 19000);
+                        }
+                    }
+                    else{
+                        this.index = 0;
+                    }
                     
-        //         }, 9000); 
+                }, 9000); 
 
-        //         this.banderadialogo = true;
-        //     }
+                this.banderadialogo = true;
+            }
 
             
-        // });
+        });
 
-        // this.physics.add.collider(this.nami, this.bola_idle, () => {    
-        //     console.log("colision nami con bolita");
+        this.physics.add.collider(this.nami, this.bola_idle, () => {    
+            console.log("colision nami con bolita");
 
-        //     this.bola_idle.setVisible(false);
-        //     this.bola_idle.anims.stop();
-        //     this.bola_idle.setImmovable(false);
-        // });
+            this.bola_idle.setVisible(false);
+            this.bola_idle.anims.stop();
+            this.bola_idle.setImmovable(false);
+        });
 
     }
     update(time, delta) {
