@@ -1,7 +1,7 @@
-class Battle extends Phaser.Scene{
+class Battle_Mouth extends Phaser.Scene{
     
     constructor(){
-        super({ key: 'Battle' });
+        super({ key: 'Battle_Mouth' });
     }
 
     init(){
@@ -66,22 +66,22 @@ class Battle extends Phaser.Scene{
             frameHeight: 180
         });
 
-        this.load.spritesheet('enemy','enemigos/rino/rino_idle.png',
+        this.load.spritesheet('enemy','enemigos/mouth/mouth_idle.png',
         {
-            frameWidth: 720,
-            frameHeight: 720
+            frameWidth: 560,
+            frameHeight: 560
         });
 
-        this.load.spritesheet('enemy_at','enemigos/rino/rino_at.png',
+        this.load.spritesheet('enemy_at','enemigos/mouth/mouth_at.png',
         {
-            frameWidth: 720,
-            frameHeight: 720
+            frameWidth: 560,
+            frameHeight: 560
         });
 
-        this.load.spritesheet('enemy_dead','enemigos/rino/rino_dead.png',
+        this.load.spritesheet('enemy_dead','enemigos/mouth/mouth_dead.png',
         {
-            frameWidth: 720,
-            frameHeight: 720
+            frameWidth: 560,
+            frameHeight: 560
         });
 
         this.load.atlas('hearts','hearts/hearts.png','hearts/hearts_atlas.json');
@@ -145,16 +145,16 @@ class Battle extends Phaser.Scene{
         this.nami.body.setOffset(72, 70);
         this.physics.add.collider(this.nami, this.suelo, () => {});
 
-        this.enemy = this.physics.add.sprite(1450, 580, 'enemy').setScale(1.5);
+        this.enemy = this.physics.add.sprite(1450, 640, 'enemy').setScale(1.5);
         this.enemy.body.setCollideWorldBounds(false);
 
         this.enemy.body.setSize(100, 200, true);
-        this.enemy.body.setOffset(300, 420);
+        this.enemy.body.setOffset(300, 300);
         this.physics.add.collider(this.enemy, this.suelo, () => {});
         this.enemy.flipX = true;
 
         this.health_enemy = this.physics.add.sprite(1380, this.enemy.y + 10   , 'health').setScale(.2);
-        this.health_enemy2 = this.physics.add.sprite(1200, this.enemy.y - 20, 'health').setScale(.2);
+        this.health_enemy2 = this.physics.add.sprite(1500, this.enemy.y - 20, 'health').setScale(.2);
         this.health_enemy3 = this.physics.add.sprite(1440, this.enemy.y + 70, 'health').setScale(.2);
         this.health_enemy.body.setAllowGravity(false);
         this.health_enemy.body.setSize(100, 100);
@@ -269,7 +269,7 @@ class Battle extends Phaser.Scene{
             }),
             
             repeat: -1,
-            frameRate: 14
+            frameRate: 12
         });
 
         this.anims.create({
@@ -284,7 +284,7 @@ class Battle extends Phaser.Scene{
             }),
             
             repeat: 0,
-            frameRate: 13
+            frameRate: 12
         });
 
         this.anims.create({
@@ -295,7 +295,7 @@ class Battle extends Phaser.Scene{
             // usa cuando ya existe un Atlas
             frames: this.anims.generateFrameNumbers('enemy_dead', {
                 start: 0,
-                end: 9
+                end: 15
             }),
             
             repeat: 0,
@@ -369,7 +369,7 @@ class Battle extends Phaser.Scene{
             repeat: this.vidaEnemy,
             setXY: {
             x: 1475,
-            y: this.enemy.y - 160,
+            y: this.enemy.y - 90,
             stepX: -35
             }
         });
@@ -386,7 +386,7 @@ class Battle extends Phaser.Scene{
             repeat: this.pocionesEnemy,
             setXY: {
             x: 1440,
-            y: this.enemy.y - 120,
+            y: this.enemy.y - 50,
             stepX: -35,
             }
         });
@@ -486,7 +486,7 @@ class Battle extends Phaser.Scene{
                                     }, 200);
                                 }, 200);
                             }, 200);
-                        }, 1200);
+                        }, 1500);
                     } else {
                         if (this.pocionesEnemy >= 0) {
                             this.health_enemy.setVisible(true);
@@ -560,7 +560,7 @@ class Battle extends Phaser.Scene{
                                         }, 200);
                                     }, 200);
                                 }, 200);
-                            }, 1200);
+                            }, 1500);
                         }
                     }
                 }
@@ -653,7 +653,7 @@ class Battle extends Phaser.Scene{
                                     }, 200);
                                 }, 200);
                             }, 200);
-                        }, 1200);
+                        }, 1500);
                     } else {
                         if (this.pocionesEnemy >= 0) {
                             this.health_enemy.setVisible(true);
@@ -727,7 +727,7 @@ class Battle extends Phaser.Scene{
                                         }, 200);
                                     }, 200);
                                 }, 200);
-                            }, 1200);
+                            }, 1500);
                         }
                     }
                 }
@@ -820,7 +820,7 @@ class Battle extends Phaser.Scene{
                                         }, 200);
                                     }, 200);
                                 }, 200);
-                            }, 1200);
+                            }, 1500);
                         } else {
                             if (this.pocionesEnemy >= 0) {
                                 this.health_enemy.setVisible(true);
@@ -894,7 +894,7 @@ class Battle extends Phaser.Scene{
                                             }, 200);
                                         }, 200);
                                     }, 200);
-                                }, 1200);
+                                }, 1500);
                             }
                         }
                     }
@@ -954,7 +954,7 @@ class Battle extends Phaser.Scene{
                                         }, 200);
                                     }, 200);
                                 }, 200);
-                            }, 1200);
+                            }, 1500);
                         } else {
                             if (this.pocionesEnemy >= 0) {
                                 this.health_enemy.setVisible(true);
@@ -1028,7 +1028,7 @@ class Battle extends Phaser.Scene{
                                             }, 200);
                                         }, 200);
                                     }, 200);
-                                }, 1200);
+                                }, 1500);
                             }
                         }
                     }
@@ -1094,7 +1094,7 @@ class Battle extends Phaser.Scene{
                                     }, 200);
                                 }, 200);
                             }, 200);
-                        }, 1200);
+                        }, 1500);
                     } else {
                         if (this.pocionesEnemy >= 0) {
                             this.health_enemy.setVisible(true);
@@ -1162,7 +1162,7 @@ class Battle extends Phaser.Scene{
                                         }, 200);
                                     }, 200);
                                 }, 200);
-                            }, 1200);
+                            }, 1500);
                         }
                     }
                 }
@@ -1196,4 +1196,4 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-export default Battle;
+export default Battle_Mouth;

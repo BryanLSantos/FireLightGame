@@ -1,7 +1,7 @@
-class Battle extends Phaser.Scene{
+class Battle_Rino extends Phaser.Scene{
     
     constructor(){
-        super({ key: 'Battle' });
+        super({ key: 'Battle_Rino' });
     }
 
     init(){
@@ -1196,4 +1196,4 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-export default Battle;
+export default Battle_Rino;
