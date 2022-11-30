@@ -850,6 +850,7 @@ class Level extends Phaser.Scene{
         // this.cofre.anims.play('cofreanimado');
     }
     update(time, delta) {
+        console.log(this.nami.x);
         if(this.nami.x >= 8150)
         {
             this.nami.x = 8150;

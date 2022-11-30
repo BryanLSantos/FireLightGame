@@ -97,7 +97,7 @@ class Room2 extends Phaser.Scene {
 
         this.fondo = this.add.image(0, 0, "brownroom").setOrigin(0, 0).setDepth(-1);
 
-        this.warrior = this.physics.add.sprite(1300, 320, 'warrior-idle', 0).setScale(7);
+        this.warrior = this.physics.add.sprite(1300, 610, 'warrior-idle', 0).setScale(7);
         this.warrior.flipX = true;
        
         
@@ -129,7 +129,8 @@ class Room2 extends Phaser.Scene {
         this.nami.body.setOffset(72, 70);
         this.nami.body.setOffset(72, 70);
         this.warrior.body.setSize(100, 1, true);
-        this.warrior.body.setOffset(50, 165);
+        this.warrior.body.setOffset(-40, 42);
+        // this.warrior.setAllowGravity(false);
 
         this.physics.add.collider(this.nami, this.suelo, () => {});
         this.physics.add.collider(this.nami, this.bloques, () => {});
