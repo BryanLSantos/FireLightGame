@@ -31,34 +31,28 @@ class Room2 extends Phaser.Scene {
         this.load.image('puertaclosed', 'scenalevel/puertaclosed.png');
         this.load.image('dialogo', 'scenaroom/textbox.png');
 
-        this.load.atlas('makuiddle','Maku/MakuIddle/original/makuiddle.png','Maku/MakuIddle/original/makuiddle_atlas.json');
-        this.load.animation('makuAnim','Maku/makuiddle_anim/makuiddle_anim.json');
-        this.load.atlas('omiiddle','Omi/omiiddle/omiiddle.png','Omi/omiiddle/omiiddle_atlas.json');
-        this.load.animation('omiiAnim','Omi/omiiddle_anim/omiiddle_anim.json');
-        this.load.atlas('kemi','Kemi/kemi/kemi.png','Kemi/kemi/kemi_atlas.json');
-        this.load.animation('kemiAnim','Kemi/kemi_anim/kemi_anim.json');
         this.load.atlas('puerta','puerta/puerta/puerta.png','puerta/puerta/puerta_atlas.json');
         this.load.animation('puertaAnim', 'puerta/puerta_anim/puerta_anim.json');
-      
+
         //AQUI SE CREA EL SPRITESHEET
         this.load.spritesheet('nami','Nami/idlegOOD.png',
         {
             frameWidth: 180,
             frameHeight: 180,
         });
-   
+
         this.load.spritesheet('nami_run','Nami/RungOOD.png',
         {
             frameWidth: 180,
             frameHeight: 180,
         })
-   
+
         this.load.spritesheet('nami_takehit','Nami/Take_Hit.png',
         {
             frameWidth: 180,
             frameHeight: 180,
         })
-   
+
         this.load.spritesheet('nami_jump','Nami/jumpgOOD.png',
         {
             frameWidth: 180,
@@ -69,22 +63,21 @@ class Room2 extends Phaser.Scene {
             frameWidth: 180,
             frameHeight: 180,
         })
-        this.load.spritesheet('warrior','PSecundarios/warrior_Idle.png',
+        this.load.spritesheet('warrior-idle','PSecundarios/warrior_Idle.png',
         {
             frameWidth: 54,
             frameHeight: 44
         })
+        this.load.spritesheet('bola_idle','scenaroom/bola.png',
+        {
+            frameWidth: 400,
+            frameHeight: 486,
+        });
     }
 
     create(){
         this.cameras.main.setBackgroundColor(0x000000)
-        // tiempo en milisegundos
         .fadeIn(2000);
-        // this.scene.stop('Level');
-        // // this.cameras.main.setBackgroundColor(0x0000ff)
-        // // // tiempo en milisegundos
-        // // .fadeIn(2000);
-
         
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         const eventos = Phaser.Input.Events;
@@ -95,17 +88,53 @@ class Room2 extends Phaser.Scene {
         this.suelo.body.setSize(100000, 55, true);
         //visible false 
         this.suelo.setVisible(false);
+
+        this.banderadialogo = false;
+        this.banderaitem = false;
         
         this.puertas = this.add.sprite(150, 565, "puertaclosed").setDepth(0);
         this.puertas.setScale(2.1);
 
+        this.fondo = this.add.image(0, 0, "brownroom").setOrigin(0, 0).setDepth(-1);
+
+        this.warrior = this.physics.add.sprite(1300, 320, 'warrior-idle', 0).setScale(7);
+        this.warrior.flipX = true;
+       
+        
+        this.anims.create({
+            // Nombre de la animación
+            key: 'warrior-idle',
+            // Se cargan los frames por números
+            // NOTA: generateFrameNames() se
+            // usa cuando ya existe un Atlas
+            frames: this.anims.generateFrameNumbers('warrior-idle', {
+                start: 0,
+                end: 5
+            }),
+            repeat: -1,
+            frameRate: 6
+        });
+
+        this.warrior.anims.play('warrior-idle');
+      
+
         this.nami = this.physics.add.sprite(150, 500, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
+        this.bola_idle = this.physics.add.sprite(1130, 480, 'bola_idle').setOrigin(0.5,0.39).setScale(.2).setVisible(false);//AQUI SE AGREGA EL SPRITE
+        
+        this.bola_idle.body.setAllowGravity(false);
+        this.bola_idle.setImmovable();
         //this.physics.add.existing(this.nami, true); //FORMA2 true
         this.nami.body.setCollideWorldBounds(false);
         this.nami.body.setSize(48, 45, true);
         this.nami.body.setOffset(72, 70);
+        this.nami.body.setOffset(72, 70);
+        this.warrior.body.setSize(100, 1, true);
+        this.warrior.body.setOffset(50, 165);
+
         this.physics.add.collider(this.nami, this.suelo, () => {});
         this.physics.add.collider(this.nami, this.bloques, () => {});
+        this.physics.add.collider(this.warrior, this.suelo, () => {});
+        this.physics.add.collider(this.warrior, this.bloques, () => {});
         this.nami.body.setCollideWorldBounds(true);
         // const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         // // const eventos = Phaser.Input.Events;
@@ -260,43 +289,7 @@ class Room2 extends Phaser.Scene {
            
         });
 
-        this.fondo = this.add.image(0, 0, "brownroom").setOrigin(0, 0).setDepth(-1);
-        this.warrior = this.add.sprite(1300, 620, 'warrior', 0).setScale(7);
-        this.warrior.flipX = true;
-        this.anims.create({
-            // Nombre de la animación
-            key: 'warrior-idle',
-            // Se cargan los frames por números
-            // NOTA: generateFrameNames() se
-            // usa cuando ya existe un Atlas
-            frames: this.anims.generateFrameNumbers('warrior', {
-                start: 0,
-                end: 5
-            }),
-            repeat: -1,
-            frameRate: 6
-        });
 
-        // this.warrior.anims.play('warrior_idle');
-        this.warrior.anims.play('warrior-idle');
-
-        // this.anims.create({
-        //     // Nombre de la animación
-        //     key: 'warrior_idle',
-        //     // Se cargan los frames por números
-        //     // NOTA: generateFrameNames() se
-        //     // usa cuando ya existe un Atlas
-        //     frames: this.anims.generateFrameNumbers('king', {
-        //         start: 0,
-        //         end: 7
-        //     }),
-        //     repeat: -1,
-        //     frameRate: 6
-        // });
-
-        // //this.king.anims.play('king_idle');
-
-        // const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         // // const eventos = Phaser.Input.Events;
 
         this.texto = [];
@@ -310,41 +303,49 @@ class Room2 extends Phaser.Scene {
         
         this.parrafo.alpha = 0.0; 
 
-         this.physics.add.collider(this.nami, this.maku, () => {    
-            console.log("colision nami con maku");
-            this.cameras.main
+        // this.physics.add.collider(this.nami, this.warrior, () => {    
+        //     console.log("colision nami con warrior");
+        //     this.cameras.main
 
-            if(this.banderadialogo==false){
-                this.dialogo = this.add.image(1450,900, "dialogo").setDepth(6).setVisible(true);
+        //     if(this.banderadialogo==false){
+        //         this.dialogo = this.add.image(1450,900, "dialogo").setDepth(6).setVisible(true);
                 
-                setInterval(() => {
-                    if(this.index < this.texto.length){
-                        this.parrafo.setText(this.texto[this.index]); 
-                        this.index++;
-                        show(this,this.parrafo);
-                        setTimeout(() => {
-                            hide(this,this.parrafo);
-                        }, 6000);
-                        if(this.banderaitem == false){
-                            setTimeout(() => {
+        //         setInterval(() => {
+        //             if(this.index < this.texto.length){
+        //                 this.parrafo.setText(this.texto[this.index]); 
+        //                 this.index++;
+        //                 show(this,this.parrafo);
+        //                 setTimeout(() => {
+        //                     hide(this,this.parrafo);
+        //                 }, 6000);
+        //                 if(this.banderaitem == false){
+        //                     setTimeout(() => {
                                 
-                                this.bola_idle.anims.play('bola_idle');
-                                this.bola_idle.setVisible(true);
-                                this.banderaitem == true;
-                            }, 19000);
-                        }
-                    }
-                    else{
-                        this.index = 0;
-                    }
+        //                         this.bola_idle.anims.play('bola_idle');
+        //                         this.bola_idle.setVisible(true);
+        //                         this.banderaitem == true;
+        //                     }, 19000);
+        //                 }
+        //             }
+        //             else{
+        //                 this.index = 0;
+        //             }
                     
-                 }, 9000); 
+        //         }, 9000); 
 
-                this.banderadialogo = true;
-            }
+        //         this.banderadialogo = true;
+        //     }
 
             
-        });
+        // });
+
+        // this.physics.add.collider(this.nami, this.bola_idle, () => {    
+        //     console.log("colision nami con bolita");
+
+        //     this.bola_idle.setVisible(false);
+        //     this.bola_idle.anims.stop();
+        //     this.bola_idle.setImmovable(false);
+        // });
 
     }
     update(time, delta) {
@@ -392,12 +393,12 @@ class Room2 extends Phaser.Scene {
             
         }
 
-        if(this.nami.x >= 1100 )
-        {
-            this.dialogo = this.add.image(1450,900, "dialogo").setDepth(3).setVisible(true);
+        // if(this.nami.x >= 1100 )
+        // {
+        //     this.dialogo = this.add.image(1450,900, "dialogo").setDepth(3).setVisible(true);
        
             
-        }
+        // }
 
     }
 }

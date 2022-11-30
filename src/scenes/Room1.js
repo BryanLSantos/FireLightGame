@@ -17,7 +17,7 @@ class Room1 extends Phaser.Scene {
     }
     init(dato) {
         console.log('Escena ScenaA');
-        console.log('Haz hecho', dato, 'puntos');
+        //console.log('Haz hecho', dato, 'puntos');
         }
     
     preload() {
@@ -39,42 +39,42 @@ class Room1 extends Phaser.Scene {
         this.load.animation('kemiAnim','Kemi/kemi_anim/kemi_anim.json');
         this.load.atlas('puerta','puerta/puerta/puerta.png','puerta/puerta/puerta_atlas.json');
         this.load.animation('puertaAnim', 'puerta/puerta_anim/puerta_anim.json');
-      
-           //AQUI SE CREA EL SPRITESHEET
-           this.load.spritesheet('nami','Nami/idlegOOD.png',
-           {
-               frameWidth: 180,
-               frameHeight: 180,
-           });
-   
-           this.load.spritesheet('nami_run','Nami/RungOOD.png',
-           {
-               frameWidth: 180,
-               frameHeight: 180,
-           })
-   
-           this.load.spritesheet('nami_takehit','Nami/Take_Hit.png',
-           {
-               frameWidth: 180,
-               frameHeight: 180,
-           })
-   
-           this.load.spritesheet('nami_jump','Nami/jumpgOOD.png',
-           {
-               frameWidth: 180,
-               frameHeight: 180,
-           })
-           this.load.spritesheet('nami_fall','Nami/fallgOOD.png',
-           {
-               frameWidth: 180,
-               frameHeight: 180,
-           })
 
-           this.load.spritesheet('bola_idle','scenaroom/bola.png',
-           {
-               frameWidth: 400,
-               frameHeight: 486,
-           });
+           //AQUI SE CREA EL SPRITESHEET
+            this.load.spritesheet('nami','Nami/idlegOOD.png',
+            {
+                frameWidth: 180,
+                frameHeight: 180,
+            });
+
+            this.load.spritesheet('nami_run','Nami/RungOOD.png',
+            {
+                frameWidth: 180,
+                frameHeight: 180,
+            })
+
+            this.load.spritesheet('nami_takehit','Nami/Take_Hit.png',
+            {
+                frameWidth: 180,
+                frameHeight: 180,
+            })
+
+            this.load.spritesheet('nami_jump','Nami/jumpgOOD.png',
+            {
+                frameWidth: 180,
+                frameHeight: 180,
+            })
+            this.load.spritesheet('nami_fall','Nami/fallgOOD.png',
+            {
+                frameWidth: 180,
+                frameHeight: 180,
+            })
+
+            this.load.spritesheet('bola_idle','scenaroom/bola.png',
+            {
+                frameWidth: 400,
+                frameHeight: 486,
+            });
     }
 
     create(){
