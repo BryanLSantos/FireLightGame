@@ -315,6 +315,13 @@ class Level extends Phaser.Scene{
 
         
         this.botonlevel2 = this.add.image(9000, 950, 'buttonlevel2').setScale(0.5);
+        this.botonlevel2.setInteractive();
+        this.botonlevel2.on('pointerdown', () => {
+            console.log("presionaste el boton de nivel 2");
+            escena("Level3", this.scene);
+        } );
+       
+        
         this.suelo = this.physics.add.image(300, 800, 'BlockBlock');
         this.suelo.body.setAllowGravity(false);
         this.suelo.setImmovable();
@@ -1089,4 +1096,5 @@ function hide(params, text) {
         duration: 1500
     });
 }
+
 export default Level;
