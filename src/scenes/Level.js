@@ -28,7 +28,7 @@ class Level extends Phaser.Scene{
         this.load.image('contenedortxt', 'scenalevel/contenedor.png');
         this.load.image('contenedorfuego', 'scenalevel/marco.png');
         this.load.image('contenedorfuegofondo', 'scenalevel/marcofondo.png');
-
+        this.load.image('buttonlevel2', 'buttonlevel2/buttonlevel2.png');
 
         //AQUI SE CREA EL SPRITESHEET
         this.load.spritesheet('nami','Nami/idlegOOD.png',
@@ -313,6 +313,8 @@ class Level extends Phaser.Scene{
             
          }, 12000); 
 
+        
+        this.botonlevel2 = this.add.image(4000, 800, 'buttonlevel2');
         this.suelo = this.physics.add.image(300, 800, 'BlockBlock');
         this.suelo.body.setAllowGravity(false);
         this.suelo.setImmovable();
