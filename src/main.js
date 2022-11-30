@@ -10,6 +10,10 @@ import Battle_Esq from "./scenes/Battle_Esq.js"
 import Battle_Go from "./scenes/Battle_Go.js"
 import Battle_King from "./scenes/Battle_King.js"
 import Battle_Boss from "./scenes/Battle_Boss.js"
+import Battle_Boss from "./scenes/Battle_Mago.js"
+import Battle_Boss from "./scenes/Battle_Mouth"
+import Battle_Boss from "./scenes/Battle_Rino"
+import Battle_Boss from "./scenes/Battle_Tauro"
 
 
 
