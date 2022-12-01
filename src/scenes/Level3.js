@@ -186,6 +186,8 @@ class Level3 extends Phaser.Scene{
         this.pared.setVisible(false);
         this.pared.body.setAllowGravity(false);
 
+        this.parrafo.x = this.nami.x - 620; ;
+
         //FISICAS nami
         this.fuego = this.add.sprite(this.nami.x - 750, 895, 'fuego_idle').setOrigin(0.5,0.39).setScale(.6).setDepth(7);//AQUI SE AGREGA EL SPRITEa
         this.contenedor = this.add.image(this.nami.x - 650, 830, "contenedortxt").setOrigin(0, 0).setDepth(6).setScale(.45);
