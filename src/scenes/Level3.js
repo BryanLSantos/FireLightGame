@@ -122,12 +122,7 @@ class Level3 extends Phaser.Scene{
         this.cofre3.body.setOffset(50, 300);
         this.cofre3.body.setAllowGravity(false);
  
-        //FISICAS nami
-        this.fuego = this.add.sprite(this.nami.x - 750, 895, 'fuego_idle').setOrigin(0.5,0.39).setScale(.6).setDepth(7);//AQUI SE AGREGA EL SPRITEa
-        this.contenedor = this.add.image(this.nami.x - 650, 830, "contenedortxt").setOrigin(0, 0).setDepth(6).setScale(.45);
-        this.contenedorfuego = this.add.image(this.nami.x - 850, 830, "contenedorfuego").setOrigin(0, 0).setDepth(8).setScale(.45);
-        this.contenedorfuegofondo = this.add.image(this.nami.x - 850, 830, "contenedorfuegofondo").setOrigin(0, 0).setDepth(6).setScale(.45);
- 
+     
         
         this.suelo = this.physics.add.image(300, 750, 'BlockBlock');
         this.suelo.body.setAllowGravity(false);
@@ -151,6 +146,13 @@ class Level3 extends Phaser.Scene{
         this.lava = this.physics.add.sprite(0, 0, 'lava_idle').setVisible(false);//AQUI SE AGREGA EL SPRITE
         this.portal = this.physics.add.sprite(0, 0, 'portal_idle').setVisible(false).setDepth(-1);//AQUI SE AGREGA EL SPRITE
 
+        
+        //FISICAS nami
+        this.fuego = this.add.sprite(this.nami.x - 750, 895, 'fuego_idle').setOrigin(0.5,0.39).setScale(.6).setDepth(7);//AQUI SE AGREGA EL SPRITEa
+        this.contenedor = this.add.image(this.nami.x - 650, 830, "contenedortxt").setOrigin(0, 0).setDepth(6).setScale(.45);
+        this.contenedorfuego = this.add.image(this.nami.x - 850, 830, "contenedorfuego").setOrigin(0, 0).setDepth(8).setScale(.45);
+        this.contenedorfuegofondo = this.add.image(this.nami.x - 850, 830, "contenedorfuegofondo").setOrigin(0, 0).setDepth(6).setScale(.45);
+    
         this.grupolava = this.physics.add.group({
             key: 'lava_idle',
             repeat: 9,
