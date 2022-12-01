@@ -87,8 +87,8 @@ class Level extends Phaser.Scene{
         // })
         //ENEMIGOS
         
-        this.load.atlas('slime', '/enemigos/limo/slime.png','/enemigos/limo/slime_atlas.json');
-        this.load.animation('limo', '/enemigos/limo/slime_anim.json');
+        // this.load.atlas('slime', '/enemigos/limo/slime.png','/enemigos/limo/slime_atlas.json');
+        // this.load.animation('limo', '/enemigos/limo/slime_anim.json');
         
         //king
         /*
@@ -661,7 +661,7 @@ class Level extends Phaser.Scene{
             }
             });
         this.grupo2.children.iterate( (pocion) => {
-            posion.setScale(0.8);
+            pocion.setScale(0.8);
             pocion.body.setAllowGravity(false);
         } );
         // this.contadorPocion = 1;
