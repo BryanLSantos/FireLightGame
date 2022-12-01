@@ -249,7 +249,7 @@ class Level extends Phaser.Scene{
         this.botonlevel2.setInteractive();
         this.botonlevel2.on('pointerdown', () => {
             console.log("presionaste el boton de nivel 2");
-            escena("Level3", this.scene, this.contadorVida, this.contadorPocion);
+            escena("Level2", this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion});
         } );
         
         this.pared = this.physics.add.image(10000, 100, 'puerta').setScale(6).setImmovable(true);
@@ -348,9 +348,10 @@ class Level extends Phaser.Scene{
                 escena("Battle_Esq",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: this.nami.x});
             }
         });
-
+        
         this.physics.add.collider(this.nami, this.puertas[2], () => {
             if(this.teclas.powX.isDown) {
+                this.scene.stop('Battle_Esq');
                 this.puertas[2].anims.play('puerta');
                 clearInterval(this.textos);
                 escena("Battle_Go",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: this.nami.x});
@@ -368,6 +369,7 @@ class Level extends Phaser.Scene{
 
         this.physics.add.collider(this.nami, this.puertas[4], () => {
             if(this.teclas.powX.isDown) {
+                this.scene.stop('Battle_Esq');
                 this.puertas[4].anims.play('puerta');
                 clearInterval(this.textos);
                 escena("Battle_King",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: this.nami.x});
@@ -390,10 +392,8 @@ class Level extends Phaser.Scene{
             }
         });
 
-        this.physics.add.collider(this.nami, this.pared, () => {
-        //    this.nami.x = 9098;
-        //    this.pared.x = 9100;
-        });
+        // this.physics.add.collider(this.nami, this.pared, () => {
+        // });
 
         this.physics.add.collider(this.nami, this.suelo, () => {});
         this.physics.add.collider(this.nami, this.techo, () => {});
@@ -867,67 +867,6 @@ class Level extends Phaser.Scene{
 
         if (this.teclas.powR.isDown)
         {}
-
-        // if(this.teclas.powX.isDown && this.nami.x >= 300+300 -150&& this.nami.x <= 300 + 50+500-150)
-        // {
-            // setInterval(() => {
-            //     console.log("esta haciendo algo");
-            //     this.puertas[0].anims.play('puerta');
-                
-            // }, 1500);
-            
-        //     this.puertas[0].anims.play('puerta');
-        //     // setTimeout(() => {
-        //         clearInterval(this.textos);
-        //         escena("Room1",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: 650});
-        //         // escena("Room4",this.scene);
-                    
-        //     // }, 1500);       
-        // }
-        // if(this.teclas.powX.isDown && this.nami.x >= 3420+300-150 && this.nami.x <= 3460 + 50+500-150) //this.nami.x >= 1250+300 && this.nami.x <= 1350 + 50+500
-        // { //4ta puerta this.nami.x >= 3420+300 && this.nami.x <= 3460 + 50+500
-        //     this.puertas[1].anims.play('puerta');
-        //     escena("Room2",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: 3700  });
-        // }
-        // if(this.teclas.powX.isDown && this.nami.x >= 5520+300-150 && this.nami.x <= 5760 + 50+500-150) //this.nami.x >= 2120+300 && this.nami.x <= 2360 + 50+500
-        // {   //5ta puerta this.nami.x >= 4520+300 && this.nami.x <= 4560 + 50+500
-        //     this.puertas[2].anims.play('puerta');
-        //     escena("Room3",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: 6100 });
-        // }
-        // if(this.teclas.powX.isDown && this.nami.x >= 6720+300-150 && this.nami.x <= 6860 + 50+500-150)
-        // {//6tapuerta this.nami.x >= 5520+300 && this.nami.x <= 5760 + 50+500
-        //     this.puertas[3].anims.play('puerta');
-        //     escena("Room4",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion,  posicionXNami: 7200});
-        // }
-        // if(this.teclas.powX.isDown && this.nami.x >= 950 -100&& this.nami.x <= 50+950-100 && this.banderacofre1==false)
-        // {
-        //     this.cofre.anims.play('cofreanimado');
-        //     this.banderacofre1 = true;
-        //     if(this.contadorPocion < 4){
-        //         this.grupo2.getChildren()[this.contadorPocion].visible = true;
-        //         this.contadorPocion++;
-        //     }
-        // }
-        // if(this.teclas.powX.isDown && this.nami.x >= 2350-200 && this.nami.x <= 50+2450-200 && this.banderacofre2==false)
-        // {
-        //     this.cofre2.anims.play('cofreanimado');
-        //     this.banderacofre2 = true;
-        //     if(this.contadorPocion < 4){
-        //         this.grupo2.getChildren()[this.contadorPocion].visible = true;
-        //         this.contadorPocion++;
-        //     }
-        // }
-        // if(this.teclas.powX.isDown && this.nami.x >= 3350-100 && this.nami.x <= 50+3450-100 && this.banderacofre3==false)
-        // {
-        //     this.cofre3.anims.play('cofreanimado');
-        //     this.banderacofre3 = true;
-        //     if(this.contadorPocion < 4){
-        //         this.grupo2.getChildren()[this.contadorPocion].visible = true;
-        //         this.contadorPocion++;
-        //     }
-        // }
-
-        //console.log(this.nami.x);
     }
 }
 // function abrirCofre(nami, cofre, banderacofre1, contadorPocion, grupo2) 

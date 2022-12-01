@@ -15,9 +15,9 @@ class Battle_Go extends Phaser.Scene{
         // this.vida_res = 1;
 
         this.vida = 5;
-        this.pociones = 4;
+        this.pociones = 3;
         this.vidaEnemy = 5;
-        this.pocionesEnemy = 3;
+        this.pocionesEnemy = 2;
 
         this.opc = 0;
     }
@@ -69,19 +69,19 @@ class Battle_Go extends Phaser.Scene{
             frameHeight: 180
         });
 
-        this.load.spritesheet('enemy','enemigos/goblin/go_idle.png',
+        this.load.spritesheet('enemy_g','enemigos/goblin/go_idle.png',
         {
             frameWidth: 150,
             frameHeight: 150
         });
 
-        this.load.spritesheet('enemy_at','enemigos/goblin/go_at.png',
+        this.load.spritesheet('enemy_at_g','enemigos/goblin/go_at.png',
         {
             frameWidth: 150,
             frameHeight: 150
         });
 
-        this.load.spritesheet('enemy_dead','enemigos/goblin/go_dead.png',
+        this.load.spritesheet('enemy_dead_g','enemigos/goblin/go_dead.png',
         {
             frameWidth: 150,
             frameHeight: 150
@@ -148,7 +148,7 @@ class Battle_Go extends Phaser.Scene{
         this.nami.body.setOffset(72, 70);
         this.physics.add.collider(this.nami, this.suelo, () => {});
 
-        this.enemy = this.physics.add.sprite(1450, 790, 'enemy').setScale(6);
+        this.enemy = this.physics.add.sprite(1450, 790, 'enemy_g').setScale(6);
         this.enemy.body.setCollideWorldBounds(false);
 
         this.enemy.body.setSize(20, 50, true);
@@ -262,11 +262,11 @@ class Battle_Go extends Phaser.Scene{
 
         this.anims.create({
             // Nombre de la animación
-            key: 'enemy_idle',
+            key: 'enemy_idle_g',
             // Se cargan los frames por números
             // NOTA: generateFrameNames() se
             // usa cuando ya existe un Atlas
-            frames: this.anims.generateFrameNumbers('enemy', {
+            frames: this.anims.generateFrameNumbers('enemy_g', {
                 start: 0,
                 end: 3
             }),
@@ -277,11 +277,11 @@ class Battle_Go extends Phaser.Scene{
 
         this.anims.create({
             // Nombre de la animación
-            key: 'enemy_attack',
+            key: 'enemy_attack_g',
             // Se cargan los frames por números
             // NOTA: generateFrameNames() se
             // usa cuando ya existe un Atlas
-            frames: this.anims.generateFrameNumbers('enemy_at', {
+            frames: this.anims.generateFrameNumbers('enemy_at_g', {
                 start: 0,
                 end: 7
             }),
@@ -292,11 +292,11 @@ class Battle_Go extends Phaser.Scene{
 
         this.anims.create({
             // Nombre de la animación
-            key: 'enemy_dead',
+            key: 'enemy_dead_g',
             // Se cargan los frames por números
             // NOTA: generateFrameNames() se
             // usa cuando ya existe un Atlas
-            frames: this.anims.generateFrameNumbers('enemy_dead', {
+            frames: this.anims.generateFrameNumbers('enemy_dead_g', {
                 start: 0,
                 end: 3
             }),
@@ -320,7 +320,7 @@ class Battle_Go extends Phaser.Scene{
             frameRate: 4
         });
 
-        this.enemy.anims.play('enemy_idle');
+        this.enemy.anims.play('enemy_idle_g');
 
 
         this.grupo = this.physics.add.group({
@@ -448,18 +448,18 @@ class Battle_Go extends Phaser.Scene{
 
             setTimeout(() => {
                 if (this.vidaEnemy < 0) {
-                    this.enemy.anims.play('enemy_dead');
+                    this.enemy.anims.play('enemy_dead_g');
                     show(this, this.txtWin);
                     setTimeout(() => {
                         escena("Level",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
-                    }, 1000);
+                    }, 3000);
                 } else {
                     this.opc = getRandomInt(99) + 1;
                     console.log(this.opc);
                     if (this.opc % 2 == 0) {
-                        this.enemy.anims.play('enemy_attack');
+                        this.enemy.anims.play('enemy_attack_g');
                         setTimeout(() => {
-                            this.enemy.anims.play('enemy_idle');
+                            this.enemy.anims.play('enemy_idle_g');
                             this.nami.anims.play('nami_hit');
                             this.grupo.getChildren()[this.vida].visible = false;
                             this.vida--;
@@ -534,9 +534,9 @@ class Battle_Go extends Phaser.Scene{
                                 }, 1000);
                             }, 2000);
                         } else {
-                            this.enemy.anims.play('enemy_attack');
+                            this.enemy.anims.play('enemy_attack_g');
                             setTimeout(() => {
-                                this.enemy.anims.play('enemy_idle');
+                                this.enemy.anims.play('enemy_idle_g');
                                 this.nami.anims.play('nami_hit');
                                 this.grupo.getChildren()[this.vida].visible = false;
                                 this.vida--;
@@ -624,18 +624,18 @@ class Battle_Go extends Phaser.Scene{
 
             setTimeout(() => {
                 if (this.vidaEnemy < 0) {
-                    this.enemy.anims.play('enemy_dead');
+                    this.enemy.anims.play('enemy_dead_g');
                     show(this, this.txtWin);
                     setTimeout(() => {
                         escena("Level",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
-                    }, 1000);
+                    }, 3000);
                 } else {
                     this.opc = getRandomInt(99) + 1;
                     console.log(this.opc);
                     if (this.opc % 2 == 0) {
-                        this.enemy.anims.play('enemy_attack');
+                        this.enemy.anims.play('enemy_attack_g');
                         setTimeout(() => {
-                            this.enemy.anims.play('enemy_idle');
+                            this.enemy.anims.play('enemy_idle_g');
                             this.nami.anims.play('nami_hit');
                             this.nami.setTint(0xff0000);
                             this.grupo.getChildren()[this.vida].visible = false;
@@ -710,9 +710,9 @@ class Battle_Go extends Phaser.Scene{
                                 }, 1000);
                             }, 2000);
                         } else {
-                            this.enemy.anims.play('enemy_attack');
+                            this.enemy.anims.play('enemy_attack_g');
                             setTimeout(() => {
-                                this.enemy.anims.play('enemy_idle');
+                                this.enemy.anims.play('enemy_idle_g');
                                 this.nami.anims.play('nami_hit');
                                 this.nami.setTint(0xff0000);
                                 this.grupo.getChildren()[this.vida].visible = false;
@@ -800,18 +800,18 @@ class Battle_Go extends Phaser.Scene{
 
                 setTimeout(() => {
                     if (this.vidaEnemy < 0) {
-                        this.enemy.anims.play('enemy_dead');
+                        this.enemy.anims.play('enemy_dead_g');
                         show(this, this.txtWin);
                     setTimeout(() => {
                         escena("Level",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
-                    }, 1000);
+                    }, 3000);
                     } else {
                         this.opc = getRandomInt(99) + 1;
                         console.log(this.opc);
                         if (this.opc % 2 == 0) {
-                            this.enemy.anims.play('enemy_attack');
+                            this.enemy.anims.play('enemy_attack_g');
                             setTimeout(() => {
-                                this.enemy.anims.play('enemy_idle');
+                                this.enemy.anims.play('enemy_idle_g');
                                 this.nami.anims.play('nami_hit');
                                 this.nami.setTint(0xff0000);
                                 this.grupo.getChildren()[this.vida].visible = false;
@@ -886,9 +886,9 @@ class Battle_Go extends Phaser.Scene{
                                     }, 1000);
                                 }, 2000);
                             } else {
-                                this.enemy.anims.play('enemy_attack');
+                                this.enemy.anims.play('enemy_attack_g');
                                 setTimeout(() => {
-                                    this.enemy.anims.play('enemy_idle');
+                                    this.enemy.anims.play('enemy_idle_g');
                                     this.nami.anims.play('nami_hit');
                                     this.nami.setTint(0xff0000);
                                     this.grupo.getChildren()[this.vida].visible = false;
@@ -943,18 +943,18 @@ class Battle_Go extends Phaser.Scene{
 
                 setTimeout(() => {
                     if (this.vidaEnemy < 0) {
-                        this.enemy.anims.play('enemy_dead');
+                        this.enemy.anims.play('enemy_dead_g');
                         show(this, this.txtWin);
                     setTimeout(() => {
                         escena("Level",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
-                    }, 1000);
+                    }, 3000);
                     } else {
                         this.opc = getRandomInt(99) + 1;
                         console.log(this.opc);
                         if (this.opc % 2 == 0) {
-                            this.enemy.anims.play('enemy_attack');
+                            this.enemy.anims.play('enemy_attack_g');
                             setTimeout(() => {
-                                this.enemy.anims.play('enemy_idle');
+                                this.enemy.anims.play('enemy_idle_g');
                                 this.nami.anims.play('nami_hit');
                                 this.nami.setTint(0xff0000);
                                 this.grupo.getChildren()[this.vida].visible = false;
@@ -1029,9 +1029,9 @@ class Battle_Go extends Phaser.Scene{
                                     }, 1000);
                                 }, 2000);
                             } else {
-                                this.enemy.anims.play('enemy_attack');
+                                this.enemy.anims.play('enemy_attack_g');
                                 setTimeout(() => {
-                                    this.enemy.anims.play('enemy_idle');
+                                    this.enemy.anims.play('enemy_idle_g');
                                     this.nami.anims.play('nami_hit');
                                     this.nami.setTint(0xff0000);
                                     this.grupo.getChildren()[this.vida].visible = false;
@@ -1099,18 +1099,18 @@ class Battle_Go extends Phaser.Scene{
 
             setTimeout(() => {
                 if (this.vidaEnemy < 0) {
-                    this.enemy.anims.play('enemy_dead');
+                    this.enemy.anims.play('enemy_dead_g');
                     show(this, this.txtWin);
                     setTimeout(() => {
                         escena("Level",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
-                    }, 1000);
+                    }, 3000);
                 } else {
                     this.opc = getRandomInt(99) + 1;
                     console.log(this.opc);
                     if (this.opc % 2 == 0) {
-                        this.enemy.anims.play('enemy_attack');
+                        this.enemy.anims.play('enemy_attack_g');
                         setTimeout(() => {
-                            this.enemy.anims.play('enemy_idle');
+                            this.enemy.anims.play('enemy_idle_g');
                             // this.nami.setTint(0xff0000);
                             setTimeout(() => {
                                 this.shield.setVisible(false);
@@ -1176,9 +1176,9 @@ class Battle_Go extends Phaser.Scene{
                                 }, 1000);
                             }, 2000);
                         } else {
-                            this.enemy.anims.play('enemy_attack');
+                            this.enemy.anims.play('enemy_attack_g');
                             setTimeout(() => {
-                                this.enemy.anims.play('enemy_idle');
+                                this.enemy.anims.play('enemy_idle_g');
                                 // this.nami.setTint(0xff0000);
                                 setTimeout(() => {
                                     this.shield.setVisible(false);
