@@ -27,6 +27,9 @@ class Level3 extends Phaser.Scene{
         this.load.image('antorchab1', 'scenalevel/antorchab1.png');
         this.load.image('cofreestatico', 'scenalevel/cofreestatico.png');
         this.load.image('cuadro', 'scenalevel/cuadro.png');
+        this.load.image('contenedortxt', 'scenalevel/contenedor.png');
+        this.load.image('contenedorfuego', 'scenalevel/marco.png');
+        this.load.image('contenedorfuegofondo', 'scenalevel/marcofondo.png');
         this.load.image('cuadrodragon', 'scenalevel/cuadrodragon.png');
         this.load.image('puertaclosed', 'scenalevel/puertaclosed.png');
 
@@ -78,6 +81,12 @@ class Level3 extends Phaser.Scene{
         {
             frameWidth: 180,
             frameHeight: 180,
+        })
+
+        this.load.spritesheet('fuego_idle','scenalevel/fireball.png',
+        {
+            frameWidth: 288,
+            frameHeight: 288,
         })
 
         this.load.atlas('hearts','hearts/hearts.png','hearts/hearts_atlas.json');
@@ -140,6 +149,33 @@ class Level3 extends Phaser.Scene{
         this.techo.setVisible(false);
         this.suelo.setVisible(false);
 
+        this.texto = [];
+        this.index = 0;
+        this.texto[0] = "La esperanza es lo que nos hace más fuertes.\nEs la razón por la que estamos aquí."; 
+        this.texto[1] = "Es con lo que luchamos cuando todo lo\ndemás se ha perdido";
+        this.texto[2] = "Salta y posicionate frente a las \nportales y oprime [X], \ntu destino te ha alcanzado";
+        this.texto[3] = "Y es momento de afrontarlo... ";
+        this.texto[4] = "No se trata de cambiar el mundo. Se trata\n de hacer nuestro mejor esfuerzo \nantes de partir de éste mundo…";
+        this.texto[5] = "tal y como es. Se trata de respetar la\n voluntad de los demás, y creer\n en la tuya...";
+        
+        this.parrafo = this.add.text(300, 880, "", {fontFamily: 'IM Fell English SC', fontSize: '30px', color: 'white'}).setDepth(10);
+        
+        this.parrafo.alpha = 0.0; 
+
+        this.textos = setInterval(() => {
+            if(this.index < this.texto.length){
+                this.parrafo.setText(this.texto[this.index]); 
+                this.index++;
+                show(this,this.parrafo);
+                setTimeout(() => {
+                    hide(this,this.parrafo);
+                }, 6000);
+            }
+            else{
+                this.index = 0;
+            }
+            
+         }, 12000); 
         
         //FISICAS nami
         this.nami = this.physics.add.sprite(230, 120, 'nami').setOrigin(0.5,0.39).setScale(5).setDepth(4);//AQUI SE AGREGA EL SPRITE
@@ -182,6 +218,8 @@ class Level3 extends Phaser.Scene{
                 stepX: 2530
             }  
         });
+
+
 
         //this.physics.add.existing(this.nami, true); //FORMA2 true
         this.nami.body.setCollideWorldBounds(false);
@@ -244,6 +282,25 @@ class Level3 extends Phaser.Scene{
         });
 
         this.nami.anims.play('nami_idle');
+
+        this.nami.anims.play('nami_idle');
+
+        this.anims.create({
+            // Nombre de la animación
+            key: 'fuego_idle',
+            // Se cargan los frames por números
+            // NOTA: generateFrameNames() se
+            // usa cuando ya existe un Atlas
+            frames: this.anims.generateFrameNumbers('fuego_idle', {
+                start: 0,
+                end: 11
+            }),
+            
+            repeat: -1,
+            frameRate: 12
+        });
+
+        this.fuego.anims.play('fuego_idle');
 
         this.anims.create({
             // Nombre de la animación
@@ -715,6 +772,11 @@ class Level3 extends Phaser.Scene{
             this.nami.body.setOffset(85,60);
             if(!this.teclas.izq.isDown){
                 this.nami.x += 6;
+                this.fuego.x = this.nami.x - 750;
+                this.contenedorfuego.x = this.nami.x - 850; 
+                this.contenedorfuegofondo.x = this.nami.x - 850;
+                this.contenedor.x = this.nami.x - 650; 
+                this.parrafo.x = this.nami.x - 620; 
                 this.grupo.children.iterate( (corazon) => {
                     corazon.x = (-800 + this.nami.x ) + (y*100);
                     y++;
@@ -782,6 +844,11 @@ class Level3 extends Phaser.Scene{
         {
             if(!this.teclas.der.isDown){
                 this.nami.x -= 6;
+                this.fuego.x = this.nami.x - 750;
+                this.contenedorfuego.x = this.nami.x - 850;
+                this.contenedorfuegofondo.x = this.nami.x - 850;
+                this.contenedor.x = this.nami.x - 650;
+                this.parrafo.x = this.nami.x - 620; 
                 this.grupo.children.iterate( (corazon) => {
                     corazon.x = (-800 + this.nami.x) + (y*100);
                     y++;
@@ -862,5 +929,19 @@ class Level3 extends Phaser.Scene{
 }
 function escena(params, params2, data) {
     params2.start(params, data);
+}
+function show(params, text) {
+    params.tweens = params.add.tween({
+        targets: [text],
+        alpha: 1,
+        duration: 1500
+    });
+}
+function hide(params, text) {
+    params.tweens = params.add.tween({
+        targets: [text],
+        alpha: 0,
+        duration: 1500
+    });
 }
 export default Level3;
