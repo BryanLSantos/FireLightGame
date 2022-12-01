@@ -493,7 +493,7 @@ class Level3 extends Phaser.Scene{
                     }, 1000);
                     
                     setTimeout(() => {
-                        escena("Level3",this.scene);
+                        escena("Gameover", this.scene, {reinicio: "true", nivel: "Level3"});
                     }, 4000);
 
                 }
@@ -554,7 +554,7 @@ class Level3 extends Phaser.Scene{
                     }, 1000);
                     
                     setTimeout(() => {
-                        escena("Level3",this.scene);
+                        escena("Gameover", this.scene, {reinicio: "true", nivel: "Level3"});
                     }, 4000);
 
                 }
@@ -791,8 +791,7 @@ class Level3 extends Phaser.Scene{
         }
     }
 }
-function escena(params, params2) {
-    params2.start(params,{
-    });
+function escena(params, params2, data) {
+    params2.start(params, data);
 }
 export default Level3;

@@ -673,7 +673,7 @@ class Level extends Phaser.Scene{
                     }, 1000);
                     
                     setTimeout(() => {
-                        escena("Level",this.scene);
+                        escena("Gameover", this.scene, {reinicio: "true", nivel: "Level"});
                     }, 4000);
 
                 }

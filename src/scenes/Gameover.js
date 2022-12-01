@@ -3,7 +3,7 @@ class Gameover extends Phaser.Scene {
         super({ key: 'Gameover' });
     }
 
-    init() {
+    init(dato) {
         
         this.width = this.sys.game.canvas.width;
         this.height = this.sys.game.canvas.height;
