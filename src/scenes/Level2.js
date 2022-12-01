@@ -114,30 +114,7 @@ class Level2 extends Phaser.Scene {
 
 
         //*------------------personajes--------------*
-        // this.witch = this.add.sprite(779, 289, 'witch_idle').setScale(2);
-        // this.physics.add.existing(this.witch, false);
-        // this.witch.body.setSize(40, 60);
 
-
-
-        //Grupo de corazones ABAJO
-        // this.grupoC = this.physics.add.group({
-        //     key: 'hearts',
-        //     repeat: 2,
-        //     setXY: {
-        //         x: 1000,
-        //         y: 700,
-        //         stepX: 800
-        //     }
-        // });
-
-
-
-        // this.nami = new Nami({
-        //     scene: this,
-        //     x: 1713,
-        //     y: 40,
-        // });
         this.nami = this.physics.add.sprite(1713, 20, 'nami').setOrigin(0.5,0.39).setScale(2.2);//AQUI SE AGREGA EL SPRITE
         this.nami.setDepth(1);
          //Animaciones del personaje nami
@@ -283,10 +260,7 @@ class Level2 extends Phaser.Scene {
 
 
         ///agregar colaiders 
-        //     this.physics.add.collider(this.nami, this.layer2);
         this.physics.add.collider(this.nami, this.layer2);
-        // this.physics.add.collider(this.nami, this.witch);
-        // this.physics.add.collider(this.layer2, this.witch);
         this.physics.add.collider(this.mover, this.nami, () => {
             this.nami.body.setVelocity(0);
             this.nami.body.setVelocityY(0);
@@ -652,12 +626,8 @@ class Level2 extends Phaser.Scene {
         
         if (this.teclas.izq.isDown)
         {
-            // this.nami.body.setOffset(60, 70);
             this.nami.body.setSize(23, 50, true);
             this.nami.body.setOffset(70,60);
-            
-            //evitar movimiento al teclear d
-            //evitar movimiento al teclear d
             
         }
         ///////////////////////
@@ -665,11 +635,7 @@ class Level2 extends Phaser.Scene {
         {
             this.nami.body.setSize(23, 50, true); 
             this.nami.body.setOffset(85,60);
-            // this.grupoC.children.iterate( (corazon) => {
-            //     corazon.x -= 2;
-            // });
             if(!this.teclas.izq.isDown){
-                // this.nami.x += 6;
                 this.grupo.children.iterate( (corazon) => {
                     corazon.x = (-800 + this.nami.x ) + (y*50);
                     y++;
@@ -685,7 +651,6 @@ class Level2 extends Phaser.Scene {
         if (this.teclas.izq.isDown)
         {
             if(!this.teclas.der.isDown){
-                // this.nami.x -= 6; 
                 this.grupo.children.iterate( (corazon) => {
                     corazon.x = (-800 + this.nami.x ) + (y*50);
                     y++;
@@ -694,55 +659,8 @@ class Level2 extends Phaser.Scene {
                     pocion.x = (800 + this.nami.x) - (x*50);
                     x++;
                 } );
-                // this.grupoC.children.iterate( (corazon) => {
-                //     corazon.x += 2;
-                // });
             }
         }
-
-        // if (this.teclas.der.isDown) {
-        //     // this.nami.body.setOffset(72, 70);
-
-        //     // this.nami.body.setOffset(85, 60);
-
-        //     this.grupo.children.iterate((corazon) => {
-        //         corazon.x = (-800 + this.nami.x) + (y * 100);
-        //         corazon.y = this.nami.y - 300;
-        //         y++;
-        //     });
-        //     this.grupo2.children.iterate((pocion) => {
-        //             pocion.x = (100 + this.nami.x) - (x * 100);
-        //             pocion.y = this.nami.y - 300;
-        //             x++;
-        //         })
-        //         // this.grupo2.children.iterate((pocion) => {
-        //         //     pocion.x = (800 + this.nami.x) - (x * 100);
-        //         //     x++;
-        //         // });
-
-
-        // }
-
-        // if (this.teclas.izq.isDown) {
-
-        //     // this.nami.body.setOffset(60, 70);
-        //     this.nami.body.setSize(23, 50, true);
-        //     // this.nami.body.setOffset(70, 60);
-        //     // if (this.nami.x <= 100) {
-        //     //     this.nami.x = 100;
-        //     // }
-        //     this.grupo.children.iterate((corazon) => {
-        //         corazon.x = (-800 + this.nami.x) + (y * 100);
-        //         corazon.y = this.nami.y - 300;
-        //         y++;
-        //     });
-        //     this.grupo2.children.iterate((pocion) => {
-        //         pocion.x = (100 + this.nami.x) - (x * 100);
-        //         pocion.y = this.nami.y - 300;
-        //         x++;
-        //     })
-
-        // }
     }
 
     //update de objetos 
