@@ -186,15 +186,17 @@ class Start extends Phaser.Scene {
                 this.width / 2,
                 this.height / 2,
                 "Pergamino",
-            ).setDepth(6).setScale(1.8).setInteractive();
+            ).setDepth(6).setScale(1.9).setInteractive();
 
             // this.text = this.add.text()
+            this.txtTurn1 = this.add.text(this.width/2 - 125, 220, "PREÁMBULO", {fontFamily: 'IM Fell English SC', fontSize: '45px', color: 'brown'}).setDepth(6);
+            this.txtTurn1.alpha = 0.0;
 
-            this.txtTurn = this.add.text(this.width/2 - 150, 400, "En una tierra conectada al gran arbol, <br> existen los alquimistas, maestros de la magia y las hechicerias. La tierra light un lugar que se deja llevar por la magia y el conocimiento, un lugar que aunque parece pacifico oculta secretos y leyendas... En el viejo castillo de light hogar de muchos aprendies, y pocos de los que pueden ser llamados astrologos, pronto conoceras a una que podria necesitar tu ayuda.", {fontFamily: 'IM Fell English SC', fontSize: '25px', color: 'black'}).setDepth(6);
+            this.txtTurn = this.add.text(this.width/2 - 140, 347, " En una tierra conectada al gran \n   arbol,existen los alquimistas,\n      maestros de la magia y las\n hechicerias. La tierra light \nun lugar que se deja llevar por\n la magia y el conocimiento,un \nlugar que aunque parece pacifico \n   oculta secretos y leyendas... \nEn el viejo castillo de light \n   hogar de muchos aprendices,\n y pocos de los que pueden ser \nllamados astrologos, pronto\n   conoceras a una que podria \n           necesitar tu ayuda.", {fontFamily: 'IM Fell English SC', fontSize: '25px', color: 'brown'}).setDepth(6);
             this.txtTurn.alpha = 0.0;
 
             this.tweens = this.add.tween({
-            targets: [this.txtTurn],
+            targets: [this.txtTurn, this.txtTurn1],
             alpha: 1,
             duration: 1500
             });
@@ -202,6 +204,7 @@ class Start extends Phaser.Scene {
             this.story.on('pointerdown',()=>{
                 this.story.visible=false;
                 this.txtTurn.visible=false;
+                this.txtTurn1.visible=false;
             });
         });
 
@@ -212,8 +215,18 @@ class Start extends Phaser.Scene {
             this.eggs = this.add.image(
                 this.width / 2,
                 this.height / 2,
-                "Eggs",
-            ).setDepth(6).setScale(2).setInteractive();
+                "Pergamino",
+            ).setDepth(6).setScale(1.9).setInteractive();
+
+            // this.txtTurn2 = this.add.text(this.width/2 - 220, 220, "HUEVOS DE DRAGON", {fontFamily: 'IM Fell English SC', fontSize: '45px', color: 'brown'}).setDepth(6);
+            this.txtTurn2 = this.add.text(this.width/2 - 190, 220, "HUEVOS DE DRAGON", {fontFamily: 'IM Fell English SC', fontSize: '40px', color: 'brown'}).setDepth(6);
+            this.txtTurn2.alpha = 0.0;
+
+            this.tweens2 = this.add.tween({
+                targets: [this.txtTurn2],
+                alpha: 1,
+                duration: 1500
+                });
 
             for (let index = 0; index < (3); index++){
                 this.eggy[index] = this.add.image(843 + (index*100), 400, index).setOrigin(0,0).setScale(5).setDepth(7).setInteractive();
@@ -279,6 +292,7 @@ class Start extends Phaser.Scene {
         this.eggs.on('pointerdown',()=>{
 
                 this.eggs.visible=false;
+                this.txtTurn2.visible=false;
 
             for (let index = 0; index < (3); index++){
                 this.eggy[index].visible=false;

@@ -45,6 +45,18 @@ class Level2 extends Phaser.Scene {
             frameHeight: 180,
         });
 
+        this.load.atlas('cofreanimado', 'cofre/cofreanimado/cofreanimado.png', 'cofre/cofreanimado/cofreanimado_atlas.json');
+        this.load.animation('cofreAnim', 'cofre/cofreanimado_anim/cofreanimado_anim.json');
+
+        this.load.atlas('pinchos', 'pinchos/pinchos.png', 'pinchos/pinchos_atlas.json');
+        this.load.animation('pinchosAnim', 'pinchos/pinchos_anim.json');
+
+        this.load.atlas('hearts', 'hearts/hearts.png', 'hearts/hearts_atlas.json');
+        this.load.animation('heartsAnim', 'hearts/hearts_anim.json');
+
+        this.load.atlas('potions', 'potions/potions.png', 'potions/potions_atlas.json');
+        this.load.animation('potionsAnim', 'potions/potions_anim.json');
+
     }
     create() {
 
@@ -71,9 +83,29 @@ class Level2 extends Phaser.Scene {
 
 
 
+        //*------------------personajes--------------*
+        this.witch = this.add.sprite(779, 289, 'witch_idle').setScale(2);
+        this.physics.add.existing(this.witch, false);
+        this.witch.body.setSize(40, 60);
+
+
+
+        //Grupo de corazones ABAJO
+        // this.grupoC = this.physics.add.group({
+        //     key: 'hearts',
+        //     repeat: 2,
+        //     setXY: {
+        //         x: 1000,
+        //         y: 700,
+        //         stepX: 800
+        //     }
+        // });
+
+
+
         this.nami = new Nami({
             scene: this,
-            x: 1813,
+            x: 1713,
             y: 40,
         });
 
@@ -125,9 +157,9 @@ class Level2 extends Phaser.Scene {
 
         ///agregar colaiders 
         //     this.physics.add.collider(this.nami, this.layer2);
-
-        this.physics.add.collider([this.witch, this.nami], this.layer2);
+        this.physics.add.collider(this.nami, this.layer2);
         this.physics.add.collider(this.nami, this.witch);
+        this.physics.add.collider(this.layer2, this.witch);
         this.physics.add.collider(this.mover, this.nami, () => {
             this.nami.body.setVelocity(0);
             this.nami.body.setVelocityY(0);
@@ -136,6 +168,35 @@ class Level2 extends Phaser.Scene {
 
 
 
+        this.grupoF = this.physics.add.group({
+            repeat: 3,
+            immovable: true,
+            allowGravity: false,
+        });
+        this.cofre = [];
+        this.cofreani = [];
+        //Creacion de cofre de prueba
+        for (let index = 0; index < 4; index++) {
+            if (index == 1) {
+                this.cofre = this.add.sprite(94.2000, 792, 'cofreestatico').setScale(0.4);
+                this.cofreani[index] = this.add.sprite(94.2000, 792, 'cofreanimado', 0).setScale(0.4).setVisible(false);
+                this.grupoF.add(this.cofre);
+            }
+            if (index == 2) {
+                this.cofre = this.add.sprite(224.31, 1365., 'cofreestatico').setScale(0.4);
+                this.cofreani[index] = this.add.sprite(224.31, 1365.7, 'cofreanimado', 0).setScale(0.4).setVisible(false);
+                this.grupoF.add(this.cofre);
+            }
+            if (index == 3) {
+                this.cofre = this.add.sprite(1827.0416666666667, 1878, 'cofreestatico').setScale(0.4);
+                this.cofreani[index] = this.add.sprite(1827.0416666666667, 1878, 'cofreanimado', 0).setScale(0.4).setVisible(false);
+                this.grupoF.add(this.cofre);
+            }
+        }
+        this.physics.add.collider(this.grupoF, this.layer2);
+        this.physics.add.collider(this.nami, this.grupoF, () => {
+            console.log('has tocado el cofre');
+        });
         //Twind
         this.tweens = this.add.tween({
             targets: [this.mover],
@@ -163,7 +224,7 @@ class Level2 extends Phaser.Scene {
             this.nami.flipX = true;
             this.nami.anims.play('nami_run');
             this.nami.body.setAcceleration(30);
-            this.nami.body.setVelocityX(-400);
+            this.nami.body.setVelocityX(-220);
         });
         this.teclas.izq.on('up', () => {
             //this.nami.anims.stop();
@@ -177,22 +238,23 @@ class Level2 extends Phaser.Scene {
             this.nami.flipX = false;
             this.nami.anims.play('nami_run');
             this.nami.body.setAcceleration(30);
-            this.nami.body.setVelocityX(400);
+            this.nami.body.setVelocityX(220);
         });
         this.teclas.der.on('up', () => {
-            //this.nami.anims.stop();
-            this.nami.anims.play('nami_idle');
+            this.nami.anims.stop();
             this.nami.body.setAcceleration(0);
             this.nami.body.stop();
             this.nami.body.setVelocity(0);
+            this.nami.anims.play('nami_idle');
+
         });
 
         this.teclas.powQ.on('down', () => {
             this.nami.play('nami_attack');
         });
         this.teclas.powQ.on('up', () => {
-            //this.nami.anims.stop();
-            //this.nami.play('nami_idle');
+            this.nami.anims.stop();
+            this.nami.play('nami_idle');
         });
 
         this.teclas.powR.on('down', () => {
@@ -205,9 +267,10 @@ class Level2 extends Phaser.Scene {
 
         this.teclas.kspc.on('down', () => {
             this.nami.play('nami_jump');
-            this.nami.body.setVelocityY(-800);
+            this.nami.body.setVelocityY(-500);
+            this.nami.body.setVelocityX(0);
             this.nami.body.setSize(23, 50, true); //this.nami.body.setSize(48, 45, true);
-            this.nami.body.setOffset(85, 60); //this.nami.body.setOffset(72, 70);
+
         });
         this.teclas.kspc.on('up', () => {
             //this.nami.anims.stop();
@@ -218,8 +281,8 @@ class Level2 extends Phaser.Scene {
                 this.teclas.kspc.enabled = true;
                 // this.nami.body.setSize(48, 45, true); //this.nami.body.setSize(48, 45, true);
                 // this.nami.body.setOffset(72,70); //this.nami.body.setOffset(72, 70);
-            }, 300);
-            this.nami.body.setVelocityY(600);
+            }, 400);
+
             this.nami.body.stop();
 
 
@@ -237,11 +300,9 @@ class Level2 extends Phaser.Scene {
 
         if (this.teclas.der.isDown) {
             // this.nami.body.setOffset(72, 70);
-            this.nami.body.setSize(23, 50, true);
-            this.nami.body.setOffset(85, 60);
 
+            // this.nami.body.setOffset(85, 60);
 
-            this.nami.x += 6;
             this.grupo.children.iterate((corazon) => {
                 corazon.x = (-800 + this.nami.x) + (y * 100);
                 corazon.y = this.nami.y - 300;
@@ -261,10 +322,10 @@ class Level2 extends Phaser.Scene {
         }
 
         if (this.teclas.izq.isDown) {
+
             // this.nami.body.setOffset(60, 70);
-            this.nami.x -= 6;
             this.nami.body.setSize(23, 50, true);
-            this.nami.body.setOffset(70, 60);
+            // this.nami.body.setOffset(70, 60);
             // if (this.nami.x <= 100) {
             //     this.nami.x = 100;
             // }

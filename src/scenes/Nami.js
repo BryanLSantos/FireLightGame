@@ -6,13 +6,10 @@ class Nami extends Phaser.GameObjects.Sprite {
         this.scene.add.existing(this);
         this.scene.physics.world.enable(this);
 
-        this.setScale(1.6);
+        this.setScale(2);
         this.body.setSize(23, 50, true);
         this.body.setOffset(85, 60);
         this.jumping = false;
-
-
-
 
     }
     create() {
