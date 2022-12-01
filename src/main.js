@@ -47,7 +47,6 @@ const config = {
     scene: [
         Start,
         Map,
-        Level3,
         Level,
         Room1,
         Battle_Esq,
@@ -61,6 +60,7 @@ const config = {
         Battle_Rino,
         Battle_Tauro,
         
+        Level3,
         Battle_Mago,
         Battle_Boss,
         Gameover,

@@ -695,6 +695,30 @@ class Level3 extends Phaser.Scene{
             portal.anims.play("portal_idle");
         } );
 
+        this.physics.add.collider(this.nami, this.grupoportal.getChildren()[0], () => {
+            if(this.teclas.powX.isDown) {
+                // this.puertas[0].anims.play('puerta');
+                clearInterval(this.textos);
+                escena("Battle_Rino",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: this.nami.x});
+            }
+        });
+
+        this.physics.add.collider(this.nami, this.grupoportal.getChildren()[1], () => {
+            if(this.teclas.powX.isDown) {
+                // this.grupoportal.getChildren()[1].anims.play('puerta');
+                clearInterval(this.textos);
+                escena("Battle_Mago",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: this.nami.x});
+            }
+        });
+
+        this.physics.add.collider(this.nami, this.grupoportal.getChildren()[2], () => {
+            if(this.teclas.powX.isDown) {
+                // this.puertas[2].anims.play('puerta');
+                clearInterval(this.textos);
+                escena("Battle_Boss",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: this.nami.x});
+            }
+        });
+
         function restarVida() {
             this.grupo.getChildren()[this.contadorVida].visible = false;
             this.contadorVida--;

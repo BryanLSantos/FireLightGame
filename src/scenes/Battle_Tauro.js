@@ -4,17 +4,18 @@ class Battle_Tauro extends Phaser.Scene{
         super({ key: 'Battle_Tauro' });
     }
 
-    init(){
+    init(datos){
         console.log('Escena Battle');
         this.width = this.sys.game.canvas.width;
         this.height = this.sys.game.canvas.height;
 
-        this.vida_res = 6;
-        this.pocion_res = 5;
+        this.vida_res = datos.vidas;
+        this.pocion_res = datos.posiones;
+        this.namiX = datos.posicionXNami;
         this.vida = 5;
-        this.pociones = 4;
+        this.pociones = 3;
         this.vidaEnemy = 5;
-        this.pocionesEnemy = 3;
+        this.pocionesEnemy = 2;
 
         this.opc = 0;
     }
@@ -22,7 +23,7 @@ class Battle_Tauro extends Phaser.Scene{
     preload(){
         this.load.path = './assets/';
 
-        this.load.image('t3', 'Battle/Temple3.png');
+        this.load.image('t3', 'Battle/Hell1.png');
         this.load.image('Button', 'Battle/Button.png');
 
         this.load.spritesheet('nami','Nami/idlegOOD.png',
@@ -66,19 +67,19 @@ class Battle_Tauro extends Phaser.Scene{
             frameHeight: 180
         });
 
-        this.load.spritesheet('enemy','enemigos/tauro/tauro_idle.png',
+        this.load.spritesheet('enemy_t','enemigos/tauro/tauro_idle.png',
         {
             frameWidth: 690,
             frameHeight: 690
         });
 
-        this.load.spritesheet('enemy_at','enemigos/tauro/tauro_at.png',
+        this.load.spritesheet('enemy_at_t','enemigos/tauro/tauro_at.png',
         {
             frameWidth: 690,
             frameHeight: 690
         });
 
-        this.load.spritesheet('enemy_dead','enemigos/tauro/tauro_dead.png',
+        this.load.spritesheet('enemy_dead_t','enemigos/tauro/tauro_dead.png',
         {
             frameWidth: 690,
             frameHeight: 690
@@ -145,7 +146,7 @@ class Battle_Tauro extends Phaser.Scene{
         this.nami.body.setOffset(72, 70);
         this.physics.add.collider(this.nami, this.suelo, () => {});
 
-        this.enemy = this.physics.add.sprite(1450, 600, 'enemy').setScale(1.5);
+        this.enemy = this.physics.add.sprite(1450, 600, 'enemy_t').setScale(1.5);
         this.enemy.body.setCollideWorldBounds(false);
 
         this.enemy.body.setSize(100, 200, true);
@@ -259,11 +260,11 @@ class Battle_Tauro extends Phaser.Scene{
 
         this.anims.create({
             // Nombre de la animación
-            key: 'enemy_idle',
+            key: 'enemy_idle_t',
             // Se cargan los frames por números
             // NOTA: generateFrameNames() se
             // usa cuando ya existe un Atlas
-            frames: this.anims.generateFrameNumbers('enemy', {
+            frames: this.anims.generateFrameNumbers('enemy_t', {
                 start: 0,
                 end: 13
             }),
@@ -274,11 +275,11 @@ class Battle_Tauro extends Phaser.Scene{
 
         this.anims.create({
             // Nombre de la animación
-            key: 'enemy_attack',
+            key: 'enemy_attack_t',
             // Se cargan los frames por números
             // NOTA: generateFrameNames() se
             // usa cuando ya existe un Atlas
-            frames: this.anims.generateFrameNumbers('enemy_at', {
+            frames: this.anims.generateFrameNumbers('enemy_at_t', {
                 start: 0,
                 end: 17
             }),
@@ -289,11 +290,11 @@ class Battle_Tauro extends Phaser.Scene{
 
         this.anims.create({
             // Nombre de la animación
-            key: 'enemy_dead',
+            key: 'enemy_dead_t',
             // Se cargan los frames por números
             // NOTA: generateFrameNames() se
             // usa cuando ya existe un Atlas
-            frames: this.anims.generateFrameNumbers('enemy_dead', {
+            frames: this.anims.generateFrameNumbers('enemy_dead_t', {
                 start: 0,
                 end: 11
             }),
@@ -317,7 +318,7 @@ class Battle_Tauro extends Phaser.Scene{
             frameRate: 4
         });
 
-        this.enemy.anims.play('enemy_idle');
+        this.enemy.anims.play('enemy_idle_t');
 
 
         this.grupo = this.physics.add.group({
@@ -445,18 +446,18 @@ class Battle_Tauro extends Phaser.Scene{
 
             setTimeout(() => {
                 if (this.vidaEnemy < 0) {
-                    this.enemy.anims.play('enemy_dead');
+                    this.enemy.anims.play('enemy_dead_t');
                     show(this, this.txtWin);
                     setTimeout(() => {
                         escena("Level2",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
-                    }, 1000);
+                    }, 3000);
                 } else {
                     this.opc = getRandomInt(99) + 1;
                     console.log(this.opc);
                     if (this.opc % 2 == 0) {
-                        this.enemy.anims.play('enemy_attack');
+                        this.enemy.anims.play('enemy_attack_t');
                         setTimeout(() => {
-                            this.enemy.anims.play('enemy_idle');
+                            this.enemy.anims.play('enemy_idle_t');
                             this.nami.anims.play('nami_hit');
                             this.grupo.getChildren()[this.vida].visible = false;
                             this.vida--;
@@ -531,9 +532,9 @@ class Battle_Tauro extends Phaser.Scene{
                                 }, 1000);
                             }, 2000);
                         } else {
-                            this.enemy.anims.play('enemy_attack');
+                            this.enemy.anims.play('enemy_attack_t');
                             setTimeout(() => {
-                                this.enemy.anims.play('enemy_idle');
+                                this.enemy.anims.play('enemy_idle_t');
                                 this.nami.anims.play('nami_hit');
                                 this.grupo.getChildren()[this.vida].visible = false;
                                 this.vida--;
@@ -621,18 +622,18 @@ class Battle_Tauro extends Phaser.Scene{
 
             setTimeout(() => {
                 if (this.vidaEnemy < 0) {
-                    this.enemy.anims.play('enemy_dead');
+                    this.enemy.anims.play('enemy_dead_t');
                     show(this, this.txtWin);
                     setTimeout(() => {
                         escena("Level2",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
-                    }, 1000);
+                    }, 3000);
                 } else {
                     this.opc = getRandomInt(99) + 1;
                     console.log(this.opc);
                     if (this.opc % 2 == 0) {
-                        this.enemy.anims.play('enemy_attack');
+                        this.enemy.anims.play('enemy_attack_t');
                         setTimeout(() => {
-                            this.enemy.anims.play('enemy_idle');
+                            this.enemy.anims.play('enemy_idle_t');
                             this.nami.anims.play('nami_hit');
                             this.nami.setTint(0xff0000);
                             this.grupo.getChildren()[this.vida].visible = false;
@@ -707,9 +708,9 @@ class Battle_Tauro extends Phaser.Scene{
                                 }, 1000);
                             }, 2000);
                         } else {
-                            this.enemy.anims.play('enemy_attack');
+                            this.enemy.anims.play('enemy_attack_t');
                             setTimeout(() => {
-                                this.enemy.anims.play('enemy_idle');
+                                this.enemy.anims.play('enemy_idle_t');
                                 this.nami.anims.play('nami_hit');
                                 this.nami.setTint(0xff0000);
                                 this.grupo.getChildren()[this.vida].visible = false;
@@ -797,18 +798,18 @@ class Battle_Tauro extends Phaser.Scene{
 
                 setTimeout(() => {
                     if (this.vidaEnemy < 0) {
-                        this.enemy.anims.play('enemy_dead');
+                        this.enemy.anims.play('enemy_dead_t');
                         show(this, this.txtWin);
                     setTimeout(() => {
                         escena("Level2",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
-                    }, 1000);
+                    }, 3000);
                     } else {
                         this.opc = getRandomInt(99) + 1;
                         console.log(this.opc);
                         if (this.opc % 2 == 0) {
-                            this.enemy.anims.play('enemy_attack');
+                            this.enemy.anims.play('enemy_attack_t');
                             setTimeout(() => {
-                                this.enemy.anims.play('enemy_idle');
+                                this.enemy.anims.play('enemy_idle_t');
                                 this.nami.anims.play('nami_hit');
                                 this.nami.setTint(0xff0000);
                                 this.grupo.getChildren()[this.vida].visible = false;
@@ -883,9 +884,9 @@ class Battle_Tauro extends Phaser.Scene{
                                     }, 1000);
                                 }, 2000);
                             } else {
-                                this.enemy.anims.play('enemy_attack');
+                                this.enemy.anims.play('enemy_attack_t');
                                 setTimeout(() => {
-                                    this.enemy.anims.play('enemy_idle');
+                                    this.enemy.anims.play('enemy_idle_t');
                                     this.nami.anims.play('nami_hit');
                                     this.nami.setTint(0xff0000);
                                     this.grupo.getChildren()[this.vida].visible = false;
@@ -940,18 +941,18 @@ class Battle_Tauro extends Phaser.Scene{
 
                 setTimeout(() => {
                     if (this.vidaEnemy < 0) {
-                        this.enemy.anims.play('enemy_dead');
+                        this.enemy.anims.play('enemy_dead_t');
                         show(this, this.txtWin);
                     setTimeout(() => {
                         escena("Level2",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
-                    }, 1000);
+                    }, 3000);
                     } else {
                         this.opc = getRandomInt(99) + 1;
                         console.log(this.opc);
                         if (this.opc % 2 == 0) {
-                            this.enemy.anims.play('enemy_attack');
+                            this.enemy.anims.play('enemy_attack_t');
                             setTimeout(() => {
-                                this.enemy.anims.play('enemy_idle');
+                                this.enemy.anims.play('enemy_idle_t');
                                 this.nami.anims.play('nami_hit');
                                 this.nami.setTint(0xff0000);
                                 this.grupo.getChildren()[this.vida].visible = false;
@@ -1026,9 +1027,9 @@ class Battle_Tauro extends Phaser.Scene{
                                     }, 1000);
                                 }, 2000);
                             } else {
-                                this.enemy.anims.play('enemy_attack');
+                                this.enemy.anims.play('enemy_attack_t');
                                 setTimeout(() => {
-                                    this.enemy.anims.play('enemy_idle');
+                                    this.enemy.anims.play('enemy_idle_t');
                                     this.nami.anims.play('nami_hit');
                                     this.nami.setTint(0xff0000);
                                     this.grupo.getChildren()[this.vida].visible = false;
@@ -1096,18 +1097,18 @@ class Battle_Tauro extends Phaser.Scene{
 
             setTimeout(() => {
                 if (this.vidaEnemy < 0) {
-                    this.enemy.anims.play('enemy_dead');
+                    this.enemy.anims.play('enemy_dead_t');
                     show(this, this.txtWin);
                     setTimeout(() => {
                         escena("Level2",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
-                    }, 1000);
+                    }, 3000);
                 } else {
                     this.opc = getRandomInt(99) + 1;
                     console.log(this.opc);
                     if (this.opc % 2 == 0) {
-                        this.enemy.anims.play('enemy_attack');
+                        this.enemy.anims.play('enemy_attack_t');
                         setTimeout(() => {
-                            this.enemy.anims.play('enemy_idle');
+                            this.enemy.anims.play('enemy_idle_t');
                             // this.nami.setTint(0xff0000);
                             setTimeout(() => {
                                 this.shield.setVisible(false);
@@ -1173,9 +1174,9 @@ class Battle_Tauro extends Phaser.Scene{
                                 }, 1000);
                             }, 2000);
                         } else {
-                            this.enemy.anims.play('enemy_attack');
+                            this.enemy.anims.play('enemy_attack_t');
                             setTimeout(() => {
-                                this.enemy.anims.play('enemy_idle');
+                                this.enemy.anims.play('enemy_idle_t');
                                 // this.nami.setTint(0xff0000);
                                 setTimeout(() => {
                                     this.shield.setVisible(false);

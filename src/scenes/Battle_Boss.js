@@ -4,16 +4,17 @@ class Battle_Boss extends Phaser.Scene{
         super({ key: 'Battle_Boss' });
     }
 
-    init(){
+    init(datos){
         console.log('Escena Battle');
         this.width = this.sys.game.canvas.width;
         this.height = this.sys.game.canvas.height;
 
-        this.vida_res = 6;
-        this.pocion_res = 5;
+        this.vida_res = datos.vidas;
+        this.pocion_res = datos.posiones;
+        this.namiX = datos.posicionXNami;
         this.vida = 5;
-        this.pociones = 4;
-        this.vidaEnemy = 5;
+        this.pociones = 3;
+        this.vidaEnemy = 7;
         this.pocionesEnemy = 3;
 
         this.opc = 0;
@@ -66,19 +67,19 @@ class Battle_Boss extends Phaser.Scene{
             frameHeight: 180
         });
 
-        this.load.spritesheet('enemy','enemigos/boss/boss_idle.png',
+        this.load.spritesheet('enemy_b','enemigos/boss/boss_idle.png',
         {
             frameWidth: 480,
             frameHeight: 480
         });
 
-        this.load.spritesheet('enemy_at','enemigos/boss/boss_at.png',
+        this.load.spritesheet('enemy_at_b','enemigos/boss/boss_at.png',
         {
             frameWidth: 480,
             frameHeight: 480
         });
 
-        this.load.spritesheet('enemy_dead','enemigos/boss/boss_dead.png',
+        this.load.spritesheet('enemy_dead_b','enemigos/boss/boss_dead.png',
         {
             frameWidth: 480,
             frameHeight: 480
@@ -145,7 +146,7 @@ class Battle_Boss extends Phaser.Scene{
         this.nami.body.setOffset(72, 70);
         this.physics.add.collider(this.nami, this.suelo, () => {});
 
-        this.enemy = this.physics.add.sprite(1450, 452, 'enemy').setScale(3);
+        this.enemy = this.physics.add.sprite(1450, 452, 'enemy_b').setScale(3);
         this.enemy.body.setCollideWorldBounds(false);
 
         this.enemy.body.setSize(200, 200, true);
@@ -259,11 +260,11 @@ class Battle_Boss extends Phaser.Scene{
 
         this.anims.create({
             // Nombre de la animación
-            key: 'enemy_idle',
+            key: 'enemy_idle_b',
             // Se cargan los frames por números
             // NOTA: generateFrameNames() se
             // usa cuando ya existe un Atlas
-            frames: this.anims.generateFrameNumbers('enemy', {
+            frames: this.anims.generateFrameNumbers('enemy_b', {
                 start: 0,
                 end: 27
             }),
@@ -274,11 +275,11 @@ class Battle_Boss extends Phaser.Scene{
 
         this.anims.create({
             // Nombre de la animación
-            key: 'enemy_attack',
+            key: 'enemy_attack_b',
             // Se cargan los frames por números
             // NOTA: generateFrameNames() se
             // usa cuando ya existe un Atlas
-            frames: this.anims.generateFrameNumbers('enemy_at', {
+            frames: this.anims.generateFrameNumbers('enemy_at_b', {
                 start: 0,
                 end: 23
             }),
@@ -289,11 +290,11 @@ class Battle_Boss extends Phaser.Scene{
 
         this.anims.create({
             // Nombre de la animación
-            key: 'enemy_dead',
+            key: 'enemy_dead_b',
             // Se cargan los frames por números
             // NOTA: generateFrameNames() se
             // usa cuando ya existe un Atlas
-            frames: this.anims.generateFrameNumbers('enemy_dead', {
+            frames: this.anims.generateFrameNumbers('enemy_dead_b', {
                 start: 0,
                 end: 23
             }),
@@ -317,7 +318,7 @@ class Battle_Boss extends Phaser.Scene{
             frameRate: 4
         });
 
-        this.enemy.anims.play('enemy_idle');
+        this.enemy.anims.play('enemy_idle_b');
 
 
         this.grupo = this.physics.add.group({
@@ -445,18 +446,18 @@ class Battle_Boss extends Phaser.Scene{
 
             setTimeout(() => {
                 if (this.vidaEnemy < 0) {
-                    this.enemy.anims.play('enemy_dead');
+                    this.enemy.anims.play('enemy_dead_b');
                     show(this, this.txtWin);
                     setTimeout(() => {
-                        escena("Level3",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
-                    }, 1000);
+                        escena("Win",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
+                    }, 3000);
                 } else {
                     this.opc = getRandomInt(99) + 1;
                     console.log(this.opc);
                     if (this.opc % 2 == 0) {
-                        this.enemy.anims.play('enemy_attack');
+                        this.enemy.anims.play('enemy_attack_b');
                         setTimeout(() => {
-                            this.enemy.anims.play('enemy_idle');
+                            this.enemy.anims.play('enemy_idle_b');
                             this.nami.anims.play('nami_hit');
                             this.grupo.getChildren()[this.vida].visible = false;
                             this.vida--;
@@ -531,9 +532,9 @@ class Battle_Boss extends Phaser.Scene{
                                 }, 1000);
                             }, 2000);
                         } else {
-                            this.enemy.anims.play('enemy_attack');
+                            this.enemy.anims.play('enemy_attack_b');
                             setTimeout(() => {
-                                this.enemy.anims.play('enemy_idle');
+                                this.enemy.anims.play('enemy_idle_b');
                                 this.nami.anims.play('nami_hit');
                                 this.grupo.getChildren()[this.vida].visible = false;
                                 this.vida--;
@@ -621,18 +622,18 @@ class Battle_Boss extends Phaser.Scene{
 
             setTimeout(() => {
                 if (this.vidaEnemy < 0) {
-                    this.enemy.anims.play('enemy_dead');
+                    this.enemy.anims.play('enemy_dead_b');
                     show(this, this.txtWin);
                     setTimeout(() => {
-                        escena("Level3",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
+                        escena("Win",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
                     }, 1000);
                 } else {
                     this.opc = getRandomInt(99) + 1;
                     console.log(this.opc);
                     if (this.opc % 2 == 0) {
-                        this.enemy.anims.play('enemy_attack');
+                        this.enemy.anims.play('enemy_attack_b');
                         setTimeout(() => {
-                            this.enemy.anims.play('enemy_idle');
+                            this.enemy.anims.play('enemy_idle_b');
                             this.nami.anims.play('nami_hit');
                             this.nami.setTint(0xff0000);
                             this.grupo.getChildren()[this.vida].visible = false;
@@ -707,9 +708,9 @@ class Battle_Boss extends Phaser.Scene{
                                 }, 1000);
                             }, 2000);
                         } else {
-                            this.enemy.anims.play('enemy_attack');
+                            this.enemy.anims.play('enemy_attack_b');
                             setTimeout(() => {
-                                this.enemy.anims.play('enemy_idle');
+                                this.enemy.anims.play('enemy_idle_b');
                                 this.nami.anims.play('nami_hit');
                                 this.nami.setTint(0xff0000);
                                 this.grupo.getChildren()[this.vida].visible = false;
@@ -797,18 +798,18 @@ class Battle_Boss extends Phaser.Scene{
 
                 setTimeout(() => {
                     if (this.vidaEnemy < 0) {
-                        this.enemy.anims.play('enemy_dead');
+                        this.enemy.anims.play('enemy_dead_b');
                         show(this, this.txtWin);
                     setTimeout(() => {
-                        escena("Level3",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
+                        escena("Win",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
                     }, 1000);
                     } else {
                         this.opc = getRandomInt(99) + 1;
                         console.log(this.opc);
                         if (this.opc % 2 == 0) {
-                            this.enemy.anims.play('enemy_attack');
+                            this.enemy.anims.play('enemy_attack_b');
                             setTimeout(() => {
-                                this.enemy.anims.play('enemy_idle');
+                                this.enemy.anims.play('enemy_idle_b');
                                 this.nami.anims.play('nami_hit');
                                 this.nami.setTint(0xff0000);
                                 this.grupo.getChildren()[this.vida].visible = false;
@@ -883,9 +884,9 @@ class Battle_Boss extends Phaser.Scene{
                                     }, 1000);
                                 }, 2000);
                             } else {
-                                this.enemy.anims.play('enemy_attack');
+                                this.enemy.anims.play('enemy_attack_b');
                                 setTimeout(() => {
-                                    this.enemy.anims.play('enemy_idle');
+                                    this.enemy.anims.play('enemy_idle_b');
                                     this.nami.anims.play('nami_hit');
                                     this.nami.setTint(0xff0000);
                                     this.grupo.getChildren()[this.vida].visible = false;
@@ -940,18 +941,18 @@ class Battle_Boss extends Phaser.Scene{
 
                 setTimeout(() => {
                     if (this.vidaEnemy < 0) {
-                        this.enemy.anims.play('enemy_dead');
+                        this.enemy.anims.play('enemy_dead_b');
                         show(this, this.txtWin);
                     setTimeout(() => {
-                        escena("Level3",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
+                        escena("Win",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
                     }, 1000);
                     } else {
                         this.opc = getRandomInt(99) + 1;
                         console.log(this.opc);
                         if (this.opc % 2 == 0) {
-                            this.enemy.anims.play('enemy_attack');
+                            this.enemy.anims.play('enemy_attack_b');
                             setTimeout(() => {
-                                this.enemy.anims.play('enemy_idle');
+                                this.enemy.anims.play('enemy_idle_b');
                                 this.nami.anims.play('nami_hit');
                                 this.nami.setTint(0xff0000);
                                 this.grupo.getChildren()[this.vida].visible = false;
@@ -1026,9 +1027,9 @@ class Battle_Boss extends Phaser.Scene{
                                     }, 1000);
                                 }, 2000);
                             } else {
-                                this.enemy.anims.play('enemy_attack');
+                                this.enemy.anims.play('enemy_attack_b');
                                 setTimeout(() => {
-                                    this.enemy.anims.play('enemy_idle');
+                                    this.enemy.anims.play('enemy_idle_b');
                                     this.nami.anims.play('nami_hit');
                                     this.nami.setTint(0xff0000);
                                     this.grupo.getChildren()[this.vida].visible = false;
@@ -1096,18 +1097,18 @@ class Battle_Boss extends Phaser.Scene{
 
             setTimeout(() => {
                 if (this.vidaEnemy < 0) {
-                    this.enemy.anims.play('enemy_dead');
+                    this.enemy.anims.play('enemy_dead_b');
                     show(this, this.txtWin);
                     setTimeout(() => {
-                        escena("Level3",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
+                        escena("Win",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
                     }, 1000);
                 } else {
                     this.opc = getRandomInt(99) + 1;
                     console.log(this.opc);
                     if (this.opc % 2 == 0) {
-                        this.enemy.anims.play('enemy_attack');
+                        this.enemy.anims.play('enemy_attack_b');
                         setTimeout(() => {
-                            this.enemy.anims.play('enemy_idle');
+                            this.enemy.anims.play('enemy_idle_b');
                             // this.nami.setTint(0xff0000);
                             setTimeout(() => {
                                 this.shield.setVisible(false);
@@ -1173,9 +1174,9 @@ class Battle_Boss extends Phaser.Scene{
                                 }, 1000);
                             }, 2000);
                         } else {
-                            this.enemy.anims.play('enemy_attack');
+                            this.enemy.anims.play('enemy_attack_b');
                             setTimeout(() => {
-                                this.enemy.anims.play('enemy_idle');
+                                this.enemy.anims.play('enemy_idle_b');
                                 // this.nami.setTint(0xff0000);
                                 setTimeout(() => {
                                     this.shield.setVisible(false);
