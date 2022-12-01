@@ -320,7 +320,7 @@ class Level extends Phaser.Scene{
         });
 
         this.physics.add.collider(this.nami, this.pared, () => {
-            this.nami.x = 7760;
+            this.nami.x = 7880;
         //    this.pared.x = 9100;
         });
 
