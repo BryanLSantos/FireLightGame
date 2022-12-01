@@ -106,28 +106,27 @@ class Level3 extends Phaser.Scene{
 
 
         //Creacion de cofre de prueba
-         this.cofre = this.physics.add.sprite(1300, 620, 'cofreestatico').setScale(0.8).setImmovable(true);
-         this.cofre.body.setSize(100, 50);
-         this.cofre.body.setOffset(50, 300);
-         this.cofre.body.setAllowGravity(false);
-        
-         // this.cofre.body.setSize(1, 0.5);
-         this.cofre2 = this.physics.add.sprite(2450, 620, 'cofreestatico').setScale(0.8).setImmovable(true);
-         this.cofre2.body.setSize(100,50);
-         this.cofre2.body.setOffset(50, 300);
-         this.cofre2.body.setAllowGravity(false);
+        this.cofre = this.physics.add.sprite(1300, 620, 'cofreestatico').setScale(0.8).setImmovable(true);
+        this.cofre.body.setSize(100, 50);
+        this.cofre.body.setOffset(50, 300);
+        this.cofre.body.setAllowGravity(false);
+    
+        // this.cofre.body.setSize(1, 0.5);
+        this.cofre2 = this.physics.add.sprite(2450, 620, 'cofreestatico').setScale(0.8).setImmovable(true);
+        this.cofre2.body.setSize(100,50);
+        this.cofre2.body.setOffset(50, 300);
+        this.cofre2.body.setAllowGravity(false);
  
-         this.cofre3 = this.physics.add.sprite(6600, 620, 'cofreestatico').setScale(0.8).setImmovable(true);
-         this.cofre3.body.setSize(100,50);
-         this.cofre3.body.setOffset(50, 300);
-         this.cofre3.body.setAllowGravity(false);
+        this.cofre3 = this.physics.add.sprite(6600, 620, 'cofreestatico').setScale(0.8).setImmovable(true);
+        this.cofre3.body.setSize(100,50);
+        this.cofre3.body.setOffset(50, 300);
+        this.cofre3.body.setAllowGravity(false);
  
-         //FISICAS nami
-         this.nami = this.physics.add.sprite(this.posicionXNamiGet, 420, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
-         this.fuego = this.add.sprite(this.nami.x - 750, 895, 'fuego_idle').setOrigin(0.5,0.39).setScale(.6).setDepth(7);//AQUI SE AGREGA EL SPRITEa
-         this.contenedor = this.add.image(this.nami.x - 650, 830, "contenedortxt").setOrigin(0, 0).setDepth(6).setScale(.45);
-         this.contenedorfuego = this.add.image(this.nami.x - 850, 830, "contenedorfuego").setOrigin(0, 0).setDepth(8).setScale(.45);
-         this.contenedorfuegofondo = this.add.image(this.nami.x - 850, 830, "contenedorfuegofondo").setOrigin(0, 0).setDepth(6).setScale(.45);
+        //FISICAS nami
+        this.fuego = this.add.sprite(this.nami.x - 750, 895, 'fuego_idle').setOrigin(0.5,0.39).setScale(.6).setDepth(7);//AQUI SE AGREGA EL SPRITEa
+        this.contenedor = this.add.image(this.nami.x - 650, 830, "contenedortxt").setOrigin(0, 0).setDepth(6).setScale(.45);
+        this.contenedorfuego = this.add.image(this.nami.x - 850, 830, "contenedorfuego").setOrigin(0, 0).setDepth(8).setScale(.45);
+        this.contenedorfuegofondo = this.add.image(this.nami.x - 850, 830, "contenedorfuegofondo").setOrigin(0, 0).setDepth(6).setScale(.45);
  
         
         this.suelo = this.physics.add.image(300, 750, 'BlockBlock');

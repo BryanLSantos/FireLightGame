@@ -288,6 +288,23 @@ class Level extends Phaser.Scene{
         this.cofre3.body.setOffset(50, 300);
         this.cofre3.body.setAllowGravity(false);
 
+        //Creacion de cofre de prueba
+        this.cofre4 = this.physics.add.sprite(3700, 680, 'cofreestatico').setScale(0.8).setImmovable(true);
+        this.cofre4.body.setSize(100, 50);
+        this.cofre4.body.setOffset(50, 300);
+        this.cofre4.body.setAllowGravity(false);
+    
+        // this.cofre.body.setSize(1, 0.5);
+        this.cofre5 = this.physics.add.sprite(4500, 680, 'cofreestatico').setScale(0.8).setImmovable(true);
+        this.cofre5.body.setSize(100,50);
+        this.cofre5.body.setOffset(50, 300);
+        this.cofre5.body.setAllowGravity(false);
+ 
+        this.cofre6 = this.physics.add.sprite(6400, 680, 'cofreestatico').setScale(0.8).setImmovable(true);
+        this.cofre6.body.setSize(100,50);
+        this.cofre6.body.setOffset(50, 300);
+        this.cofre6.body.setAllowGravity(false);
+
         //FISICAS nami
         this.nami = this.physics.add.sprite(this.posicionXNamiGet, 420, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
         this.fuego = this.add.sprite(this.nami.x - 750, 895, 'fuego_idle').setOrigin(0.5,0.39).setScale(.6).setDepth(7);//AQUI SE AGREGA EL SPRITEa
