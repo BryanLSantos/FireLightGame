@@ -87,8 +87,8 @@ class Level extends Phaser.Scene{
         // })
         //ENEMIGOS
         
-        this.load.atlas('slime', '/enemigos/limo/slime.png','/enemigos/limo/slime_atlas.json');
-        this.load.animation('limo', '/enemigos/limo/slime_anim.json');
+        // this.load.atlas('slime', '/enemigos/limo/slime.png','/enemigos/limo/slime_atlas.json');
+        // this.load.animation('limo', '/enemigos/limo/slime_anim.json');
         
         //king
         /*
@@ -131,34 +131,34 @@ class Level extends Phaser.Scene{
         */
         //esqueleto
         
-        this.load.spritesheet('esq_idle','/enemigos/esqueleto/esq_idle.png',
-        {
-            frameWidth: 143,
-            frameHeight: 109,
-            margin: 1,
-            spacing:1,
-        });
-        this.load.spritesheet('esq_atk','/enemigos/esqueleto/esq_atk.png',
-        {
-            frameWidth: 143,
-            frameHeight: 109,
-            margin: 1,
-            spacing:2,
-        });
-        this.load.spritesheet('esq_dead','/enemigos/esqueleto/esq_dead.png',
-        {
-            frameWidth: 143,
-            frameHeight: 109,
-            margin: 1,
-            spacing:2,
-        });
-        this.load.spritesheet('esq_walk','/enemigos/esqueleto/esq_walk.png',
-        {
-            frameWidth: 162,
-            frameHeight: 103,
-            margin: 2,
-            spacing:3,
-        });
+        // this.load.spritesheet('esq_idle','/enemigos/esqueleto/esq_idle.png',
+        // {
+        //     frameWidth: 143,
+        //     frameHeight: 109,
+        //     margin: 1,
+        //     spacing:1,
+        // });
+        // this.load.spritesheet('esq_atk','/enemigos/esqueleto/esq_atk.png',
+        // {
+        //     frameWidth: 143,
+        //     frameHeight: 109,
+        //     margin: 1,
+        //     spacing:2,
+        // });
+        // this.load.spritesheet('esq_dead','/enemigos/esqueleto/esq_dead.png',
+        // {
+        //     frameWidth: 143,
+        //     frameHeight: 109,
+        //     margin: 1,
+        //     spacing:2,
+        // });
+        // this.load.spritesheet('esq_walk','/enemigos/esqueleto/esq_walk.png',
+        // {
+        //     frameWidth: 162,
+        //     frameHeight: 103,
+        //     margin: 2,
+        //     spacing:3,
+        // });
 
         //esqf
         /*
@@ -324,7 +324,7 @@ class Level extends Phaser.Scene{
             console.log("presionaste el boton de nivel 2");
             escena("Level3", this.scene, this.contadorVida, this.contadorPocion);
         } );
-       
+        
         
         this.suelo = this.physics.add.image(300, 800, 'BlockBlock');
         this.suelo.body.setAllowGravity(false);
@@ -342,9 +342,12 @@ class Level extends Phaser.Scene{
         this.suelo.setVisible(false);
 
         //Creacion de cofre de prueba
-        this.cofre = this.add.sprite(1000, 680, 'cofreestatico', 0).setScale(0.8);
-        this.cofre2 = this.add.sprite(2450, 680, 'cofreestatico', 0).setScale(0.8);
-        this.cofre3 = this.add.sprite(3400, 680, 'cofreestatico', 0).setScale(0.8);
+        this.cofre = this.physics.add.sprite(1000, 680, 'cofreestatico').setScale(0.8).setImmovable(true);
+        this.cofre.body.setAllowGravity(false);
+       
+        // this.cofre.body.setSize(1, 0.5);
+        this.cofre2 = this.add.sprite(2450, 680, 'cofreestatico').setScale(0.8);
+        this.cofre3 = this.add.sprite(3400, 680, 'cofreestatico').setScale(0.8);
 
         //FISICAS nami
         this.nami = this.physics.add.sprite(this.posicionXNamiGet, 420, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
@@ -359,7 +362,19 @@ class Level extends Phaser.Scene{
         // this.nami.body.setOffset(72, 70);
         this.nami.body.setSize(23, 50, true);
         this.nami.body.setOffset(85,60);
-       
+
+        this.physics.add.collider(this.nami, this.cofre, () => {
+            if(this.teclas.powX.isDown) {
+                // console.log("XXX ");
+                this.cofre.anims.play('cofreanimado');
+                if(this.contadorPocion < 4 && this.banderacofre1 == false ){
+                    this.grupo2.getChildren()[this.contadorPocion].visible = true;
+                    this.contadorPocion++;
+                    this.banderacofre1 = true;
+                }
+            }
+        });
+
         this.physics.add.collider(this.nami, this.suelo, () => {});
         this.physics.add.collider(this.nami, this.techo, () => {});
         // this.physics.add.collider(this.fuego, this.suelo, () => {});
@@ -661,9 +676,9 @@ class Level extends Phaser.Scene{
             }
             });
         this.grupo2.children.iterate( (pocion) => {
-            posion.setScale(0.8);
+            pocion.setScale(0.8);
             pocion.body.setAllowGravity(false);
-        } );
+        } ); 
         // this.contadorPocion = 1;
         this.contadorPocion = this.posionesGet;
         for (let index = this.contadorPocion; index < 4; index++) {
@@ -869,6 +884,9 @@ class Level extends Phaser.Scene{
         this.banderacofre2 = false;
         this.banderacofre3 = false;
        
+        // this.physics.add.overlap( this.nami, this.cofre, 
+        //     abrirCofre(this.nami, this.cofre, this.banderacofre1, this.contadorPocion, this.grupo2));
+        // console.log("bandera cofre1: " + this.banderacofre1);
         //animacion de cofre
         // this.cofre.anims.play('cofreanimado');
     }
@@ -1121,15 +1139,16 @@ class Level extends Phaser.Scene{
             this.puertas[3].anims.play('puerta');
             escena("Room4",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion,  posicionXNami: 7200});
         }
-        if(this.teclas.powX.isDown && this.nami.x >= 950 -100&& this.nami.x <= 50+950-100 && this.banderacofre1==false)
-        {
-            this.cofre.anims.play('cofreanimado');
-            this.banderacofre1 = true;
-            if(this.contadorPocion < 4){
-                this.grupo2.getChildren()[this.contadorPocion].visible = true;
-                this.contadorPocion++;
-            }
-        }
+        
+        // if(this.teclas.powX.isDown && this.nami.x >= 950 -100&& this.nami.x <= 50+950-100 && this.banderacofre1==false)
+        // {
+        //     this.cofre.anims.play('cofreanimado');
+        //     this.banderacofre1 = true;
+        //     if(this.contadorPocion < 4){
+        //         this.grupo2.getChildren()[this.contadorPocion].visible = true;
+        //         this.contadorPocion++;
+        //     }
+        // }
         if(this.teclas.powX.isDown && this.nami.x >= 2350-200 && this.nami.x <= 50+2450-200 && this.banderacofre2==false)
         {
             this.cofre2.anims.play('cofreanimado');
@@ -1153,6 +1172,15 @@ class Level extends Phaser.Scene{
     }
 
 }
+// function abrirCofre(nami, cofre, banderacofre1, contadorPocion, grupo2) 
+// {
+//     cofre.anims.play('cofreanimado');
+//     banderacofre1 = true;
+//     if(contadorPocion < 4){
+//         grupo2.getChildren()[contadorPocion].visible = true;
+//         contadorPocion++;
+//     }
+// }
 function escena(params, params2, data) {
     params2.start(params, data);
 }
