@@ -182,7 +182,10 @@ class Level3 extends Phaser.Scene{
         this.lava = this.physics.add.sprite(0, 0, 'lava_idle').setVisible(false);//AQUI SE AGREGA EL SPRITE
         this.portal = this.physics.add.sprite(0, 0, 'portal_idle').setVisible(false).setDepth(-1);//AQUI SE AGREGA EL SPRITE
 
-        
+        this.pared = this.physics.add.image(10300, 550, 'puerta').setScale(5).setImmovable(true);
+        this.pared.setVisible(false);
+        this.pared.body.setAllowGravity(false);
+
         //FISICAS nami
         this.fuego = this.add.sprite(this.nami.x - 750, 895, 'fuego_idle').setOrigin(0.5,0.39).setScale(.6).setDepth(7);//AQUI SE AGREGA EL SPRITEa
         this.contenedor = this.add.image(this.nami.x - 650, 830, "contenedortxt").setOrigin(0, 0).setDepth(6).setScale(.45);
@@ -232,6 +235,11 @@ class Level3 extends Phaser.Scene{
         this.physics.add.collider(this.nami, this.suelo, () => {});
         this.physics.add.collider(this.lava, this.suelo, () => {});
         this.physics.add.collider(this.nami, this.techo, () => {});
+
+        this.physics.add.collider(this.nami, this.pared, () => {
+            this.nami.x = 7460;
+        //    this.pared.x = 9100;
+        });
         // this.nami = this.physics.add.image(300, 720, 'nami');
         // this.nami.body.setAllowGravity(false);
 
@@ -786,6 +794,7 @@ class Level3 extends Phaser.Scene{
                 this.cofre.x += 2;
                 this.cofre2.x += 2;
                 this.cofre3.x += 2;
+                this.pared.x += 2;
             }
         }
         ///////////////////////77
@@ -827,6 +836,7 @@ class Level3 extends Phaser.Scene{
                     this.cofre.x -= 2;
                     this.cofre2.x -= 2;
                     this.cofre3.x -= 2;
+                    this.pared.x -= 2;
                 }
             }
             // this.grupo2[0].x += 2;
