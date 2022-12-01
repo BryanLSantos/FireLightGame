@@ -6,6 +6,7 @@ import Room1 from "./scenes/Room1.js"
 import Room2 from "./scenes/Room2.js"
 import Room3 from "./scenes/Room3.js"
 import Gameover from "./scenes/Gameover.js"
+import Win from "./scenes/Win.js"
 import Room4 from "./scenes/Room4.js";
 import Battle from "./scenes/Battle.js";
 
@@ -62,7 +63,8 @@ const config = {
         
         Battle_Mago,
         Battle_Boss,
-        Gameover], 
+        Gameover,
+        Win], 
     banner:{
         hidePhaser: true,
         text: "#fff00f",
