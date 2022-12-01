@@ -24,7 +24,7 @@ class Battle extends Phaser.Scene{
     preload(){
         this.load.path = './assets/';
 
-        this.load.image('1', 'Battle/1.png');
+        this.load.image('bat', 'Battle/1.png');
         this.load.image('Button', 'Battle/Button.png');
 
         this.load.spritesheet('nami','Nami/idlegOOD.png',
@@ -97,7 +97,7 @@ class Battle extends Phaser.Scene{
     create(){
         const eventos = Phaser.Input.Events;
 
-        this.battle = this.add.image(this.width/2, this.height/2, '1');
+        this.battle = this.add.image(this.width/2, this.height/2, 'bat');
 
         this.btn1 = this.add.image(500, this.height/8, 'Button').setScale(0.2, 0.1).setDepth(10).setInteractive();
         this.btn2 = this.add.image(1420, this.height/8, 'Button').setScale(0.2, 0.1).setDepth(10).setInteractive();

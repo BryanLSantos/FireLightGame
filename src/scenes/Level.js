@@ -340,11 +340,36 @@ class Level extends Phaser.Scene{
             }
         });
 
+        this.physics.add.collider(this.nami, this.puertas[1], () => {
+            if(this.teclas.powX.isDown) {
+                this.puertas[1].anims.play('puerta');
+                clearInterval(this.textos);
+                escena("Battle_Esq",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: this.nami.x});
+            }
+        });
+
+        this.physics.add.collider(this.nami, this.puertas[2], () => {
+            if(this.teclas.powX.isDown) {
+                this.puertas[2].anims.play('puerta');
+                clearInterval(this.textos);
+                escena("Battle_Go",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: this.nami.x});
+            }
+        });
+
+
         this.physics.add.collider(this.nami, this.puertas[3], () => {
             if(this.teclas.powX.isDown) {
                 this.puertas[3].anims.play('puerta');
                 clearInterval(this.textos);
                 escena("Room2",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: 3700});
+            }
+        });
+
+        this.physics.add.collider(this.nami, this.puertas[4], () => {
+            if(this.teclas.powX.isDown) {
+                this.puertas[4].anims.play('puerta');
+                clearInterval(this.textos);
+                escena("Battle_King",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: this.nami.x});
             }
         });
 
