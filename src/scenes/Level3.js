@@ -486,7 +486,7 @@ class Level3 extends Phaser.Scene{
             key: 'hearts',
             repeat: 5,
             setXY: {
-            x: 350,
+            x: this.nami.x - 800,
             y: 100,
             stepX: 100
             }
@@ -534,9 +534,9 @@ class Level3 extends Phaser.Scene{
             key: 'potions',
             repeat: 3,
             setXY: {
-            x: 1450,
+            x: this.nami.x + 800,
             y: 100,
-            stepX: 100,
+            stepX: -100,
             }
             });
         this.grupo2.children.iterate( (posion) => {
