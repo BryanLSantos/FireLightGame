@@ -252,7 +252,7 @@ class Level extends Phaser.Scene{
             escena("Level3", this.scene, this.contadorVida, this.contadorPocion);
         } );
         
-        this.pared = this.physics.add.image(10000, 100, 'puerta').setScale(6).setImmovable(true);
+        this.pared = this.physics.add.image(11000, 550, 'puerta').setScale(4.5).setImmovable(true);
         this.pared.setVisible(false);
         this.pared.body.setAllowGravity(false);
 
@@ -408,7 +408,7 @@ class Level extends Phaser.Scene{
         });
 
         this.physics.add.collider(this.nami, this.pared, () => {
-        //    this.nami.x = 9098;
+            this.nami.x = 7760;
         //    this.pared.x = 9100;
         });
 
