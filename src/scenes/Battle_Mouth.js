@@ -626,7 +626,7 @@ class Battle_Mouth extends Phaser.Scene{
                     show(this, this.txtWin);
                     setTimeout(() => {
                         escena("Level3",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
-                    }, 1000);
+                    }, 3000);
                 } else {
                     this.opc = getRandomInt(99) + 1;
                     console.log(this.opc);
@@ -802,7 +802,7 @@ class Battle_Mouth extends Phaser.Scene{
                         show(this, this.txtWin);
                     setTimeout(() => {
                         escena("Level3",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
-                    }, 1000);
+                    }, 3000);
                     } else {
                         this.opc = getRandomInt(99) + 1;
                         console.log(this.opc);
@@ -945,7 +945,7 @@ class Battle_Mouth extends Phaser.Scene{
                         show(this, this.txtWin);
                     setTimeout(() => {
                         escena("Level3",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
-                    }, 1000);
+                    }, 3000);
                     } else {
                         this.opc = getRandomInt(99) + 1;
                         console.log(this.opc);
