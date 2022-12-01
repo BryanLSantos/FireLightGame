@@ -98,8 +98,14 @@ class Level2 extends Phaser.Scene {
         const eventos = Phaser.Input.Events;
         console.log(this.map);
 
+        this.layer4 = this.map.createLayer('oriderecha', [this.tile, this.fondo]);
+        this.layer5 = this.map.createLayer('oriizq', [this.tile, this.fondo, this.esquina]);
+
         this.layer2 = this.map.createLayer('mapa3', [this.tile, this.fondo, this.esquina], 0, 0);
+
         this.layer2.setCollisionByProperty({ col: true });
+        this.layer4.setCollisionByProperty({ col: true });
+        this.layer5.setCollisionByProperty({ col: true });
 
         this.mover = this.physics.add.image(787, 2608, 'fondo3').setScale(1).setInteractive();
         this.mover.body.moves = false;
@@ -108,9 +114,9 @@ class Level2 extends Phaser.Scene {
 
 
         //*------------------personajes--------------*
-        this.witch = this.add.sprite(779, 289, 'witch_idle').setScale(2);
-        this.physics.add.existing(this.witch, false);
-        this.witch.body.setSize(40, 60);
+        // this.witch = this.add.sprite(779, 289, 'witch_idle').setScale(2);
+        // this.physics.add.existing(this.witch, false);
+        // this.witch.body.setSize(40, 60);
 
 
 
@@ -132,7 +138,7 @@ class Level2 extends Phaser.Scene {
         //     x: 1713,
         //     y: 40,
         // });
-        this.nami = this.physics.add.sprite(1713, 0, 'nami').setOrigin(0.5,0.39).setScale(2.2);//AQUI SE AGREGA EL SPRITE
+        this.nami = this.physics.add.sprite(1713, 20, 'nami').setOrigin(0.5,0.39).setScale(2.2);//AQUI SE AGREGA EL SPRITE
         this.nami.setDepth(1);
          //Animaciones del personaje nami
          this.anims.create({
@@ -279,8 +285,8 @@ class Level2 extends Phaser.Scene {
         ///agregar colaiders 
         //     this.physics.add.collider(this.nami, this.layer2);
         this.physics.add.collider(this.nami, this.layer2);
-        this.physics.add.collider(this.nami, this.witch);
-        this.physics.add.collider(this.layer2, this.witch);
+        // this.physics.add.collider(this.nami, this.witch);
+        // this.physics.add.collider(this.layer2, this.witch);
         this.physics.add.collider(this.mover, this.nami, () => {
             this.nami.body.setVelocity(0);
             this.nami.body.setVelocityY(0);
@@ -408,8 +414,93 @@ class Level2 extends Phaser.Scene {
                 }
             }
         });
+         //Grupo de pinchos
+         this.grupoO5 = this.physics.add.group({
+            key: 'pinchos',
+            repeat: 2,
+            setXY: {
+                x: 630,
+                y: 1205,
+                stepX: 150
+            }  
+        });
+        this.grupoO5.children.iterate( (pincho) => {
+            pincho.body.setAllowGravity(false);
+            pincho.setScale(2);
+            //FISICAS Pincho
+            this.physics.add.existing(pincho, true); //FORMA2 true
+            pincho.setImmovable(true);
+            pincho.body.setSize(27, 15, true);
+        } );
+        this.daño = 0;
+        //Nami colisiona con un pincho
+        this.physics.add.collider(this.nami, this.grupoO5, () => {    
+            console.log("colision nami con pinchos");
+            this.cameras.main
+            .setBackgroundColor(0x000000)
+            .shake(500, 0.03);
 
+            setTimeout(() => {
+                this.nami.setVelocityX( this.nami.body.velocity.x += 50);
+                this.nami.setVelocityY( this.nami.body.velocity.y -= 100);
+                this.nami.anims.play('nami_takehit');
+            }, 100);
+            setTimeout(() => {
+                this.nami.body.velocity.x = 0;
+                this.nami.body.velocity.y = 0;
+             }, 400); 
+
+            this.daño++;
+            if(this.daño >= 10)
+            {
+                if(this.contadorVida == 1)
+                {
+                    this.grupo.getChildren()[this.contadorVida-1].visible = false;
+                    this.contadorVida--;
+                    this.daño = 0;
+                    console.log("muere nami :(");
+                    this.teclas.kspc.enabled = false;
+                    this.teclas.izq.enabled = false;
+                    this.teclas.der.enabled = false;
+                    this.nami.body.moves = false;
+                    this.nami.body.x = this.nami.body.x;
+                    this.nami.body.y = this.nami.body.y;
+                    setTimeout(() => {
+                        this.nami.anims.stop();
+                        this.nami.anims.play("nami_death");
+                    }, 1000);
+                    
+                    setTimeout(() => {
+                        escena("Gameover", this.scene, {reinicio: "true", nivel: "Level"});
+                    }, 4000);
+
+                }
+                else{
+                    this.grupo.getChildren()[this.contadorVida-1].visible = false;
+                    this.contadorVida--;
+                    this.daño = 0;
+                    console.log("hacer daño");
+                    //checar si tiene 0 corazones si es el caso muere
+                }
+            }
+        });
+
+        this.physics.add.collider(this.nami, this.layer2);
+
+        this.physics.add.collider(this.nami, this.layer4, () => {
+            this.nami.x = this.nami.x - 20;
+            this.nami.body.setVelocityX(0);
+            this.nami.body.setAcceleration(0);
+            this.nami.body.stop();
+        });
+        this.physics.add.collider(this.nami, this.layer5, () => {
+            this.nami.x = this.nami.x + 20;
+            this.nami.body.setVelocityX(0);
+            this.nami.body.setAcceleration(0);
+            this.nami.body.stop();
+        });
         this.grupoO4.playAnimation('pinchos');
+        this.grupoO5.playAnimation('pinchos');
 
 
         //Twind
@@ -434,27 +525,33 @@ class Level2 extends Phaser.Scene {
             powX: keyCodes.X
         });
 
-
         this.teclas.izq.on('down', ()=>{
+            this.nami.flipX = false;
+            this.nami.body.x += 20;
             this.nami.flipX = true;
             this.nami.anims.play('nami_run');
-            this.nami.body.setAcceleration(0);
-            this.nami.body.setVelocity(0);
+            this.nami.body.setAcceleration(10);
+            this.nami.body.setVelocityX(-250);
         });
         this.teclas.izq.on('up', ()=>{
             this.nami.anims.play('nami_idle');
             this.nami.body.setAcceleration(0);
+            this.nami.body.stop();
             this.nami.body.setVelocity(0);
         });
 
         this.teclas.der.on('down', ()=>{
             this.nami.flipX = false;
+            this.nami.body.x += 20;
             this.nami.anims.play('nami_run');
-            this.nami.body.setAcceleration(0);
+            this.nami.body.setAcceleration(10);
             this.nami.body.setVelocity(0);
+            this.nami.body.setVelocityX(250);
+            this.nami.flipX = false;
         });
         this.teclas.der.on('up', ()=>{
             this.nami.anims.play('nami_idle');
+            this.nami.anims.stop();
             this.nami.body.setAcceleration(0);
             this.nami.body.setVelocity(0);
         });
@@ -473,9 +570,20 @@ class Level2 extends Phaser.Scene {
 
         this.teclas.kspc.on('down', ()=>{
             this.nami.play('nami_jump');
-            this.nami.body.setVelocityY(-800);
+            this.nami.body.setVelocityY(-800); // o 500
             this.nami.body.setSize(23, 50, true);
+            this.nami.body.setVelocityX(0);
             this.nami.body.setOffset(85,60);
+            this.nami.body.setSize(23, 50, true); //this.nami.body.setSize(48, 45, true);
+            this.teclas.der.on('down', ()=>{
+                this.nami.flipX = false;
+                this.nami.body.x += 20;
+                this.nami.anims.play('nami_run');
+                this.nami.body.setAcceleration(0);
+                this.nami.body.setVelocity(0);
+                this.nami.body.setVelocityX(250);
+                this.nami.flipX = false;
+            });
         });
         this.teclas.kspc.on('up', ()=>{
             //this.nami.anims.stop();
@@ -486,6 +594,7 @@ class Level2 extends Phaser.Scene {
                 this.teclas.kspc.enabled = true;
             }, 300);
             this.nami.body.setVelocityY(800);
+            this.nami.body.stop();
            
         });
 
@@ -502,8 +611,7 @@ class Level2 extends Phaser.Scene {
         this.banderacofre2 = false;
         this.banderacofre3 = false;
     }
-    update() {
-
+    update() {    
         var x = 0;
         var y = 0;
         this.grupo.children.iterate( (corazon) => {
@@ -521,7 +629,7 @@ class Level2 extends Phaser.Scene {
             
             //evitar movimiento al teclear d
             //evitar movimiento al teclear d
-            
+
         }
         ///////////////////////
         if (this.teclas.der.isDown)
@@ -530,7 +638,7 @@ class Level2 extends Phaser.Scene {
             this.nami.body.setOffset(85,60);
          
             if(!this.teclas.izq.isDown){
-                this.nami.x += 6;
+                // this.nami.x += 6;
                 this.grupo.children.iterate( (corazon) => {
                     corazon.x = (-800 + this.nami.x ) + (y*50);
                     y++;
@@ -545,7 +653,7 @@ class Level2 extends Phaser.Scene {
         if (this.teclas.izq.isDown)
         {
             if(!this.teclas.der.isDown){
-                this.nami.x -= 6; 
+                // this.nami.x -= 6; 
                 this.grupo.children.iterate( (corazon) => {
                     corazon.x = (-800 + this.nami.x ) + (y*50);
                     y++;
@@ -603,10 +711,12 @@ class Level2 extends Phaser.Scene {
     }
 
     //update de objetos 
-
+    
 }
 
 function escena(params, params2, data) {
     params2.start(params, data);
 }
 export default Level2;
+
+
