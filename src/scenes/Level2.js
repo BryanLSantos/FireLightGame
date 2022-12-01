@@ -24,7 +24,7 @@ class Level2 extends Phaser.Scene {
         this.load.image('esquina','scenalevel2/esquina.png');
         this.load.image('fondo3','scenalevel2/fondo3.png');
         this.load.tilemapTiledJSON('mapa','scenalevel2/mapa.json');
-
+        this.load.image('buttonlevel3', 'buttonlevel/buttonlevel3.png');
 
         this.load.atlas('hearts', 'hearts/hearts.png', 'hearts/hearts_atlas.json');
         this.load.animation('heartsAnim', 'hearts/hearts_anim.json');
@@ -293,7 +293,12 @@ class Level2 extends Phaser.Scene {
             this.nami.body.stop();
         });
 
-
+        this.botonlevel3 = this.add.image(1300, 2550, 'buttonlevel3').setScale(0.5);
+        this.botonlevel3.setInteractive();
+        this.botonlevel3.on('pointerdown', () => {
+            console.log("presionaste el boton de nivel 3");
+            escena("Level3", this.scene, {vidas:this.contadorVida, posiones: this.contadorPocion});
+        } );
 
         //Creacion de cofre de prueba
         this.cofre = this.physics.add.sprite(94.2, 783, 'cofreestatico').setScale(0.4).setImmovable(true);
@@ -421,7 +426,7 @@ class Level2 extends Phaser.Scene {
             setXY: {
                 x: 630,
                 y: 1205,
-                stepX: 150
+                stepX: 250
             }  
         });
         this.grupoO5.children.iterate( (pincho) => {
