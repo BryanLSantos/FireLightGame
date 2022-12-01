@@ -1051,17 +1051,17 @@ class Level extends Phaser.Scene{
         if(this.teclas.powX.isDown && this.nami.x >= 3420+300 && this.nami.x <= 3460 + 50+500) //this.nami.x >= 1250+300 && this.nami.x <= 1350 + 50+500
         { //4ta puerta this.nami.x >= 3420+300 && this.nami.x <= 3460 + 50+500
             this.puertas[1].anims.play('puerta');
-            escena("Room2",this.scene);
+            escena("Room2",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion});
         }
         if(this.teclas.powX.isDown && this.nami.x >= 5520+300 && this.nami.x <= 5760 + 50+500) //this.nami.x >= 2120+300 && this.nami.x <= 2360 + 50+500
         {   //5ta puerta this.nami.x >= 4520+300 && this.nami.x <= 4560 + 50+500
             this.puertas[2].anims.play('puerta');
-            escena("Room3",this.scene);
+            escena("Room3",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion});
         }
         if(this.teclas.powX.isDown && this.nami.x >= 6720+300 && this.nami.x <= 6860 + 50+500)
         {//6tapuerta this.nami.x >= 5520+300 && this.nami.x <= 5760 + 50+500
             this.puertas[3].anims.play('puerta');
-            escena("Room4",this.scene);
+            escena("Room4",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion});
         }
         if(this.teclas.powX.isDown && this.nami.x >= 950 && this.nami.x <= 50+950 && this.banderacofre1==false)
         {

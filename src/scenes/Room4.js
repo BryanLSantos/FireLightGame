@@ -3,7 +3,7 @@ class Room4 extends Phaser.Scene {
         super({ key: 'Room4' });
     }
 
-    init() {
+    init(dato) {
 
         this.width = this.sys.game.canvas.width;
         this.height = this.sys.game.canvas.height;
@@ -14,11 +14,13 @@ class Room4 extends Phaser.Scene {
 
         this.bgDelta = 2;
 
+        console.log('Escena Scena D');
+        this.vidasGet = dato.vidas;
+        this.posionesGet = dato.posiones;
+        console.log("vidas: " + this.vidasGet + " posiones: " + this.posionesGet);
+        //console.log('Haz hecho', dato, 'puntos');
     }
-    init(dato) {
-        console.log('Escena ScenaA');
-        console.log('Haz hecho', dato, 'puntos');
-        }
+    
     
     preload() {
         this.load.path = './assets/';
@@ -52,6 +54,8 @@ class Room4 extends Phaser.Scene {
 
     create(){
 
+        this.vidascontador;
+        this.posionescontador;
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         const eventos = Phaser.Input.Events;
 
@@ -280,8 +284,7 @@ class Room4 extends Phaser.Scene {
             this.puertas.anims.play('puerta');
             // setTimeout(() => {
 
-                escena("Level",this.scene);
-
+                escena("Level", this.scene, {vidas: this.vidasGet, posiones: this.posionesGet});
                 // escena("Room4",this.scene);
                     
             // }, 1500);
@@ -292,8 +295,7 @@ class Room4 extends Phaser.Scene {
         }
     }
 }
-function escena(params, params2) {
-    params2.start(params,{
-    });
+function escena(params, params2, data) {
+    params2.start(params, data);
 }
 export default Room4;

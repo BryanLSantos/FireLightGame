@@ -3,7 +3,7 @@ class Room3 extends Phaser.Scene {
         super({ key: 'Room3' });
     }
 
-    init() {
+    init(dato) {
 
         this.width = this.sys.game.canvas.width;
         this.height = this.sys.game.canvas.height;
@@ -14,11 +14,19 @@ class Room3 extends Phaser.Scene {
 
         this.bgDelta = 2;
 
+        console.log('Escena ScenaC');
+        this.vidasGet = dato.vidas;
+        this.posionesGet = dato.posiones;
+        console.log("vidas: " + this.vidasGet + " posiones: " + this.posionesGet);
+        //console.log('Haz hecho', dato, 'puntos');
     }
+<<<<<<< Updated upstream
     init(dato) {
         console.log('Escena ScenaA');
         // console.log('Haz hecho', dato, 'puntos');
         }
+=======
+>>>>>>> Stashed changes
     
     preload() {
         this.load.path = './assets/';
@@ -82,6 +90,8 @@ class Room3 extends Phaser.Scene {
         this.cameras.main.setBackgroundColor(0x000000)
         .fadeIn(2000);
 
+        this.vidascontador;
+        this.posionescontador;
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         const eventos = Phaser.Input.Events;
 
@@ -416,7 +426,7 @@ class Room3 extends Phaser.Scene {
                 // } );
             }
         }
-        if(this.teclas.kspc.isDown && this.nami.x >= 10 && this.nami.x <= 100 + 200)
+        if(this.teclas.powX.isDown && this.nami.x >= 10 && this.nami.x <= 100 + 200)
         {
             // setInterval(() => {
             //     console.log("esta haciendo algo");
@@ -427,7 +437,8 @@ class Room3 extends Phaser.Scene {
             this.puertas.anims.play('puerta');
             // setTimeout(() => {
 
-                escena("Level",this.scene);
+               
+                escena("Level", this.scene, {vidas: this.vidasGet, posiones: this.posionesGet});
 
                 // escena("Room4",this.scene);
                     
@@ -439,9 +450,8 @@ class Room3 extends Phaser.Scene {
         }
     }
 }
-function escena(params, params2) {
-    params2.start(params,{
-    });
+function escena(params, params2, data) {
+    params2.start(params, data);
 }
 function show(params, text) {
     params.tweens = params.add.tween({

@@ -37,6 +37,10 @@ const config = {
         Map,
         Room1,
         Room2,
+<<<<<<< Updated upstream
+=======
+        Room3,
+>>>>>>> Stashed changes
         Room4,
         Room2,
         
