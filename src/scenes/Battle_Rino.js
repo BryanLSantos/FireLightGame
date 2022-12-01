@@ -1,16 +1,14 @@
-class Battle extends Phaser.Scene{
+class Battle_Rino extends Phaser.Scene{
     
     constructor(){
-        super({ key: 'Battle' });
+        super({ key: 'Battle_Rino' });
     }
 
-    init(datos){
+    init(){
         console.log('Escena Battle');
         this.width = this.sys.game.canvas.width;
         this.height = this.sys.game.canvas.height;
 
-        // this.vida_res = datos.vida;
-        // this.pocion_res = datos.pociones;
         this.vida_res = 6;
         this.pocion_res = 5;
         this.vida = 5;
@@ -24,7 +22,7 @@ class Battle extends Phaser.Scene{
     preload(){
         this.load.path = './assets/';
 
-        this.load.image('1', 'Battle/1.png');
+        this.load.image('1', 'Battle/Temple2.png');
         this.load.image('Button', 'Battle/Button.png');
 
         this.load.spritesheet('nami','Nami/idlegOOD.png',
@@ -110,8 +108,8 @@ class Battle extends Phaser.Scene{
         this.txt4 = this.add.text(1335, 285, "Cubrirse", {fontFamily: 'IM Fell English SC', fontSize: '45px', color: 'black'}).setDepth(10);
 
         this.txtTurn = this.add.text(this.width/2 - 95, 400, "Tu Turno", {fontFamily: 'IM Fell English SC', fontSize: '45px', color: 'white'}).setDepth(10);
-        this.txtWin = this.add.text(this.width/2 - 80, 400, "Ganaste", {fontFamily: 'IM Fell English SC', fontSize: '45px', color: 'black'}).setDepth(10);
-        this.txtLose = this.add.text(this.width/2 - 80, 400, "Perdiste", {fontFamily: 'IM Fell English SC', fontSize: '45px', color: 'black'}).setDepth(10);
+        this.txtWin = this.add.text(this.width/2 - 80, 400, "Ganaste", {fontFamily: 'IM Fell English SC', fontSize: '45px', color: 'white'}).setDepth(10);
+        this.txtLose = this.add.text(this.width/2 - 80, 400, "Perdiste", {fontFamily: 'IM Fell English SC', fontSize: '45px', color: 'white'}).setDepth(10);
         this.txtTurn.alpha = 0.0;
         this.txtWin.alpha = 0.0;
         this.txtLose.alpha = 0.0;
@@ -449,12 +447,6 @@ class Battle extends Phaser.Scene{
                 if (this.vidaEnemy < 0) {
                     this.enemy.anims.play('enemy_dead');
                     show(this, this.txtWin);
-
-                    setTimeout(() => {
-                        this.enemy.anims.stop();
-                        this.nami.anims.stop();
-                        this.scene.start('Level');
-                    }, 2000);
                 } else {
                     this.opc = getRandomInt(99) + 1;
                     console.log(this.opc);
@@ -1204,4 +1196,4 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-export default Battle;
+export default Battle_Rino;

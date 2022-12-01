@@ -1,16 +1,14 @@
-class Battle extends Phaser.Scene{
+class Battle_King extends Phaser.Scene{
     
     constructor(){
-        super({ key: 'Battle' });
+        super({ key: 'Battle_King' });
     }
 
-    init(datos){
+    init(){
         console.log('Escena Battle');
         this.width = this.sys.game.canvas.width;
         this.height = this.sys.game.canvas.height;
 
-        // this.vida_res = datos.vida;
-        // this.pocion_res = datos.pociones;
         this.vida_res = 6;
         this.pocion_res = 5;
         this.vida = 5;
@@ -24,7 +22,7 @@ class Battle extends Phaser.Scene{
     preload(){
         this.load.path = './assets/';
 
-        this.load.image('1', 'Battle/1.png');
+        this.load.image('1', 'Battle/4.png');
         this.load.image('Button', 'Battle/Button.png');
 
         this.load.spritesheet('nami','Nami/idlegOOD.png',
@@ -68,22 +66,22 @@ class Battle extends Phaser.Scene{
             frameHeight: 180
         });
 
-        this.load.spritesheet('enemy','enemigos/rino/rino_idle.png',
+        this.load.spritesheet('enemy','enemigos/king/king_idle.png',
         {
-            frameWidth: 720,
-            frameHeight: 720
+            frameWidth: 128,
+            frameHeight: 128
         });
 
-        this.load.spritesheet('enemy_at','enemigos/rino/rino_at.png',
+        this.load.spritesheet('enemy_at','enemigos/king/king_at.png',
         {
-            frameWidth: 720,
-            frameHeight: 720
+            frameWidth: 160,
+            frameHeight: 128
         });
 
-        this.load.spritesheet('enemy_dead','enemigos/rino/rino_dead.png',
+        this.load.spritesheet('enemy_dead','enemigos/king/king_dead.png',
         {
-            frameWidth: 720,
-            frameHeight: 720
+            frameWidth: 128,
+            frameHeight: 128
         });
 
         this.load.atlas('hearts','hearts/hearts.png','hearts/hearts_atlas.json');
@@ -110,8 +108,8 @@ class Battle extends Phaser.Scene{
         this.txt4 = this.add.text(1335, 285, "Cubrirse", {fontFamily: 'IM Fell English SC', fontSize: '45px', color: 'black'}).setDepth(10);
 
         this.txtTurn = this.add.text(this.width/2 - 95, 400, "Tu Turno", {fontFamily: 'IM Fell English SC', fontSize: '45px', color: 'white'}).setDepth(10);
-        this.txtWin = this.add.text(this.width/2 - 80, 400, "Ganaste", {fontFamily: 'IM Fell English SC', fontSize: '45px', color: 'black'}).setDepth(10);
-        this.txtLose = this.add.text(this.width/2 - 80, 400, "Perdiste", {fontFamily: 'IM Fell English SC', fontSize: '45px', color: 'black'}).setDepth(10);
+        this.txtWin = this.add.text(this.width/2 - 80, 400, "Ganaste", {fontFamily: 'IM Fell English SC', fontSize: '45px', color: 'white'}).setDepth(10);
+        this.txtLose = this.add.text(this.width/2 - 80, 400, "Perdiste", {fontFamily: 'IM Fell English SC', fontSize: '45px', color: 'white'}).setDepth(10);
         this.txtTurn.alpha = 0.0;
         this.txtWin.alpha = 0.0;
         this.txtLose.alpha = 0.0;
@@ -120,6 +118,7 @@ class Battle extends Phaser.Scene{
         this.suelo.body.setAllowGravity(false);
         this.suelo.setImmovable();
         this.suelo.body.setSize(100000, 55, true);
+        //visible false 
         this.suelo.setVisible(false);
 
         this.nami = this.physics.add.sprite(450, 820, 'nami').setScale(6);
@@ -147,17 +146,17 @@ class Battle extends Phaser.Scene{
         this.nami.body.setOffset(72, 70);
         this.physics.add.collider(this.nami, this.suelo, () => {});
 
-        this.enemy = this.physics.add.sprite(1450, 580, 'enemy').setScale(1.5);
+        this.enemy = this.physics.add.sprite(1450, 853, 'enemy').setScale(9);
         this.enemy.body.setCollideWorldBounds(false);
 
-        this.enemy.body.setSize(100, 200, true);
-        this.enemy.body.setOffset(300, 420);
+        this.enemy.body.setSize(20, 25, true);
+        // this.enemy.body.setOffset(72, 70);
         this.physics.add.collider(this.enemy, this.suelo, () => {});
         this.enemy.flipX = true;
 
-        this.health_enemy = this.physics.add.sprite(1380, this.enemy.y + 10   , 'health').setScale(.2);
-        this.health_enemy2 = this.physics.add.sprite(1200, this.enemy.y - 20, 'health').setScale(.2);
-        this.health_enemy3 = this.physics.add.sprite(1440, this.enemy.y + 70, 'health').setScale(.2);
+        this.health_enemy = this.physics.add.sprite(1380, this.enemy.y - 200, 'health').setScale(.2);
+        this.health_enemy2 = this.physics.add.sprite(1500, this.enemy.y - 170, 'health').setScale(.2);
+        this.health_enemy3 = this.physics.add.sprite(1440, this.enemy.y - 100, 'health').setScale(.2);
         this.health_enemy.body.setAllowGravity(false);
         this.health_enemy.body.setSize(100, 100);
         this.health_enemy2.body.setAllowGravity(false);
@@ -267,11 +266,11 @@ class Battle extends Phaser.Scene{
             // usa cuando ya existe un Atlas
             frames: this.anims.generateFrameNumbers('enemy', {
                 start: 0,
-                end: 15
+                end: 17
             }),
             
             repeat: -1,
-            frameRate: 14
+            frameRate: 9
         });
 
         this.anims.create({
@@ -282,11 +281,11 @@ class Battle extends Phaser.Scene{
             // usa cuando ya existe un Atlas
             frames: this.anims.generateFrameNumbers('enemy_at', {
                 start: 0,
-                end: 19
+                end: 57
             }),
             
             repeat: 0,
-            frameRate: 13
+            frameRate: 9
         });
 
         this.anims.create({
@@ -297,11 +296,11 @@ class Battle extends Phaser.Scene{
             // usa cuando ya existe un Atlas
             frames: this.anims.generateFrameNumbers('enemy_dead', {
                 start: 0,
-                end: 9
+                end: 36
             }),
             
             repeat: 0,
-            frameRate: 10
+            frameRate: 9
         });
 
         this.anims.create({
@@ -371,7 +370,7 @@ class Battle extends Phaser.Scene{
             repeat: this.vidaEnemy,
             setXY: {
             x: 1475,
-            y: this.enemy.y - 160,
+            y: this.enemy.y - 340,
             stepX: -35
             }
         });
@@ -388,7 +387,7 @@ class Battle extends Phaser.Scene{
             repeat: this.pocionesEnemy,
             setXY: {
             x: 1440,
-            y: this.enemy.y - 120,
+            y: this.enemy.y - 300,
             stepX: -35,
             }
         });
@@ -449,12 +448,6 @@ class Battle extends Phaser.Scene{
                 if (this.vidaEnemy < 0) {
                     this.enemy.anims.play('enemy_dead');
                     show(this, this.txtWin);
-
-                    setTimeout(() => {
-                        this.enemy.anims.stop();
-                        this.nami.anims.stop();
-                        this.scene.start('Level');
-                    }, 2000);
                 } else {
                     this.opc = getRandomInt(99) + 1;
                     console.log(this.opc);
@@ -494,7 +487,7 @@ class Battle extends Phaser.Scene{
                                     }, 200);
                                 }, 200);
                             }, 200);
-                        }, 1200);
+                        }, 4500);
                     } else {
                         if (this.pocionesEnemy >= 0) {
                             this.health_enemy.setVisible(true);
@@ -568,11 +561,11 @@ class Battle extends Phaser.Scene{
                                         }, 200);
                                     }, 200);
                                 }, 200);
-                            }, 1200);
+                            }, 4500);
                         }
                     }
                 }
-            }, 4000);
+            }, 3500);
         });
 
         this.btn2.on(eventos.POINTER_OVER, function() {
@@ -661,7 +654,7 @@ class Battle extends Phaser.Scene{
                                     }, 200);
                                 }, 200);
                             }, 200);
-                        }, 1200);
+                        }, 4500);
                     } else {
                         if (this.pocionesEnemy >= 0) {
                             this.health_enemy.setVisible(true);
@@ -735,7 +728,7 @@ class Battle extends Phaser.Scene{
                                         }, 200);
                                     }, 200);
                                 }, 200);
-                            }, 1200);
+                            }, 4500);
                         }
                     }
                 }
@@ -828,7 +821,7 @@ class Battle extends Phaser.Scene{
                                         }, 200);
                                     }, 200);
                                 }, 200);
-                            }, 1200);
+                            }, 4500);
                         } else {
                             if (this.pocionesEnemy >= 0) {
                                 this.health_enemy.setVisible(true);
@@ -902,7 +895,7 @@ class Battle extends Phaser.Scene{
                                             }, 200);
                                         }, 200);
                                     }, 200);
-                                }, 1200);
+                                }, 4500);
                             }
                         }
                     }
@@ -962,7 +955,7 @@ class Battle extends Phaser.Scene{
                                         }, 200);
                                     }, 200);
                                 }, 200);
-                            }, 1200);
+                            }, 4500);
                         } else {
                             if (this.pocionesEnemy >= 0) {
                                 this.health_enemy.setVisible(true);
@@ -1036,7 +1029,7 @@ class Battle extends Phaser.Scene{
                                             }, 200);
                                         }, 200);
                                     }, 200);
-                                }, 1200);
+                                }, 4500);
                             }
                         }
                     }
@@ -1102,7 +1095,7 @@ class Battle extends Phaser.Scene{
                                     }, 200);
                                 }, 200);
                             }, 200);
-                        }, 1200);
+                        }, 4500);
                     } else {
                         if (this.pocionesEnemy >= 0) {
                             this.health_enemy.setVisible(true);
@@ -1170,13 +1163,15 @@ class Battle extends Phaser.Scene{
                                         }, 200);
                                     }, 200);
                                 }, 200);
-                            }, 1200);
+                            }, 4500);
                         }
                     }
                 }
             }, 3500);
         });
 
+        // this.texto = [];
+        // this.texto[0] = this.add.text(this.width/2 - 80, 400, "HOLA", {fontFamily: 'IM Fell English SC', fontSize: '45px', color: 'white'});
     }
 
     update(time, delta){
@@ -1204,4 +1199,4 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-export default Battle;
+export default Battle_King;
