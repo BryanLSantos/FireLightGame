@@ -22,7 +22,7 @@ class Battle_Tauro extends Phaser.Scene{
     preload(){
         this.load.path = './assets/';
 
-        this.load.image('1', 'Battle/1.png');
+        this.load.image('1', 'Battle/Temple3.png');
         this.load.image('Button', 'Battle/Button.png');
 
         this.load.spritesheet('nami','Nami/idlegOOD.png',

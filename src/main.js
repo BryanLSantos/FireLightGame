@@ -9,11 +9,11 @@ import Battle from "./scenes/Battle.js";
 import Battle_Esq from "./scenes/Battle_Esq.js"
 import Battle_Go from "./scenes/Battle_Go.js"
 import Battle_King from "./scenes/Battle_King.js"
+import Battle_Mouth from "./scenes/Battle_Mouth.js"
+import Battle_Rino from "./scenes/Battle_Rino.js"
+import Battle_Tauro from "./scenes/Battle_Tauro.js"
+import Battle_Mago from "./scenes/Battle_Mago.js"
 import Battle_Boss from "./scenes/Battle_Boss.js"
-import Battle_Boss from "./scenes/Battle_Mago.js"
-import Battle_Boss from "./scenes/Battle_Mouth"
-import Battle_Boss from "./scenes/Battle_Rino"
-import Battle_Boss from "./scenes/Battle_Tauro"
 
 
 
@@ -45,7 +45,7 @@ const config = {
     //     Room2,
     //     Room3,
     //     Room4], 
-    scene: [Battle],    //Aquí irá la lista de scenas del juego
+    scene: [Battle_Mago],    //Aquí irá la lista de scenas del juego
     banner:{
         hidePhaser: true,
         text: "#fff00f",
