@@ -45,7 +45,7 @@ const config = {
     //     Room2,
     //     Room3,
     //     Room4], 
-    scene: [Battle_Mago],    //Aquí irá la lista de scenas del juego
+    scene: [Battle],    //Aquí irá la lista de scenas del juego
     banner:{
         hidePhaser: true,
         text: "#fff00f",
