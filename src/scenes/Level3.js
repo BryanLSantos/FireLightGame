@@ -182,6 +182,7 @@ class Level3 extends Phaser.Scene{
         this.lava = this.physics.add.sprite(0, 0, 'lava_idle').setVisible(false);//AQUI SE AGREGA EL SPRITE
         this.portal = this.physics.add.sprite(0, 0, 'portal_idle').setVisible(false).setDepth(-1);//AQUI SE AGREGA EL SPRITE
 
+        this.parrafo.x = this.nami.x - 620; ;
         
         //FISICAS nami
         this.fuego = this.add.sprite(this.nami.x - 750, 895, 'fuego_idle').setOrigin(0.5,0.39).setScale(.6).setDepth(7);//AQUI SE AGREGA EL SPRITEa
@@ -476,7 +477,7 @@ class Level3 extends Phaser.Scene{
             key: 'hearts',
             repeat: 5,
             setXY: {
-            x: 350,
+            x: this.nami.x - 800,
             y: 100,
             stepX: 100
             }
@@ -524,9 +525,9 @@ class Level3 extends Phaser.Scene{
             key: 'potions',
             repeat: 3,
             setXY: {
-            x: 1450,
+            x: this.nami.x + 800,
             y: 100,
-            stepX: 100,
+            stepX: -100,
             }
             });
         this.grupo2.children.iterate( (posion) => {
