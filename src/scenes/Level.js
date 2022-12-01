@@ -74,91 +74,6 @@ class Level extends Phaser.Scene{
             frameWidth: 288,
             frameHeight: 288,
         })
-        // this.load.spritesheet('nami_q','Medieval nami/Sprites/Attack1.png',
-        // {
-        //     frameWidth: 160,
-        //     frameHeight: 111
-        // })
-
-        // this.load.spritesheet('nami_e','Medieval nami/Sprites/Attack2.png',
-        // {
-        //     frameWidth: 160,
-        //     frameHeight: 111
-        // })
-        //ENEMIGOS
-        
-        // this.load.atlas('slime', '/enemigos/limo/slime.png','/enemigos/limo/slime_atlas.json');
-        // this.load.animation('limo', '/enemigos/limo/slime_anim.json');
-        
-        //king
-        /*
-        this.load.spritesheet('king_dead','/enemigos/king2/king_dead.png',
-        {
-            frameWidth: 125,
-            frameHeight: 98,
-            margin: 1,
-        });
-        this.load.spritesheet('king_at','/enemigos/king2/king_at.png',
-        {
-            frameWidth: 100,
-            frameHeight: 100,
-            margin: 4,
-            spacing: 1,
-        });
-*/
-        //amadura 
-        /*
-        this.load.spritesheet('armo','/enemigos/amaduraNe/armo_.png',
-        {
-            frameWidth: 512,
-            frameHeight: 512,
-            margin: 1
-        });
-        this.load.spritesheet('armo_atk','/enemigos/amaduraNe/armo_atk.png',
-        {
-            frameWidth: 68,
-            frameHeight: 68,
-            margin: 3,
-            spacing: 3,
-        });
-        this.load.spritesheet('armo_walk','/enemigos/amaduraNe/armo_walk.png',
-        {
-            frameWidth: 68,
-            frameHeight:62,
-            margin: 1,
-            spacing: 2
-        });
-        */
-        //esqueleto
-        
-        // this.load.spritesheet('esq_idle','/enemigos/esqueleto/esq_idle.png',
-        // {
-        //     frameWidth: 143,
-        //     frameHeight: 109,
-        //     margin: 1,
-        //     spacing:1,
-        // });
-        // this.load.spritesheet('esq_atk','/enemigos/esqueleto/esq_atk.png',
-        // {
-        //     frameWidth: 143,
-        //     frameHeight: 109,
-        //     margin: 1,
-        //     spacing:2,
-        // });
-        // this.load.spritesheet('esq_dead','/enemigos/esqueleto/esq_dead.png',
-        // {
-        //     frameWidth: 143,
-        //     frameHeight: 109,
-        //     margin: 1,
-        //     spacing:2,
-        // });
-        // this.load.spritesheet('esq_walk','/enemigos/esqueleto/esq_walk.png',
-        // {
-        //     frameWidth: 162,
-        //     frameHeight: 103,
-        //     margin: 2,
-        //     spacing:3,
-        // });
 
         this.load.atlas('hearts','hearts/hearts.png','hearts/hearts_atlas.json');
         this.load.animation('heartsAnim','hearts/hearts_anim.json');
@@ -204,14 +119,10 @@ class Level extends Phaser.Scene{
         //Creacion Puertas
         this.puertas = [];
         for(let index = 0; index < 10; index++) {
-            // this.puertas[index] = this.add.image(index*1000, 770, "puertaCerrada").setOrigin(1, 1).setDepth(0);
-            //this.puertas[index].setScale(0.6);
-            // if(index%2==0){
                 this.puertas[index] = this.physics.add.sprite((index*1100)+650, 530, "puertaclosed").setDepth(0);
                 this.puertas[index].setScale(2.4);
                 this.puertas[index].body.setImmovable(true);
                 this.puertas[index].body.setAllowGravity(false);
-            // }
         }
 
         //CREACION TEXTO
@@ -317,7 +228,6 @@ class Level extends Phaser.Scene{
 
         this.physics.add.collider(this.nami, this.cofre, () => {
             if(this.teclas.powX.isDown) {
-                // console.log("XXX ");
                 if(this.contadorPocion < 4 && this.banderacofre1 == false ){
                     this.cofre.anims.play('cofreanimado');
                     this.grupo2.getChildren()[this.contadorPocion].visible = true;
@@ -408,9 +318,6 @@ class Level extends Phaser.Scene{
                 escena("Room4",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: 7200});
             }
         });
-
-        // this.physics.add.collider(this.nami, this.pared, () => {
-        // });
 
         this.physics.add.collider(this.nami, this.suelo, () => {});
         this.physics.add.collider(this.nami, this.techo, () => {});
@@ -744,23 +651,10 @@ class Level extends Phaser.Scene{
         this.banderacofre1 = false;
         this.banderacofre2 = false;
         this.banderacofre3 = false;
-       
-        //animacion de cofre
-        // this.cofre.anims.play('cofreanimado');
     }
     update(time, delta) {
         console.log(this.nami.x);
-        // if(this.nami.x >= 8150)
-        // {
-        //     this.nami.x = 8150;
-        // }
-        // if(this.colisionPinchos==true){
-        //     setInterval(() => {
-        //         this.grupo.getChildren()[this.contadorVida].visible = false;
-        //         this.contadorVida--;
-        //         this.colisionPinchos = false;
-        //     }, 1000);
-        // }
+
         var x = 0;
         var y = 0;
        
@@ -892,15 +786,7 @@ class Level extends Phaser.Scene{
         {}
     }
 }
-// function abrirCofre(nami, cofre, banderacofre1, contadorPocion, grupo2) 
-// {
-//     cofre.anims.play('cofreanimado');
-//     banderacofre1 = true;
-//     if(contadorPocion < 4){
-//         grupo2.getChildren()[contadorPocion].visible = true;
-//         contadorPocion++;
-//     }
-// }
+
 function escena(params, params2, data) {
     params2.start(params, data);
 }

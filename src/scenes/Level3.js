@@ -183,19 +183,14 @@ class Level3 extends Phaser.Scene{
             }  
         });
 
-        //this.physics.add.existing(this.nami, true); //FORMA2 true
         this.nami.body.setCollideWorldBounds(false);
         //HITBOX 38
-        // this.nami.body.setSize(18, 45, true);
-        // this.nami.body.setOffset(20, 70);
         this.nami.body.setSize(23, 50, true);
         this.nami.body.setOffset(85,60);
 
         this.physics.add.collider(this.nami, this.suelo, () => {});
         this.physics.add.collider(this.lava, this.suelo, () => {});
         this.physics.add.collider(this.nami, this.techo, () => {});
-        // this.nami = this.physics.add.image(300, 720, 'nami');
-        // this.nami.body.setAllowGravity(false);
 
         this.anims.create({
             // Nombre de la animación
@@ -366,15 +361,13 @@ class Level3 extends Phaser.Scene{
             this.nami.play('nami_attack2');
         });
         this.teclas.powR.on('up', ()=>{
-            //this.nami.anims.stop();
-            //this.nami.play('nami_idle');
         });
 
         this.teclas.kspc.on('down', ()=>{
             this.nami.play('nami_jump');
             this.nami.body.setVelocityY(-800);
-            this.nami.body.setSize(23, 50, true); //this.nami.body.setSize(48, 45, true);
-            this.nami.body.setOffset(85,60); //this.nami.body.setOffset(72, 70);
+            this.nami.body.setSize(23, 50, true);
+            this.nami.body.setOffset(85,60);
         });
         this.teclas.kspc.on('up', ()=>{
             //this.nami.anims.stop();
@@ -383,8 +376,6 @@ class Level3 extends Phaser.Scene{
             setTimeout(() => {
                 this.nami.play('nami_idle');
                 this.teclas.kspc.enabled = true;
-                // this.nami.body.setSize(48, 45, true); //this.nami.body.setSize(48, 45, true);
-                // this.nami.body.setOffset(72,70); //this.nami.body.setOffset(72, 70);
             }, 300);
             this.nami.body.setVelocityY(800);
            
@@ -392,7 +383,6 @@ class Level3 extends Phaser.Scene{
 
         this.physics.add.collider(this.nami, this.cofre, () => {
             if(this.teclas.powX.isDown) {
-                // console.log("XXX ");
                 if(this.contadorPocion < 4 && this.banderacofre1 == false ){
                     this.cofre.anims.play('cofreanimado');
                     this.grupo2.getChildren()[this.contadorPocion].visible = true;
@@ -404,7 +394,6 @@ class Level3 extends Phaser.Scene{
 
         this.physics.add.collider(this.nami, this.cofre2, () => {
             if(this.teclas.powX.isDown) {
-                // console.log("XXX ");
                 if(this.contadorPocion < 4 && this.banderacofre2 == false ){
                     this.cofre2.anims.play('cofreanimado');
                     this.grupo2.getChildren()[this.contadorPocion].visible = true;
@@ -424,9 +413,6 @@ class Level3 extends Phaser.Scene{
                 }
             }
         });
-        // this.teclas.powX.on('down', ()=>{
-    
-        // });
         //Grupo de corazones ARRIBA
         this.grupo = this.physics.add.group({
             key: 'hearts',
@@ -448,9 +434,6 @@ class Level3 extends Phaser.Scene{
         for (let index = this.contadorVida; index < 6; index++) {
             this.grupo.getChildren()[index].visible = false;
         }
-        // this.grupo.getChildren()[3].visible = false;
-        // this.grupo.getChildren()[4].visible = false;
-        // this.grupo.getChildren()[5].visible = false;
 
         //Grupo de corazones ABAJO
         this.grupoC = this.physics.add.group({
@@ -518,11 +501,8 @@ class Level3 extends Phaser.Scene{
             console.log("colision nami con lava");
             this.cameras.main
             .setBackgroundColor(0x000000)
-            //.fadeOut(500);
             // tiempo en milisegundos, intensidad en [0,1]
             .shake(500, 0.03);
-            //this.cameras.main.fadeIn(500);
-            //setVelocity(200);
             setTimeout(() => {
                 this.nami.setVelocityX( this.nami.body.velocity.x += 50);
                 this.nami.setVelocityY( this.nami.body.velocity.y -= 100);
@@ -640,7 +620,6 @@ class Level3 extends Phaser.Scene{
 
         this.physics.add.collider(this.nami, this.grupoportal.getChildren()[0], () => {
             if(this.teclas.powX.isDown) {
-                // this.puertas[0].anims.play('puerta');
                 clearInterval(this.textos);
                 escena("Battle_Rino",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: this.nami.x});
             }
@@ -648,7 +627,6 @@ class Level3 extends Phaser.Scene{
 
         this.physics.add.collider(this.nami, this.grupoportal.getChildren()[1], () => {
             if(this.teclas.powX.isDown) {
-                // this.grupoportal.getChildren()[1].anims.play('puerta');
                 clearInterval(this.textos);
                 escena("Battle_Mago",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: this.nami.x});
             }
@@ -656,7 +634,6 @@ class Level3 extends Phaser.Scene{
 
         this.physics.add.collider(this.nami, this.grupoportal.getChildren()[2], () => {
             if(this.teclas.powX.isDown) {
-                // this.puertas[2].anims.play('puerta');
                 clearInterval(this.textos);
                 escena("Battle_Boss",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: this.nami.x});
             }
@@ -671,29 +648,11 @@ class Level3 extends Phaser.Scene{
         this.banderacofre1 = false;
         this.banderacofre2 = false;
         this.banderacofre3 = false;
-       
-        //animacion de cofre
-        // this.cofre.anims.play('cofreanimado');
     }
     update(time, delta) {
-        // if(this.nami.x >= 10055)
-        // {
-        //     this.nami.x = 10055;
-        // }
-        // if(this.colisionPinchos==true){
-        //     setInterval(() => {
-        //         this.grupo.getChildren()[this.contadorVida].visible = false;
-        //         this.contadorVida--;
-        //         this.colisionPinchos = false;
-        //     }, 1000);
-        // }
         var x = 0;
         var y = 0;
         //////////////////////
-        // if (this.bgs[1].x >= - this.bgs[1].displayWidth + 1920) {
-        //     this.bgs[0].x -= 2;
-        //     this.bgs[1].x -= 2;
-        // }
 
         if (this.teclas.izq.isDown)
         {
@@ -734,7 +693,6 @@ class Level3 extends Phaser.Scene{
         ///////////////////////77
         if (this.teclas.der.isDown)
         {
-            // this.nami.body.setOffset(72, 70);
             this.nami.body.setSize(23, 50, true); 
             this.nami.body.setOffset(85,60);
             if(!this.teclas.izq.isDown){
@@ -767,38 +725,11 @@ class Level3 extends Phaser.Scene{
                     this.cofre3.x -= 2;
                 }
             }
-            // this.grupo2[0].x += 2;
-            // this.grupo2[1].x += 2;
-            // this.grupo2[2].x += 2;
-            // this.grupo2[3].x += 2;
-            // this.grupo2[4].x += 2;
-            // this.grupo2[5].x += 2;
-            // if (this.nami.x >= 1820) {
-            //     this.nami.x = 1820;
-            // }
 /////////////////////
             
 ///////////////////
 
             if (this.bgs[1].x >= - this.bgs[1].displayWidth + 1920) {
-                // this.bgs[0].x -= 2;
-                // this.bgs[1].x -= 2;
-
-                // this.grupoC.children.iterate((corazon) => {
-                //     corazon.x -= 2;
-                // });
-                // this.grupoO.children.iterate((corazon) => {
-                //     corazon.x -= 2;
-                // });
-                // this.grupoO2.children.iterate((corazon) => {
-                //     corazon.x -= 2;
-                // });
-                // this.grupoO3.children.iterate((corazon) => {
-                //     corazon.x -= 2;
-                // });
-                // this.grupoO4.children.iterate((corazon) => {
-                //     corazon.x -= 2;
-                // });
             }
         }
 
@@ -815,29 +746,8 @@ class Level3 extends Phaser.Scene{
                     x++;
                 } );
             }
-            // if (this.nami.x <= 100) {
-            //     this.nami.x = 100;
-            // }
 
             if (this.bgs[0].x <= 0) {
-                // this.bgs[0].x += 2;
-                // this.bgs[1].x += 2;
-
-                // this.grupoC.children.iterate((corazon) => {
-                //     corazon.x += 2;
-                // });
-                // this.grupoO.children.iterate((corazon) => {
-                //     corazon.x += 2;
-                // });
-                // this.grupoO2.children.iterate((corazon) => {
-                //     corazon.x += 2;
-                // });
-                // this.grupoO3.children.iterate((corazon) => {
-                //     corazon.x += 2;
-                // });
-                // this.grupoO4.children.iterate((corazon) => {
-                //     corazon.x += 2;
-                // });
             }
         }
 
@@ -847,40 +757,11 @@ class Level3 extends Phaser.Scene{
         if (this.teclas.powR.isDown)
         {}
 
-        // if(this.teclas.kspc.isDown && this.nami.x >= 300+300 && this.nami.x <= 300 + 50+500)
-        // {
-        //     // setInterval(() => {
-        //     //     console.log("esta haciendo algo");
-        //     //     this.puertas[0].anims.play('puerta');
-                
-        //     // }, 1500);
-            
-        //     this.puertas[0].anims.play('puerta');
-        //     // setTimeout(() => {
-
-        //         escena("Level3",this.scene);
-
-        //         // escena("Room4",this.scene);
-                    
-        //     // }, 1500);
-        //         // this.scene.start("Room1", {
-        //         // });
-       
-            
-        // }
-        
         if(this.nami.x >= 750 && this.nami.x <= 750 + 50)
         {
-            //this.grupoC.getChildren()[0].visible = false;
-
-            // this.grupo.getChildren()[3].visible = true;
         }
         if(this.nami.x >= 1350 && this.nami.x <= 1350 + 50) 
         {
-
-            //     this.grupoC.getChildren()[1].visible = false;
-
-            // this.grupo.getChildren()[4].visible = true;
         }
     }
 }

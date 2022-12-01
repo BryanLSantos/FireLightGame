@@ -88,13 +88,6 @@ class Gameover extends Phaser.Scene {
 
         
         this.fondo = this.add.image(0, 0, "gameover").setOrigin(0, 0).setDepth(-1).setScale(1.5);
-
-        // this.bgs = [
-        //     this.add.image(0, 0, "FondoStartA").setOrigin(0, 0).setDepth(-1).setScale(2),
-        //     this.add.image(0, 0, "FondoStartA").setOrigin(0, 0).setDepth(-1).setScale(2),
-        // ];
-        // this.bgs[1].x = - this.bgs[0].displayWidth;
-        //Imagen de Titulo
        
         //Boton de Start
         this.start = this.add.image(
