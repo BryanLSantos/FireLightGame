@@ -28,6 +28,26 @@ class Room4 extends Phaser.Scene {
         this.load.image(['Puntero']);
 
         this.load.image('redroom', 'scenaroom/redroom.png');
+        this.load.image('dialogo', 'scenaroom/textbox.png');
+        this.load.image('lineBlock', 'scenalevel/lineBlock.png');
+        this.load.image('BlockBlock', 'scenalevel/blockBlock.png');
+        this.load.image('puertaclosed', 'scenalevel/puertaclosed.png');
+
+        this.load.atlas('puerta','puerta/puerta/puerta.png','puerta/puerta/puerta_atlas.json');
+        this.load.animation('puertaAnim', 'puerta/puerta_anim/puerta_anim.json');
+
+        this.load.spritesheet('nami','Nami/idlegOOD.png',
+        {
+            frameWidth: 180,
+            frameHeight: 180,
+        });
+
+           
+        this.load.spritesheet('nami_run','Nami/RungOOD.png',
+        {
+            frameWidth: 180,
+            frameHeight: 180,
+        })
 
         this.load.spritesheet('desconocido','PSecundarios/desconocidolev1.png',
         {
@@ -51,6 +71,11 @@ class Room4 extends Phaser.Scene {
             frameWidth: 180,
             frameHeight: 180,
         })
+        this.load.spritesheet('bola_idle','scenaroom/libro.png',
+        {
+            frameWidth: 500,
+            frameHeight: 449,
+        });
     }
 
     create(){
@@ -66,13 +91,16 @@ class Room4 extends Phaser.Scene {
         this.suelo.body.setSize(100000, 55, true);
         //visible false 
         this.suelo.setVisible(false);
+
+        this.banderadialogo = false;
+        this.banderaitem = false;
         
         this.puertas = this.add.sprite(150, 565, "puertaclosed").setDepth(0);
         this.puertas.setScale(2.1);
 
         this.fondo = this.add.image(0, 0, "redroom").setOrigin(0, 0).setDepth(-1);
 
-        this.desconocido = this.add.sprite(1600, 570, 'desconocido', 0).setScale(7).setDepth(3);
+        this.desconocido = this.physics.add.sprite(1300, 500, 'desconocido', 0).setScale(7).setDepth(3);
         //this.violet.flipX = true;
         this.anims.create({
             // Nombre de la animación
@@ -90,12 +118,26 @@ class Room4 extends Phaser.Scene {
 
         this.desconocido.anims.play('desconocido-idle');
         this.nami = this.physics.add.sprite(150, 500, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
+        
+        this.bola_idle = this.physics.add.sprite(1130, 480, 'bola_idle').setOrigin(0.5,0.39).setScale(.2).setVisible(false);
         //this.physics.add.existing(this.nami, true); //FORMA2 true
+
+                
+        this.bola_idle.body.setAllowGravity(false);
+        this.bola_idle.setImmovable();
+
         this.nami.body.setCollideWorldBounds(false);
         this.nami.body.setSize(48, 45, true);
         this.nami.body.setOffset(72, 70);
+
+        this.desconocido.body.setSize(100, 1, true); 
+        this.desconocido.body.setOffset(-50, 60);
+        
         this.physics.add.collider(this.nami, this.suelo, () => {});
         this.physics.add.collider(this.nami, this.bloques, () => {});
+        this.physics.add.collider(this.desconocido, this.suelo, () => {});
+        this.physics.add.collider(this.desconocido, this.bloques, () => {});
+
         this.nami.body.setCollideWorldBounds(true);
         // const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         // // const eventos = Phaser.Input.Events;
@@ -249,6 +291,47 @@ class Room4 extends Phaser.Scene {
             }, 300);
             this.nami.body.setVelocityY(800);
         });
+        this.texto = [];
+        this.index = 0;
+        this.texto[0] = "La luz de la luna ahoga a todas las \nestrellas salvo las más brillantes”"; 
+        this.texto[1] = "No puede haber triunfo sin pérdida.";
+        this.texto[2] = "No hay victoria sin sufrimiento.";
+        this.texto[3] = "No hay libertad sin sacrificio.";
+        this.texto[4] = "Convierte en lo que deseas vencer\n y guianos hacia la libertad!";
+
+        
+        this.parrafo = this.add.text(1280, 865, "", {fontFamily: 'IM Fell English SC', fontSize: '20px', color: 'white'}).setDepth(10);
+        
+        this.parrafo.alpha = 0.0; 
+
+        this.physics.add.collider(this.nami, this.desconocido, () => {    
+            console.log("colision nami con violet");
+            this.cameras.main
+
+            if(this.banderadialogo==false){
+                this.dialogo = this.add.image(1450,900, "dialogo").setDepth(6).setVisible(true);
+                
+                setInterval(() => {
+                    if(this.index < this.texto.length){
+                        this.parrafo.setText(this.texto[this.index]); 
+                        this.index++;
+                        show(this,this.parrafo);
+                        setTimeout(() => {
+                            hide(this,this.parrafo);
+                        }, 6000);
+                    }
+                    else{
+                        this.index = 0;
+                    }
+                    
+                }, 9000); 
+
+                this.banderadialogo = true;
+            }
+
+            
+        });
+
 
     }
     update(time, delta) {
@@ -298,5 +381,20 @@ class Room4 extends Phaser.Scene {
 }
 function escena(params, params2, data) {
     params2.start(params, data);
+}
+function show(params, text) {
+    params.tweens = params.add.tween({
+        targets: [text],
+        alpha: 1,
+        duration: 1500
+    });
+}
+
+function hide(params, text) {
+    params.tweens = params.add.tween({
+        targets: [text],
+        alpha: 0,
+        duration: 1500
+    });
 }
 export default Room4;

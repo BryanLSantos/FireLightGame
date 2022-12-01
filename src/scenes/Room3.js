@@ -21,10 +21,7 @@ class Room3 extends Phaser.Scene {
         console.log("vidas: " + this.vidasGet + " posiones: " + this.posionesGet);
         //console.log('Haz hecho', dato, 'puntos');
     }
-<<<<<<< Updated upstream
     
-=======
->>>>>>> Stashed changes
     
     preload() {
         this.load.path = './assets/';
