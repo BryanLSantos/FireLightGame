@@ -379,7 +379,7 @@ class Level3 extends Phaser.Scene{
                 corazon.body.setAllowGravity(false);
             } );
         this.grupo.playAnimation('hearts');
-        this.contadorVida = 3; 
+        // this.contadorVida = 3; 
         this.grupo.getChildren()[3].visible = false;
         this.grupo.getChildren()[4].visible = false;
         this.grupo.getChildren()[5].visible = false;

@@ -1,6 +1,7 @@
 import Start from "./scenes/Start.js"
 import Map from "./scenes/Map.js"
 import Level from "./scenes/Level.js"
+import Level2 from "./scenes/Level2.js"
 import Room1 from "./scenes/Room1.js"
 import Room2 from "./scenes/Room2.js"
 import Room3 from "./scenes/Room3.js"
@@ -31,13 +32,13 @@ const config = {
     pixelArt: true,		            //Diseño con pixeles definidos (no borrosos)
     backgroundColor: "#000000", 	//Color de fondo del canvas ()
     scene: [
-        Room4,
         Start,
-        Level, 
         Map,
+        Level2, 
         Room1,
         Room2,
         Room3,
+        Room4,
         Level3], 
     // scene: [Battle],    //Aquí irá la lista de scenas del juego
     banner:{
