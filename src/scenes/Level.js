@@ -295,12 +295,12 @@ class Level extends Phaser.Scene{
         this.cofre4.body.setAllowGravity(false);
     
         // this.cofre.body.setSize(1, 0.5);
-        this.cofre5 = this.physics.add.sprite(4500, 680, 'cofreestatico').setScale(0.8).setImmovable(true);
+        this.cofre5 = this.physics.add.sprite(5400, 680, 'cofreestatico').setScale(0.8).setImmovable(true);
         this.cofre5.body.setSize(100,50);
         this.cofre5.body.setOffset(50, 300);
         this.cofre5.body.setAllowGravity(false);
  
-        this.cofre6 = this.physics.add.sprite(6400, 680, 'cofreestatico').setScale(0.8).setImmovable(true);
+        this.cofre6 = this.physics.add.sprite(6800, 680, 'cofreestatico').setScale(0.8).setImmovable(true);
         this.cofre6.body.setSize(100,50);
         this.cofre6.body.setOffset(50, 300);
         this.cofre6.body.setAllowGravity(false);
@@ -786,6 +786,9 @@ class Level extends Phaser.Scene{
                 this.cofre.x += 2;
                 this.cofre2.x += 2;
                 this.cofre3.x += 2;
+                this.cofre4.x += 2;
+                this.cofre5.x += 2;
+                this.cofre6.x += 2;
                 for (let index = 0; index < 10; index++) {
                     this.cuadros[index].x += 2;
                 }
@@ -836,6 +839,9 @@ class Level extends Phaser.Scene{
                     this.cofre.x -= 2;
                     this.cofre2.x -= 2;
                     this.cofre3.x -= 2;
+                    this.cofre4.x -= 2;
+                    this.cofre5.x -= 2;
+                    this.cofre6.x -= 2;
                     for (let index = 0; index < 10; index++) {
                         this.cuadros[index].x -= 2;
                     }
