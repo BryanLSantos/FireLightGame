@@ -208,7 +208,7 @@ class Level extends Phaser.Scene{
             // if(index%2==0){
                 this.puertas[index] = this.physics.add.sprite((index*1100)+650, 530, "puertaclosed").setDepth(0);
                 this.puertas[index].setScale(2.4);
-                this.puertas[index].body.setImmovable(false);
+                this.puertas[index].body.setImmovable(true);
                 this.puertas[index].body.setAllowGravity(false);
             // }
         }
@@ -761,6 +761,9 @@ class Level extends Phaser.Scene{
         {
             this.nami.body.setSize(23, 50, true); 
             this.nami.body.setOffset(85,60);
+            if (this.nami.x >= 8000) {
+                this.nami.x = 8000;
+            }
             // this.pared.x -= 2;
             if(!this.teclas.izq.isDown){
                 this.nami.x += 6;
