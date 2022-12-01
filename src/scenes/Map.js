@@ -62,7 +62,7 @@ class Map extends Phaser.Scene {
 
         this.circle1.on('pointerdown',()=>{
             // cargar la esena de boot
-            this.scene.start('Level2',  { vidas: 3, posiones: 1, posicionXNami: 300 });
+            this.scene.start('Level3',  { vidas: 3, posiones: 1, posicionXNami: 300 });
         });
         
         //Movimiento del puntero sobre el canvas
