@@ -5,8 +5,10 @@ import Level2 from "./scenes/Level2.js"
 import Room1 from "./scenes/Room1.js"
 import Room2 from "./scenes/Room2.js"
 import Room3 from "./scenes/Room3.js"
+import Gameover from "./scenes/Gameover.js"
 import Room4 from "./scenes/Room4.js";
 import Battle from "./scenes/Battle.js";
+
 
 import Battle_Esq from "./scenes/Battle_Esq.js"
 import Battle_Go from "./scenes/Battle_Go.js"
@@ -50,7 +52,8 @@ const config = {
         Room3,
         Room4,
         Level2,
-        Level3], 
+        Level3,
+        Gameover], 
     banner:{
         hidePhaser: true,
         text: "#fff00f",
