@@ -502,6 +502,30 @@ class Level2 extends Phaser.Scene {
         this.grupoO4.playAnimation('pinchos');
         this.grupoO5.playAnimation('pinchos');
 
+         //Grupo de corazones ABAJO
+         this.grupoC = this.physics.add.group({
+            key: 'hearts',
+            repeat: 2,
+            setXY: {
+                x: 800,
+                y: 400,
+                stepX: 200
+            }
+        });
+        this.grupoC.children.iterate((corazon) => {
+            corazon.setScale(0.5);
+            corazon.body.setAllowGravity(false);
+        });
+        this.grupoC.playAnimation('hearts');
+         
+        //Nami obtiene salud
+        this.physics.add.collider(this.nami, this.grupoC, () => {
+            this.grupoC.getChildren()[0].destroy();
+            if(this.contadorVida<6){
+                this.grupo.getChildren()[this.contadorVida].visible = true;
+                this.contadorVida++;
+            }
+        });
 
         //Twind
         this.tweens = this.add.tween({
@@ -629,14 +653,16 @@ class Level2 extends Phaser.Scene {
             
             //evitar movimiento al teclear d
             //evitar movimiento al teclear d
-
+            
         }
         ///////////////////////
         if (this.teclas.der.isDown)
         {
             this.nami.body.setSize(23, 50, true); 
             this.nami.body.setOffset(85,60);
-         
+            // this.grupoC.children.iterate( (corazon) => {
+            //     corazon.x -= 2;
+            // });
             if(!this.teclas.izq.isDown){
                 // this.nami.x += 6;
                 this.grupo.children.iterate( (corazon) => {
@@ -647,6 +673,7 @@ class Level2 extends Phaser.Scene {
                     pocion.x = (800 + this.nami.x) - (x*50);
                     x++;
                 } );
+                
             }
         }
 
@@ -662,6 +689,9 @@ class Level2 extends Phaser.Scene {
                     pocion.x = (800 + this.nami.x) - (x*50);
                     x++;
                 } );
+                // this.grupoC.children.iterate( (corazon) => {
+                //     corazon.x += 2;
+                // });
             }
         }
 
