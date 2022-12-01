@@ -911,6 +911,21 @@ class Level extends Phaser.Scene{
                 for(let index = 0; index < 10; index++) {
                     this.antorchas[index].x += 2;
                 }
+                //evitar movimiento al teclear d
+                this.cofre.x += 2;
+                this.cofre2.x += 2;
+                this.cofre3.x += 2;
+                for (let index = 0; index < 10; index++) {
+                    this.cuadros[index].x += 2;
+                }
+                this.grupoO4.children.iterate( (pincho) => {
+                    pincho.x += 2;
+                });
+                this.grupoC.children.iterate( (corazon) => {
+                    corazon.x += 2;
+                });
+                this.botonlevel2.x += 2;
+                //evitar movimiento al teclear d
             }
         }
         ///////////////////////77
@@ -944,8 +959,32 @@ class Level extends Phaser.Scene{
                     for(let index = 0; index < 10; index++) {
                         this.antorchas[index].x -= 2;
                     }
-
+                    this.cofre.x -= 2;
+                    this.cofre2.x -= 2;
+                    this.cofre3.x -= 2;
+                    for (let index = 0; index < 10; index++) {
+                        this.cuadros[index].x -= 2;
+                    }
+                    this.grupoO4.children.iterate( (pincho) => {
+                        pincho.x -= 2;
+                    });
+                    this.grupoC.children.iterate( (corazon) => {
+                        corazon.x -= 2;
+                    });
+                    this.botonlevel2.x -= 2;
                 }
+                // this.cofre.x -= 2;
+                //     this.cofre2.x -= 2;
+                //     this.cofre3.x -= 2;
+                //     for (let index = 0; index < 10; index++) {
+                //         this.cuadros[index].x -= 2;
+                //     }
+                //     this.grupoO4.children.iterate( (pincho) => {
+                //         pincho.x -= 2;
+                //     });
+                //     this.grupoC.children.iterate( (corazon) => {
+                //         corazon.x -= 2;
+                //     });
             }
             // this.grupo2[0].x += 2;
             // this.grupo2[1].x += 2;
@@ -1000,6 +1039,24 @@ class Level extends Phaser.Scene{
                     pocion.x = (800 + this.nami.x) - (x*100);
                     x++;
                 } );
+                // if (this.bgs[0].x <= 0) {
+                //     this.bgs[0].x -= 2;
+                //     this.bgs[1].x -= 2;
+                    //evitar movimiento al teclear d
+                    // this.cofre.x += 2;
+                    // this.cofre2.x += 2;
+                    // this.cofre3.x += 2;
+                    // for (let index = 0; index < 10; index++) {
+                    //     this.cuadros[index].x += 2;
+                    // }
+                    // this.grupoO4.children.iterate( (pincho) => {
+                    //     pincho.x += 2;
+                    // });
+                    // this.grupoC.children.iterate( (corazon) => {
+                    //     corazon.x += 2;
+                    // });
+                    //evitar movimiento al teclear d
+                // }
             }
             // if (this.nami.x <= 100) {
             //     this.nami.x = 100;
@@ -1033,7 +1090,7 @@ class Level extends Phaser.Scene{
         if (this.teclas.powR.isDown)
         {}
 
-        if(this.teclas.powX.isDown && this.nami.x >= 300+300 && this.nami.x <= 300 + 50+500)
+        if(this.teclas.powX.isDown && this.nami.x >= 300+300 -150&& this.nami.x <= 300 + 50+500-150)
         {
             // setInterval(() => {
             //     console.log("esta haciendo algo");
@@ -1049,22 +1106,22 @@ class Level extends Phaser.Scene{
                     
             // }, 1500);       
         }
-        if(this.teclas.powX.isDown && this.nami.x >= 3420+300 && this.nami.x <= 3460 + 50+500) //this.nami.x >= 1250+300 && this.nami.x <= 1350 + 50+500
+        if(this.teclas.powX.isDown && this.nami.x >= 3420+300-150 && this.nami.x <= 3460 + 50+500-150) //this.nami.x >= 1250+300 && this.nami.x <= 1350 + 50+500
         { //4ta puerta this.nami.x >= 3420+300 && this.nami.x <= 3460 + 50+500
             this.puertas[1].anims.play('puerta');
             escena("Room2",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: 3700  });
         }
-        if(this.teclas.powX.isDown && this.nami.x >= 5520+300 && this.nami.x <= 5760 + 50+500) //this.nami.x >= 2120+300 && this.nami.x <= 2360 + 50+500
+        if(this.teclas.powX.isDown && this.nami.x >= 5520+300-150 && this.nami.x <= 5760 + 50+500-150) //this.nami.x >= 2120+300 && this.nami.x <= 2360 + 50+500
         {   //5ta puerta this.nami.x >= 4520+300 && this.nami.x <= 4560 + 50+500
             this.puertas[2].anims.play('puerta');
             escena("Room3",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: 6100 });
         }
-        if(this.teclas.powX.isDown && this.nami.x >= 6720+300 && this.nami.x <= 6860 + 50+500)
+        if(this.teclas.powX.isDown && this.nami.x >= 6720+300-150 && this.nami.x <= 6860 + 50+500-150)
         {//6tapuerta this.nami.x >= 5520+300 && this.nami.x <= 5760 + 50+500
             this.puertas[3].anims.play('puerta');
             escena("Room4",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion,  posicionXNami: 7200});
         }
-        if(this.teclas.powX.isDown && this.nami.x >= 950 && this.nami.x <= 50+950 && this.banderacofre1==false)
+        if(this.teclas.powX.isDown && this.nami.x >= 950 -100&& this.nami.x <= 50+950-100 && this.banderacofre1==false)
         {
             this.cofre.anims.play('cofreanimado');
             this.banderacofre1 = true;
@@ -1073,7 +1130,7 @@ class Level extends Phaser.Scene{
                 this.contadorPocion++;
             }
         }
-        if(this.teclas.powX.isDown && this.nami.x >= 2350 && this.nami.x <= 50+2450 && this.banderacofre2==false)
+        if(this.teclas.powX.isDown && this.nami.x >= 2350-200 && this.nami.x <= 50+2450-200 && this.banderacofre2==false)
         {
             this.cofre2.anims.play('cofreanimado');
             this.banderacofre2 = true;
@@ -1082,7 +1139,7 @@ class Level extends Phaser.Scene{
                 this.contadorPocion++;
             }
         }
-        if(this.teclas.powX.isDown && this.nami.x >= 3350 && this.nami.x <= 50+3450 && this.banderacofre3==false)
+        if(this.teclas.powX.isDown && this.nami.x >= 3350-100 && this.nami.x <= 50+3450-100 && this.banderacofre3==false)
         {
             this.cofre3.anims.play('cofreanimado');
             this.banderacofre3 = true;
