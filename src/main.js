@@ -32,9 +32,9 @@ const config = {
     pixelArt: true,		            //Diseño con pixeles definidos (no borrosos)
     backgroundColor: "#000000", 	//Color de fondo del canvas ()
     scene: [
+        Level2,
         Start,
         Map,
-        Level2, 
         Room1,
         Room2,
         Room3,
