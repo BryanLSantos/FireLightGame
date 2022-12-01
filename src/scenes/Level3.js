@@ -2,13 +2,15 @@ class Level3 extends Phaser.Scene{
     constructor(){
         super({ key: 'Level3' });
     }
-    init() {
+    init(data) {
         console.log('Escena Level3');
+        console.log('init', data);
         this.width = this.sys.game.canvas.width;
         this.height = this.sys.game.canvas.height;
         this.maximo=690;
         this.minimo=0;
         this.direc=true;
+        
 
     }
     
