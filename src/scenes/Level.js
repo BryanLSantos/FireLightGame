@@ -35,7 +35,7 @@ class Level extends Phaser.Scene{
         this.load.image('buttonlevel2', 'buttonlevel/buttonlevel2.png');
 
         //AQUI SE CREA EL SPRITESHEET
-        this.load.spritesheet('nami','Nami/idlegOOD.png',
+        this.load.spritesheet('nami','Nami/IdlegOOD.png',
         {
             frameWidth: 180,
             frameHeight: 180,
@@ -53,7 +53,7 @@ class Level extends Phaser.Scene{
             frameHeight: 180,
         })
 
-        this.load.spritesheet('nami_jump','Nami/jumpgOOD.png',
+        this.load.spritesheet('nami_jump','Nami/JumpgOOD.png',
         {
             frameWidth: 180,
             frameHeight: 180,

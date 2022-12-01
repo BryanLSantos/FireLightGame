@@ -32,7 +32,7 @@ class Level2 extends Phaser.Scene {
         this.load.atlas('potions', 'potions/potions.png', 'potions/potions_atlas.json');
         this.load.animation('potionsAnim', 'potions/potions_anim.json');
 
-        this.load.spritesheet('nami','Nami/idlegOOD.png',
+        this.load.spritesheet('nami','Nami/IdlegOOD.png',
         {
             frameWidth: 180,
             frameHeight: 180,
@@ -50,7 +50,7 @@ class Level2 extends Phaser.Scene {
             frameHeight: 180,
         })
 
-        this.load.spritesheet('nami_jump','Nami/jumpgOOD.png',
+        this.load.spritesheet('nami_jump','Nami/JumpgOOD.png',
         {
             frameWidth: 180,
             frameHeight: 180,

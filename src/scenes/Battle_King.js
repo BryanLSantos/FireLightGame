@@ -28,7 +28,7 @@ class Battle_King extends Phaser.Scene{
         this.load.image('battle4', 'Battle/battle4.png');
         this.load.image('Button', 'Battle/Button.png');
 
-        this.load.spritesheet('nami','Nami/idlegOOD.png',
+        this.load.spritesheet('nami','Nami/IdlegOOD.png',
         {
             frameWidth: 180,
             frameHeight: 180
