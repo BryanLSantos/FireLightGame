@@ -1,11 +1,13 @@
 import Start from "./scenes/Start.js"
 import Map from "./scenes/Map.js"
 import Level from "./scenes/Level.js"
+import Level2 from "./scenes/Level2.js"
 import Room1 from "./scenes/Room1.js"
 import Room2 from "./scenes/Room2.js"
 import Room3 from "./scenes/Room3.js"
 import Room4 from "./scenes/Room4.js";
 import Battle from "./scenes/Battle.js";
+
 import Battle_Esq from "./scenes/Battle_Esq.js"
 import Battle_Go from "./scenes/Battle_Go.js"
 import Battle_King from "./scenes/Battle_King.js"
@@ -14,6 +16,8 @@ import Battle_Rino from "./scenes/Battle_Rino.js"
 import Battle_Tauro from "./scenes/Battle_Tauro.js"
 import Battle_Mago from "./scenes/Battle_Mago.js"
 import Battle_Boss from "./scenes/Battle_Boss.js"
+import Level3 from "./scenes/Level3.js"
+
 
 
 
@@ -37,15 +41,7 @@ const config = {
                                     // se refiere a dónde se pondrá el canvas o lienzo
     pixelArt: true,		            //Diseño con pixeles definidos (no borrosos)
     backgroundColor: "#000000", 	//Color de fondo del canvas ()
-    // scene: [
-    //     Start,
-    //     Level, 
-    //     Map,
-    //     Room1,
-    //     Room2,
-    //     Room3,
-    //     Room4], 
-    scene: [Battle],    //Aquí irá la lista de scenas del juego
+
     banner:{
         hidePhaser: true,
         text: "#fff00f",

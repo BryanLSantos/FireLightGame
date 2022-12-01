@@ -3,8 +3,8 @@
         {
             "key": "cofreanimado",
             "type": "frames",
-            "repeat": -1,
-            "frameRate": 6,
+            "repeat": 0,
+            "frameRate": 1,
             "frames": [
                 {
                     "key": "cofreanimado",

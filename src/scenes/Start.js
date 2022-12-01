@@ -185,11 +185,23 @@ class Start extends Phaser.Scene {
             this.story = this.add.image(
                 this.width / 2,
                 this.height / 2,
-                "Story",
-            ).setDepth(6).setScale(2).setInteractive();
+                "Pergamino",
+            ).setDepth(6).setScale(1.8).setInteractive();
+
+            // this.text = this.add.text()
+
+            this.txtTurn = this.add.text(this.width/2 - 150, 400, "En una tierra conectada al gran arbol, <br> existen los alquimistas, maestros de la magia y las hechicerias. La tierra light un lugar que se deja llevar por la magia y el conocimiento, un lugar que aunque parece pacifico oculta secretos y leyendas... En el viejo castillo de light hogar de muchos aprendies, y pocos de los que pueden ser llamados astrologos, pronto conoceras a una que podria necesitar tu ayuda.", {fontFamily: 'IM Fell English SC', fontSize: '25px', color: 'black'}).setDepth(6);
+            this.txtTurn.alpha = 0.0;
+
+            this.tweens = this.add.tween({
+            targets: [this.txtTurn],
+            alpha: 1,
+            duration: 1500
+            });
 
             this.story.on('pointerdown',()=>{
                 this.story.visible=false;
+                this.txtTurn.visible=false;
             });
         });
 
