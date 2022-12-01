@@ -3,14 +3,17 @@ class Level extends Phaser.Scene{
         super({ key: 'Level' });
     }
 
-    init() {
+    init(dato) {
         console.log('Escena Level');
+        console.log(dato);
+        this.vidasGet = dato.vidas;
+        this.posionesGet = dato.posiones;
+        console.log("vidas: " + this.vidasGet + " posiones: " + this.posionesGet);
         this.width = this.sys.game.canvas.width;
         this.height = this.sys.game.canvas.height;
         this.maximo=690;
         this.minimo=0;
         this.direc=true;
-
     }
     
     preload() {
@@ -243,7 +246,7 @@ class Level extends Phaser.Scene{
     }
 
     create(){
-       
+
         this.cameras.main.setBackgroundColor(0x000000)
         // tiempo en milisegundos
         .fadeIn(2000);
@@ -318,7 +321,7 @@ class Level extends Phaser.Scene{
         this.botonlevel2.setInteractive();
         this.botonlevel2.on('pointerdown', () => {
             console.log("presionaste el boton de nivel 2");
-            escena("Level3", this.scene);
+            escena("Level3", this.scene, this.contadorVida, this.contadorPocion);
         } );
        
         
@@ -608,10 +611,16 @@ class Level extends Phaser.Scene{
                 corazon.body.setAllowGravity(false);
             } );
         this.grupo.playAnimation('hearts');
-        this.contadorVida = 3; 
-        this.grupo.getChildren()[3].visible = false;
-        this.grupo.getChildren()[4].visible = false;
-        this.grupo.getChildren()[5].visible = false;
+        // this.contadorVida; 
+        this.contadorVida = this.vidasGet;
+        console.log("contador vida" + this.contadorVida);
+        for (let index = this.contadorVida; index < 6; index++) {
+            this.grupo.getChildren()[index].visible = false;
+        }
+        
+        // this.grupo.getChildren()[3].visible = false;
+        // this.grupo.getChildren()[4].visible = false;
+        // this.grupo.getChildren()[5].visible = false;
 
         //Grupo de corazones ABAJO
         this.grupoC = this.physics.add.group({
@@ -632,8 +641,10 @@ class Level extends Phaser.Scene{
         //Nami obtiene salud
         this.physics.add.collider(this.nami, this.grupoC, () => {
             this.grupoC.getChildren()[0].destroy();
-            this.grupo.getChildren()[this.contadorVida].visible = true;
-            this.contadorVida++;
+            if(this.contadorVida<6){
+                this.grupo.getChildren()[this.contadorVida].visible = true;
+                this.contadorVida++;
+            }
         });
    
             
@@ -652,10 +663,14 @@ class Level extends Phaser.Scene{
             posion.setScale(0.8);
             posion.body.setAllowGravity(false);
         } );
-        this.contadorPocion = 1;
-        this.grupo2.getChildren()[1].visible = false;
-        this.grupo2.getChildren()[2].visible = false;
-        this.grupo2.getChildren()[3].visible = false;
+        // this.contadorPocion = 1;
+        this.contadorPocion = this.posionesGet;
+        for (let index = this.contadorPocion; index < 4; index++) {
+            this.grupo2.getChildren()[index].visible = false;
+        }
+        // this.grupo2.getChildren()[1].visible = false;
+        // this.grupo2.getChildren()[2].visible = false;
+        // this.grupo2.getChildren()[3].visible = false;
         this.grupo2.playAnimation('potions');
 
         //Grupo linea de bloques
@@ -883,7 +898,7 @@ class Level extends Phaser.Scene{
             this.nami.body.setSize(23, 50, true);
             this.nami.body.setOffset(70,60);
             if (this.nami.x <= 100) {
-                    this.nami.x = 100;
+                this.nami.x = 100;
             }
 
             if (this.bgs[0].x <= 0) {
@@ -1028,10 +1043,7 @@ class Level extends Phaser.Scene{
             this.puertas[0].anims.play('puerta');
             // setTimeout(() => {
                 clearInterval(this.textos);
-                escena("Room1",this.scene);
-
-
-
+                escena("Room1",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion});
                 // escena("Room4",this.scene);
                     
             // }, 1500);       
@@ -1055,31 +1067,36 @@ class Level extends Phaser.Scene{
         {
             this.cofre.anims.play('cofreanimado');
             this.banderacofre1 = true;
-            this.grupo2.getChildren()[this.contadorPocion].visible = true;
-            this.contadorPocion++;
+            if(this.contadorPocion < 4){
+                this.grupo2.getChildren()[this.contadorPocion].visible = true;
+                this.contadorPocion++;
+            }
         }
         if(this.teclas.powX.isDown && this.nami.x >= 2350 && this.nami.x <= 50+2450 && this.banderacofre2==false)
         {
             this.cofre2.anims.play('cofreanimado');
             this.banderacofre2 = true;
-            this.grupo2.getChildren()[this.contadorPocion].visible = true;
-            this.contadorPocion++;
+            if(this.contadorPocion < 4){
+                this.grupo2.getChildren()[this.contadorPocion].visible = true;
+                this.contadorPocion++;
+            }
         }
         if(this.teclas.powX.isDown && this.nami.x >= 3350 && this.nami.x <= 50+3450 && this.banderacofre3==false)
         {
             this.cofre3.anims.play('cofreanimado');
             this.banderacofre3 = true;
-            this.grupo2.getChildren()[this.contadorPocion].visible = true;
-            this.contadorPocion++;
+            if(this.contadorPocion < 4){
+                this.grupo2.getChildren()[this.contadorPocion].visible = true;
+                this.contadorPocion++;
+            }
         }
 
         //console.log(this.nami.x);
     }
 
 }
-function escena(params, params2) {
-    params2.start(params,{
-    });
+function escena(params, params2, data) {
+    params2.start(params, data);
 }
 function show(params, text) {
     params.tweens = params.add.tween({
@@ -1096,5 +1113,6 @@ function hide(params, text) {
         duration: 1500
     });
 }
+
 
 export default Level;

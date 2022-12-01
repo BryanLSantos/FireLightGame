@@ -3,7 +3,7 @@ class Room1 extends Phaser.Scene {
         super({ key: 'Room1' });
     }
 
-    init() {
+    init(dato) {
 
         this.width = this.sys.game.canvas.width;
         this.height = this.sys.game.canvas.height;
@@ -14,11 +14,13 @@ class Room1 extends Phaser.Scene {
 
         this.bgDelta = 2;
 
-    }
-    init(dato) {
         console.log('Escena ScenaA');
+        this.vidasGet = dato.vidas;
+        this.posionesGet = dato.posiones;
+        console.log("vidas: " + this.vidasGet + " posiones: " + this.posionesGet);
         //console.log('Haz hecho', dato, 'puntos');
-        }
+
+    }
     
     preload() {
         this.load.path = './assets/';
@@ -88,6 +90,8 @@ class Room1 extends Phaser.Scene {
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         const eventos = Phaser.Input.Events;
 
+        this.vidascontador;
+        this.posionescontador;
         this.suelo = this.physics.add.image(300, 800, 'BlockBlock');
         this.suelo.body.setAllowGravity(false);
         this.suelo.setImmovable();
@@ -368,19 +372,16 @@ class Room1 extends Phaser.Scene {
                 this.nami.x += 3;
             }
         }
-        if(this.teclas.kspc.isDown && this.nami.x >= 10 && this.nami.x <= 100 + 200)
+        if(this.teclas.powX.isDown && this.nami.x >= 10 && this.nami.x <= 100 + 200)
         {
-            
             this.puertas.anims.play('puerta');
-                escena("Level",this.scene);
-
+            escena("Level", this.scene, {vidas: this.vidasGet, posiones: this.posionesGet});
         }  
         
     }
 }
-function escena(params, params2) {
-    params2.start(params,{
-    });
+function escena(params, params2, data) {
+    params2.start(params, data);
 }
 
 function show(params, text) {

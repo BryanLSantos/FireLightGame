@@ -35,6 +35,7 @@ const config = {
         Level, 
         Map,
         Room1,
+        Room2,
         Room3,
         Room2,
         Room4,
