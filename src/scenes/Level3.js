@@ -642,7 +642,7 @@ class Level3 extends Phaser.Scene{
             if(this.teclas.powX.isDown) {
                 // this.puertas[0].anims.play('puerta');
                 clearInterval(this.textos);
-                escena("Battle_Rino",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: 3700});
+                escena("Battle_Rino",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: this.nami.x});
             }
         });
 
@@ -650,7 +650,7 @@ class Level3 extends Phaser.Scene{
             if(this.teclas.powX.isDown) {
                 // this.grupoportal.getChildren()[1].anims.play('puerta');
                 clearInterval(this.textos);
-                escena("Battle_Mago",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: 3700});
+                escena("Battle_Mago",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: this.nami.x});
             }
         });
 
@@ -658,7 +658,7 @@ class Level3 extends Phaser.Scene{
             if(this.teclas.powX.isDown) {
                 // this.puertas[2].anims.play('puerta');
                 clearInterval(this.textos);
-                escena("Battle_Boss",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: 3700});
+                escena("Battle_Boss",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: this.nami.x});
             }
         });
 
