@@ -16,7 +16,7 @@ class Battle_Go extends Phaser.Scene{
 
         this.vida = 5;
         this.pociones = 4;
-        this.vidaEnemy = 0;
+        this.vidaEnemy = 5;
         this.pocionesEnemy = 3;
 
         this.opc = 0;

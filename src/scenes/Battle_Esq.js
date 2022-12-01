@@ -15,9 +15,9 @@ class Battle_Esq extends Phaser.Scene{
         // this.vida_res = 1;
         // this.pocion_res = 5;
         this.vida = 5;
-        this.pociones = 4;
+        this.pociones = 3;
         this.vidaEnemy = 5;
-        this.pocionesEnemy = 3;
+        this.pocionesEnemy = 2;
 
         this.opc = 0;
     }
