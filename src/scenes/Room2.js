@@ -17,6 +17,7 @@ class Room2 extends Phaser.Scene {
         console.log('Escena Room2');
         this.vidasGet = dato.vidas;
         this.posionesGet = dato.posiones;
+        this.posicionXNamiGet = dato.posicionXNami;
         console.log("vidas: " + this.vidasGet + " posiones: " + this.posionesGet);
         //console.log('Haz hecho', dato, 'puntos');
     }
@@ -400,7 +401,7 @@ class Room2 extends Phaser.Scene {
             this.puertas.anims.play('puerta');
             // setTimeout(() => {
 
-                escena("Level", this.scene, {vidas: this.vidasGet, posiones: this.posionesGet});
+                escena("Level", this.scene, {vidas: this.vidasGet, posiones: this.posionesGet, posicionXNami: this.posicionXNamiGet});
 
                 // escena("Room4",this.scene);
                     

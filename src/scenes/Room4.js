@@ -17,6 +17,7 @@ class Room4 extends Phaser.Scene {
         console.log('Escena Scena D');
         this.vidasGet = dato.vidas;
         this.posionesGet = dato.posiones;
+        this.posicionXNamiGet = dato.posicionXNami;
         console.log("vidas: " + this.vidasGet + " posiones: " + this.posionesGet);
         //console.log('Haz hecho', dato, 'puntos');
     }
@@ -273,7 +274,7 @@ class Room4 extends Phaser.Scene {
                 // } );
             }
         }
-        if(this.teclas.kspc.isDown && this.nami.x >= 10 && this.nami.x <= 100 + 200)
+        if(this.teclas.powX.isDown && this.nami.x >= 10 && this.nami.x <= 100 + 200)
         {
             // setInterval(() => {
             //     console.log("esta haciendo algo");
@@ -284,7 +285,7 @@ class Room4 extends Phaser.Scene {
             this.puertas.anims.play('puerta');
             // setTimeout(() => {
 
-                escena("Level", this.scene, {vidas: this.vidasGet, posiones: this.posionesGet});
+                escena("Level", this.scene, {vidas: this.vidasGet, posiones: this.posionesGet, posicionXNami: this.posicionXNamiGet});
                 // escena("Room4",this.scene);
                     
             // }, 1500);

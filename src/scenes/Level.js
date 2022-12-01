@@ -8,6 +8,7 @@ class Level extends Phaser.Scene{
         console.log(dato);
         this.vidasGet = dato.vidas;
         this.posionesGet = dato.posiones;
+        this.posicionXNamiGet = dato.posicionXNami;
         console.log("vidas: " + this.vidasGet + " posiones: " + this.posionesGet);
         this.width = this.sys.game.canvas.width;
         this.height = this.sys.game.canvas.height;
@@ -346,7 +347,7 @@ class Level extends Phaser.Scene{
         this.cofre3 = this.add.sprite(3400, 680, 'cofreestatico', 0).setScale(0.8);
 
         //FISICAS nami
-        this.nami = this.physics.add.sprite(1000, 120, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
+        this.nami = this.physics.add.sprite(this.posicionXNamiGet, 420, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
         this.fuego = this.add.sprite(this.nami.x - 750, 895, 'fuego_idle').setOrigin(0.5,0.39).setScale(.6).setDepth(7);//AQUI SE AGREGA EL SPRITEa
         this.contenedor = this.add.image(this.nami.x - 650, 830, "contenedortxt").setOrigin(0, 0).setDepth(6).setScale(.45);
         this.contenedorfuego = this.add.image(this.nami.x - 850, 830, "contenedorfuego").setOrigin(0, 0).setDepth(8).setScale(.45);
@@ -601,7 +602,7 @@ class Level extends Phaser.Scene{
             key: 'hearts',
             repeat: 5,
             setXY: {
-            x: 350,
+            x: -500,
             y: 100,
             stepX: 100
             }
@@ -654,7 +655,7 @@ class Level extends Phaser.Scene{
             key: 'potions',
             repeat: 3,
             setXY: {
-            x: 1450,
+            x: 1100,
             y: 100,
             stepX: 100,
             }
@@ -1043,7 +1044,7 @@ class Level extends Phaser.Scene{
             this.puertas[0].anims.play('puerta');
             // setTimeout(() => {
                 clearInterval(this.textos);
-                escena("Room1",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion});
+                escena("Room1",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: 650});
                 // escena("Room4",this.scene);
                     
             // }, 1500);       
@@ -1051,17 +1052,17 @@ class Level extends Phaser.Scene{
         if(this.teclas.powX.isDown && this.nami.x >= 3420+300 && this.nami.x <= 3460 + 50+500) //this.nami.x >= 1250+300 && this.nami.x <= 1350 + 50+500
         { //4ta puerta this.nami.x >= 3420+300 && this.nami.x <= 3460 + 50+500
             this.puertas[1].anims.play('puerta');
-            escena("Room2",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion});
+            escena("Room2",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: 3700  });
         }
         if(this.teclas.powX.isDown && this.nami.x >= 5520+300 && this.nami.x <= 5760 + 50+500) //this.nami.x >= 2120+300 && this.nami.x <= 2360 + 50+500
         {   //5ta puerta this.nami.x >= 4520+300 && this.nami.x <= 4560 + 50+500
             this.puertas[2].anims.play('puerta');
-            escena("Room3",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion});
+            escena("Room3",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: 6100 });
         }
         if(this.teclas.powX.isDown && this.nami.x >= 6720+300 && this.nami.x <= 6860 + 50+500)
         {//6tapuerta this.nami.x >= 5520+300 && this.nami.x <= 5760 + 50+500
             this.puertas[3].anims.play('puerta');
-            escena("Room4",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion});
+            escena("Room4",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion,  posicionXNami: 7200});
         }
         if(this.teclas.powX.isDown && this.nami.x >= 950 && this.nami.x <= 50+950 && this.banderacofre1==false)
         {

@@ -17,10 +17,14 @@ class Room3 extends Phaser.Scene {
         console.log('Escena ScenaC');
         this.vidasGet = dato.vidas;
         this.posionesGet = dato.posiones;
+        this.posicionXNamiGet = dato.posicionXNami;
         console.log("vidas: " + this.vidasGet + " posiones: " + this.posionesGet);
         //console.log('Haz hecho', dato, 'puntos');
     }
+<<<<<<< Updated upstream
     
+=======
+>>>>>>> Stashed changes
     
     preload() {
         this.load.path = './assets/';
@@ -432,7 +436,7 @@ class Room3 extends Phaser.Scene {
             // setTimeout(() => {
 
                
-                escena("Level", this.scene, {vidas: this.vidasGet, posiones: this.posionesGet});
+                escena("Level", this.scene, {vidas: this.vidasGet, posiones: this.posionesGet, posicionXNami: this.posicionXNamiGet});
 
                 // escena("Room4",this.scene);
                     
