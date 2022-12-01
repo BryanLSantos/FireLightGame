@@ -32,13 +32,14 @@ const config = {
     pixelArt: true,		            //Diseño con pixeles definidos (no borrosos)
     backgroundColor: "#000000", 	//Color de fondo del canvas ()
     scene: [
-        Level2,
         Start,
         Map,
+        Level,
         Room1,
         Room2,
         Room3,
         Room4,
+        Level2,
         Level3], 
     // scene: [Battle],    //Aquí irá la lista de scenas del juego
     banner:{

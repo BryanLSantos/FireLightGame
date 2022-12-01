@@ -262,6 +262,7 @@ class Level2 extends Phaser.Scene {
 
         if (this.teclas.izq.isDown) {
             // this.nami.body.setOffset(60, 70);
+            this.nami.x -= 6;
             this.nami.body.setSize(23, 50, true);
             this.nami.body.setOffset(70, 60);
             // if (this.nami.x <= 100) {
