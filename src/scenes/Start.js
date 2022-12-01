@@ -19,7 +19,7 @@ class Start extends Phaser.Scene {
         this.load.image(['Puntero']);
 
         this.load.image('FondoStartA', 'scenastart/fondostartA.png');
-        this.load.image('Title', 'scenastart/Title.png');
+        this.load.image('Title', 'scenastart/title.png');
         this.load.image('text', 'scenastart/text.png');
         this.load.image('Start', 'scenastart/start.png');
         this.load.image('BookB', 'scenastart/bookB.png');
