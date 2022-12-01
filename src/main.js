@@ -41,7 +41,7 @@ const config = {
     //width: 640,			            //Ancho de pantalla del juego
     //height: 360, 			        //Alto de pantalla del juego
     //parent: "contenedor",		    //Nombre del id del elemento <div> en el index.html
-                                    // se refiere a dónde se pondrá el canvas o lienzo
+    // se refiere a dónde se pondrá el canvas o lienzo
     pixelArt: true,		            //Diseño con pixeles definidos (no borrosos)
     backgroundColor: "#000000", 	//Color de fondo del canvas ()
     scene: [
@@ -50,12 +50,12 @@ const config = {
         Level3,
         Level,
         Room1,
-        Room2,
-        Room3,
-        Room4,
         Battle_Esq,
         Battle_Go,
+        Room2,
         Battle_King,
+        Room3,
+        Room4,
         Level2,
         Battle_Mouth,
         Battle_Rino,

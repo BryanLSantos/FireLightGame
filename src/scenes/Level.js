@@ -176,6 +176,7 @@ class Level extends Phaser.Scene{
 
     create(){
 
+        console.log(this.posicionXNamiGet);
         this.cameras.main.setBackgroundColor(0x000000)
         // tiempo en milisegundos
         .fadeIn(2000);
@@ -340,11 +341,36 @@ class Level extends Phaser.Scene{
             }
         });
 
+        this.physics.add.collider(this.nami, this.puertas[1], () => {
+            if(this.teclas.powX.isDown) {
+                this.puertas[1].anims.play('puerta');
+                clearInterval(this.textos);
+                escena("Battle_Esq",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: this.nami.x});
+            }
+        });
+
+        this.physics.add.collider(this.nami, this.puertas[2], () => {
+            if(this.teclas.powX.isDown) {
+                this.puertas[2].anims.play('puerta');
+                clearInterval(this.textos);
+                escena("Battle_Go",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: this.nami.x});
+            }
+        });
+
+
         this.physics.add.collider(this.nami, this.puertas[3], () => {
             if(this.teclas.powX.isDown) {
                 this.puertas[3].anims.play('puerta');
                 clearInterval(this.textos);
                 escena("Room2",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: 3700});
+            }
+        });
+
+        this.physics.add.collider(this.nami, this.puertas[4], () => {
+            if(this.teclas.powX.isDown) {
+                this.puertas[4].anims.play('puerta');
+                clearInterval(this.textos);
+                escena("Battle_King",this.scene, {vidas: this.contadorVida, posiones: this.contadorPocion, posicionXNami: this.nami.x});
             }
         });
 
@@ -550,7 +576,7 @@ class Level extends Phaser.Scene{
             key: 'hearts',
             repeat: 5,
             setXY: {
-            x: -500,
+            x: this.nami.x - 800,
             y: 100,
             stepX: 100
             }
@@ -598,15 +624,16 @@ class Level extends Phaser.Scene{
             key: 'potions',
             repeat: 3,
             setXY: {
-            x: 1100,
+            x: this.nami.x + 800,
             y: 100,
-            stepX: 100,
+            stepX: -100,
             }
             });
         this.grupo2.children.iterate( (pocion) => {
             pocion.setScale(0.8);
             pocion.body.setAllowGravity(false);
         } );
+
         // this.contadorPocion = 1;
         this.contadorPocion = this.posionesGet;
         for (let index = this.contadorPocion; index < 4; index++) {

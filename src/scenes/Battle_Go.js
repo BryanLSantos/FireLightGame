@@ -4,13 +4,16 @@ class Battle_Go extends Phaser.Scene{
         super({ key: 'Battle_Go' });
     }
 
-    init(){
+    init(datos){
         console.log('Escena Battle');
         this.width = this.sys.game.canvas.width;
         this.height = this.sys.game.canvas.height;
 
-        this.vida_res = 6;
-        this.pocion_res = 5;
+        this.vida_res = datos.vidas;
+        this.pocion_res = datos.posiones;
+        this.namiX = datos.posicionXNami;
+        // this.vida_res = 1;
+
         this.vida = 5;
         this.pociones = 4;
         this.vidaEnemy = 5;
@@ -22,7 +25,7 @@ class Battle_Go extends Phaser.Scene{
     preload(){
         this.load.path = './assets/';
 
-        this.load.image('1', 'Battle/3.png');
+        this.load.image('battle3', 'Battle/battle3.png');
         this.load.image('Button', 'Battle/Button.png');
 
         this.load.spritesheet('nami','Nami/idlegOOD.png',
@@ -95,7 +98,7 @@ class Battle_Go extends Phaser.Scene{
     create(){
         const eventos = Phaser.Input.Events;
 
-        this.battle = this.add.image(this.width/2, this.height/2, '1');
+        this.battle = this.add.image(this.width/2, this.height/2, 'battle3');
 
         this.btn1 = this.add.image(500, this.height/8, 'Button').setScale(0.2, 0.1).setDepth(10).setInteractive();
         this.btn2 = this.add.image(1420, this.height/8, 'Button').setScale(0.2, 0.1).setDepth(10).setInteractive();
@@ -447,6 +450,9 @@ class Battle_Go extends Phaser.Scene{
                 if (this.vidaEnemy < 0) {
                     this.enemy.anims.play('enemy_dead');
                     show(this, this.txtWin);
+                    setTimeout(() => {
+                        escena("Level",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
+                    }, 1000);
                 } else {
                     this.opc = getRandomInt(99) + 1;
                     console.log(this.opc);
@@ -473,6 +479,9 @@ class Battle_Go extends Phaser.Scene{
                                                     if (this.vida < 0) {
                                                         this.nami.anims.play('nami_die');
                                                         show(this, this.txtLose);
+                                                        setTimeout(() => {
+                                                            this.scene.start('Gameover');
+                                                        }, 2000);
                                                     } else {
                                                         show(this, this.txtTurn);
                                                         this.btn1.setInteractive();
@@ -547,6 +556,9 @@ class Battle_Go extends Phaser.Scene{
                                                         if (this.vida < 0) {
                                                             this.nami.anims.play('nami_die');
                                                             show(this, this.txtLose);
+                                                            setTimeout(() => {
+                                                                this.scene.start('Gameover');
+                                                            }, 2000);
                                                         } else {
                                                             show(this, this.txtTurn);
                                                             this.btn1.setInteractive();
@@ -614,6 +626,9 @@ class Battle_Go extends Phaser.Scene{
                 if (this.vidaEnemy < 0) {
                     this.enemy.anims.play('enemy_dead');
                     show(this, this.txtWin);
+                    setTimeout(() => {
+                        escena("Level",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
+                    }, 1000);
                 } else {
                     this.opc = getRandomInt(99) + 1;
                     console.log(this.opc);
@@ -640,6 +655,9 @@ class Battle_Go extends Phaser.Scene{
                                                     if (this.vida < 0) {
                                                         this.nami.anims.play('nami_die');
                                                         show(this, this.txtLose);
+                                                        setTimeout(() => {
+                                                            this.scene.start('Gameover');
+                                                        }, 2000);
                                                     } else {
                                                         show(this, this.txtTurn);
                                                         this.btn1.setInteractive();
@@ -714,6 +732,9 @@ class Battle_Go extends Phaser.Scene{
                                                         if (this.vida < 0) {
                                                             this.nami.anims.play('nami_die');
                                                             show(this, this.txtLose);
+                                                            setTimeout(() => {
+                                                                this.scene.start('Gameover');
+                                                            }, 2000);
                                                         } else {
                                                             show(this, this.txtTurn);
                                                             this.btn1.setInteractive();
@@ -781,6 +802,9 @@ class Battle_Go extends Phaser.Scene{
                     if (this.vidaEnemy < 0) {
                         this.enemy.anims.play('enemy_dead');
                         show(this, this.txtWin);
+                    setTimeout(() => {
+                        escena("Level",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
+                    }, 1000);
                     } else {
                         this.opc = getRandomInt(99) + 1;
                         console.log(this.opc);
@@ -807,6 +831,9 @@ class Battle_Go extends Phaser.Scene{
                                                         if (this.vida < 0) {
                                                             this.nami.anims.play('nami_die');
                                                             show(this, this.txtLose);
+                                                            setTimeout(() => {
+                                                                this.scene.start('Gameover');
+                                                            }, 2000);
                                                         } else {
                                                             show(this, this.txtTurn);
                                                             this.btn1.setInteractive();
@@ -881,6 +908,9 @@ class Battle_Go extends Phaser.Scene{
                                                             if (this.vida < 0) {
                                                                 this.nami.anims.play('nami_die');
                                                                 show(this, this.txtLose);
+                                                                setTimeout(() => {
+                                                                    this.scene.start('Gameover');
+                                                                }, 2000);
                                                             } else {
                                                                 show(this, this.txtTurn);
                                                                 this.btn1.setInteractive();
@@ -915,6 +945,9 @@ class Battle_Go extends Phaser.Scene{
                     if (this.vidaEnemy < 0) {
                         this.enemy.anims.play('enemy_dead');
                         show(this, this.txtWin);
+                    setTimeout(() => {
+                        escena("Level",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
+                    }, 1000);
                     } else {
                         this.opc = getRandomInt(99) + 1;
                         console.log(this.opc);
@@ -941,6 +974,9 @@ class Battle_Go extends Phaser.Scene{
                                                         if (this.vida < 0) {
                                                             this.nami.anims.play('nami_die');
                                                             show(this, this.txtLose);
+                                                            setTimeout(() => {
+                                                                this.scene.start('Gameover');
+                                                            }, 2000);
                                                         } else {
                                                             show(this, this.txtTurn);
                                                             this.btn1.setInteractive();
@@ -1015,6 +1051,9 @@ class Battle_Go extends Phaser.Scene{
                                                             if (this.vida < 0) {
                                                                 this.nami.anims.play('nami_die');
                                                                 show(this, this.txtLose);
+                                                                setTimeout(() => {
+                                                                    this.scene.start('Gameover');
+                                                                }, 2000);
                                                             } else {
                                                                 show(this, this.txtTurn);
                                                                 this.btn1.setInteractive();
@@ -1062,6 +1101,9 @@ class Battle_Go extends Phaser.Scene{
                 if (this.vidaEnemy < 0) {
                     this.enemy.anims.play('enemy_dead');
                     show(this, this.txtWin);
+                    setTimeout(() => {
+                        escena("Level",this.scene, {vidas: this.vida + 1, posiones: this.pociones + 1, posicionXNami: this.namiX});
+                    }, 1000);
                 } else {
                     this.opc = getRandomInt(99) + 1;
                     console.log(this.opc);
@@ -1174,6 +1216,9 @@ class Battle_Go extends Phaser.Scene{
     update(time, delta){
 
     }
+}
+function escena(params, params2, data) {
+    params2.start(params, data);
 }
 
 function show(params, text) {
