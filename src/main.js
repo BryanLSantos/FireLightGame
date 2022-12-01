@@ -80,7 +80,7 @@ const config = {
             'gravity': {
                 y: 800
             },
-            'debug': true
+            'debug': false
         }
     }
 };
