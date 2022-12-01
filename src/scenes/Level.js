@@ -346,8 +346,11 @@ class Level extends Phaser.Scene{
         this.cofre.body.setAllowGravity(false);
        
         // this.cofre.body.setSize(1, 0.5);
-        this.cofre2 = this.add.sprite(2450, 680, 'cofreestatico').setScale(0.8);
-        this.cofre3 = this.add.sprite(3400, 680, 'cofreestatico').setScale(0.8);
+        this.cofre2 = this.physics.add.sprite(2450, 680, 'cofreestatico').setScale(0.8).setImmovable(true);
+        this.cofre2.body.setAllowGravity(false);
+
+        this.cofre3 = this.physics.add.sprite(3400, 680, 'cofreestatico').setScale(0.8).setImmovable(true);
+        this.cofre3.body.setAllowGravity(false);
 
         //FISICAS nami
         this.nami = this.physics.add.sprite(this.posicionXNamiGet, 420, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
@@ -366,11 +369,38 @@ class Level extends Phaser.Scene{
         this.physics.add.collider(this.nami, this.cofre, () => {
             if(this.teclas.powX.isDown) {
                 // console.log("XXX ");
-                this.cofre.anims.play('cofreanimado');
+                
                 if(this.contadorPocion < 4 && this.banderacofre1 == false ){
+                    this.cofre.anims.play('cofreanimado');
                     this.grupo2.getChildren()[this.contadorPocion].visible = true;
                     this.contadorPocion++;
                     this.banderacofre1 = true;
+                }
+            }
+        });
+
+        this.physics.add.collider(this.nami, this.cofre2, () => {
+            if(this.teclas.powX.isDown) {
+                // console.log("XXX ");
+                
+                if(this.contadorPocion < 4 && this.banderacofre2 == false ){
+                    this.cofre2.anims.play('cofreanimado');
+                    this.grupo2.getChildren()[this.contadorPocion].visible = true;
+                    this.contadorPocion++;
+                    this.banderacofre2 = true;
+                }
+            }
+        });
+
+        this.physics.add.collider(this.nami, this.cofre3, () => {
+            if(this.teclas.powX.isDown) {
+                // console.log("XXX ");
+               
+                if(this.contadorPocion < 4 && this.banderacofre3 == false ){
+                    this.cofre3.anims.play('cofreanimado');
+                    this.grupo2.getChildren()[this.contadorPocion].visible = true;
+                    this.contadorPocion++;
+                    this.banderacofre3 = true;
                 }
             }
         });
@@ -1149,24 +1179,24 @@ class Level extends Phaser.Scene{
         //         this.contadorPocion++;
         //     }
         // }
-        if(this.teclas.powX.isDown && this.nami.x >= 2350-200 && this.nami.x <= 50+2450-200 && this.banderacofre2==false)
-        {
-            this.cofre2.anims.play('cofreanimado');
-            this.banderacofre2 = true;
-            if(this.contadorPocion < 4){
-                this.grupo2.getChildren()[this.contadorPocion].visible = true;
-                this.contadorPocion++;
-            }
-        }
-        if(this.teclas.powX.isDown && this.nami.x >= 3350-100 && this.nami.x <= 50+3450-100 && this.banderacofre3==false)
-        {
-            this.cofre3.anims.play('cofreanimado');
-            this.banderacofre3 = true;
-            if(this.contadorPocion < 4){
-                this.grupo2.getChildren()[this.contadorPocion].visible = true;
-                this.contadorPocion++;
-            }
-        }
+        // if(this.teclas.powX.isDown && this.nami.x >= 2350-200 && this.nami.x <= 50+2450-200 && this.banderacofre2==false)
+        // {
+        //     this.cofre2.anims.play('cofreanimado');
+        //     this.banderacofre2 = true;
+        //     if(this.contadorPocion < 4){
+        //         this.grupo2.getChildren()[this.contadorPocion].visible = true;
+        //         this.contadorPocion++;
+        //     }
+        // }
+        // if(this.teclas.powX.isDown && this.nami.x >= 3350-100 && this.nami.x <= 50+3450-100 && this.banderacofre3==false)
+        // {
+        //     this.cofre3.anims.play('cofreanimado');
+        //     this.banderacofre3 = true;
+        //     if(this.contadorPocion < 4){
+        //         this.grupo2.getChildren()[this.contadorPocion].visible = true;
+        //         this.contadorPocion++;
+        //     }
+        // }
 
         //console.log(this.nami.x);
     }
