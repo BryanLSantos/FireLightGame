@@ -20,13 +20,7 @@ class Room3 extends Phaser.Scene {
         console.log("vidas: " + this.vidasGet + " posiones: " + this.posionesGet);
         //console.log('Haz hecho', dato, 'puntos');
     }
-<<<<<<< Updated upstream
-    init(dato) {
-        console.log('Escena ScenaA');
-        // console.log('Haz hecho', dato, 'puntos');
-        }
-=======
->>>>>>> Stashed changes
+    
     
     preload() {
         this.load.path = './assets/';
@@ -78,10 +72,10 @@ class Room3 extends Phaser.Scene {
             frameWidth: 180,
             frameHeight: 180,
         })
-        this.load.spritesheet('bola_idle','scenaroom/espada.png',
+        this.load.spritesheet('bola_idle','scenaroom/libro.png',
         {
-            frameWidth: 280,
-            frameHeight: 266,
+            frameWidth: 500,
+            frameHeight: 449,
         });
     }
 
@@ -112,7 +106,7 @@ class Room3 extends Phaser.Scene {
 
         this.fondo = this.add.image(0, 0, "violetroom").setOrigin(0, 0).setDepth(-1);
         
-        this.violet = this.physics.add.sprite(1300, 300, 'violet', 0).setScale(1.8);
+        this.violet = this.physics.add.sprite(1300, 310, 'violet', 0).setScale(1.8);
         this.violet.flipX = true;
         this.anims.create({
             // Nombre de la animación
@@ -132,7 +126,7 @@ class Room3 extends Phaser.Scene {
         
         this.nami = this.physics.add.sprite(150, 500, 'nami').setOrigin(0.5,0.39).setScale(5);//AQUI SE AGREGA EL SPRITE
         //this.physics.add.existing(this.nami, true); //FORMA2 true
-        this.bola_idle = this.physics.add.sprite(1130, 480, 'bola_idle').setOrigin(0.5,0.39).setScale(.4).setVisible(false);//AQUI SE AGREGA EL SPRITE
+        this.bola_idle = this.physics.add.sprite(1130, 480, 'bola_idle').setOrigin(0.5,0.39).setScale(.2).setVisible(false);//AQUI SE AGREGA EL SPRITE
         
         this.bola_idle.body.setAllowGravity(false);
         this.bola_idle.setImmovable();
@@ -179,11 +173,11 @@ class Room3 extends Phaser.Scene {
             // usa cuando ya existe un Atlas
             frames: this.anims.generateFrameNumbers('bola_idle', {
                 start: 0,
-                end: 15
+                end: 10
             }),
             
             repeat: -1,
-            frameRate: 16
+            frameRate: 11
         });
 
         this.anims.create({
