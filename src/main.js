@@ -44,6 +44,7 @@ const config = {
     scene: [
         Start,
         Map,
+        Level3,
         Level,
         Room1,
         Room2,
@@ -56,7 +57,7 @@ const config = {
         Battle_Mouth,
         Battle_Rino,
         Battle_Tauro,
-        Level3,
+        
         Battle_Mago,
         Battle_Boss], 
     banner:{

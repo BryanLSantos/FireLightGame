@@ -647,7 +647,6 @@ class Level extends Phaser.Scene{
                 this.nami.setVelocityY( this.nami.body.velocity.y -= 100);
                 this.nami.anims.play('nami_takehit');
             }, 100);
-
             setTimeout(() => {
                 this.nami.body.velocity.x = 0;
                 this.nami.body.velocity.y = 0;
@@ -668,7 +667,6 @@ class Level extends Phaser.Scene{
                     this.nami.body.moves = false;
                     this.nami.body.x = this.nami.body.x;
                     this.nami.body.y = this.nami.body.y;
-                    
                     setTimeout(() => {
                         this.nami.anims.stop();
                         this.nami.anims.play("nami_death");
@@ -708,10 +706,10 @@ class Level extends Phaser.Scene{
     }
     update(time, delta) {
         console.log(this.nami.x);
-        if(this.nami.x >= 8150)
-        {
-            this.nami.x = 8150;
-        }
+        // if(this.nami.x >= 8150)
+        // {
+        //     this.nami.x = 8150;
+        // }
         // if(this.colisionPinchos==true){
         //     setInterval(() => {
         //         this.grupo.getChildren()[this.contadorVida].visible = false;

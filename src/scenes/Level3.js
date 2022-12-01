@@ -2,15 +2,18 @@ class Level3 extends Phaser.Scene{
     constructor(){
         super({ key: 'Level3' });
     }
-    init(data) {
+    init(dato) {
         console.log('Escena Level3');
-        console.log('init', data);
+        console.log(dato);
+        this.vidasGet = dato.vidas;
+        this.posionesGet = dato.posiones;
+        this.posicionXNamiGet = dato.posicionXNami;
+        console.log("vidas: " + this.vidasGet + " posiones: " + this.posionesGet);
         this.width = this.sys.game.canvas.width;
         this.height = this.sys.game.canvas.height;
         this.maximo=690;
         this.minimo=0;
         this.direc=true;
-        
 
     }
     
@@ -380,9 +383,14 @@ class Level3 extends Phaser.Scene{
             } );
         this.grupo.playAnimation('hearts');
         // this.contadorVida = 3; 
-        this.grupo.getChildren()[3].visible = false;
-        this.grupo.getChildren()[4].visible = false;
-        this.grupo.getChildren()[5].visible = false;
+        this.contadorVida = this.vidasGet;
+        console.log("contador vida" + this.contadorVida);
+        for (let index = this.contadorVida; index < 6; index++) {
+            this.grupo.getChildren()[index].visible = false;
+        }
+        // this.grupo.getChildren()[3].visible = false;
+        // this.grupo.getChildren()[4].visible = false;
+        // this.grupo.getChildren()[5].visible = false;
 
         //Grupo de corazones ABAJO
         this.grupoC = this.physics.add.group({
@@ -403,8 +411,10 @@ class Level3 extends Phaser.Scene{
         //Nami obtiene salud
         this.physics.add.collider(this.nami, this.grupoC, () => {
             this.grupoC.getChildren()[0].destroy();
-            this.grupo.getChildren()[this.contadorVida].visible = true;
-            this.contadorVida++;
+            if(this.contadorVida<6){
+                this.grupo.getChildren()[this.contadorVida].visible = true;
+                this.contadorVida++;
+            }
         });
    
             
@@ -422,6 +432,12 @@ class Level3 extends Phaser.Scene{
             posion.setScale(0.8);
             posion.body.setAllowGravity(false);
         } );
+        // this.contadorPocion = 1;
+        this.contadorPocion = this.posionesGet;
+        for (let index = this.contadorPocion; index < 4; index++) {
+            this.grupo2.getChildren()[index].visible = false;
+        }
+        
         this.grupo2.playAnimation('potions');
 
         //GRUPO LAVA
@@ -461,7 +477,6 @@ class Level3 extends Phaser.Scene{
             {
                 if(this.contadorVida == 1)
                 {
-                    // this.nami.anims.play("nami_death");
                     this.grupo.getChildren()[this.contadorVida-1].visible = false;
                     this.contadorVida--;
                     this.daño = 0;
@@ -475,7 +490,6 @@ class Level3 extends Phaser.Scene{
                     setTimeout(() => {
                         this.nami.anims.stop();
                         this.nami.anims.play("nami_death");
-                        
                     }, 1000);
                     
                     setTimeout(() => {
@@ -489,8 +503,7 @@ class Level3 extends Phaser.Scene{
                     this.daño = 0;
                     console.log("hacer daño");
                     //checar si tiene 0 corazones si es el caso muere
-                }
-               
+                }  
             }
         });
 
@@ -508,11 +521,8 @@ class Level3 extends Phaser.Scene{
             console.log("colision nami con lava");
             this.cameras.main
             .setBackgroundColor(0x000000)
-            //.fadeOut(500);
-            // tiempo en milisegundos, intensidad en [0,1]
             .shake(500, 0.03);
-            //this.cameras.main.fadeIn(500);
-            //setVelocity(200);
+
             setTimeout(() => {
                 this.nami.setVelocityX( this.nami.body.velocity.x += 50);
                 this.nami.setVelocityY( this.nami.body.velocity.y -= 100);
@@ -522,12 +532,12 @@ class Level3 extends Phaser.Scene{
                 this.nami.body.velocity.x = 0;
                 this.nami.body.velocity.y = 0;
              }, 400); 
+
             this.daño++;
             if(this.daño >= 10)
             {
                 if(this.contadorVida == 1)
                 {
-                    // this.nami.anims.play("nami_death");
                     this.grupo.getChildren()[this.contadorVida-1].visible = false;
                     this.contadorVida--;
                     this.daño = 0;
@@ -541,7 +551,6 @@ class Level3 extends Phaser.Scene{
                     setTimeout(() => {
                         this.nami.anims.stop();
                         this.nami.anims.play("nami_death");
-                        
                     }, 1000);
                     
                     setTimeout(() => {
@@ -556,7 +565,6 @@ class Level3 extends Phaser.Scene{
                     console.log("hacer daño");
                     //checar si tiene 0 corazones si es el caso muere
                 }
-               
             }
         });
 
@@ -581,10 +589,10 @@ class Level3 extends Phaser.Scene{
         // this.cofre.anims.play('cofreanimado');
     }
     update(time, delta) {
-        if(this.nami.x >= 10055)
-        {
-            this.nami.x = 10055;
-        }
+        // if(this.nami.x >= 10055)
+        // {
+        //     this.nami.x = 10055;
+        // }
         // if(this.colisionPinchos==true){
         //     setInterval(() => {
         //         this.grupo.getChildren()[this.contadorVida].visible = false;
@@ -619,6 +627,18 @@ class Level3 extends Phaser.Scene{
                 for(let index = 0; index < 10; index++) {
                     
                 }
+                this.grupolava.children.iterate( (lava) => {
+                    lava.x += 2;
+                });
+                this.grupolava2.children.iterate( (lava) => {
+                    lava.x += 2;
+                });
+                this.grupoportal.children.iterate( (portal) => {
+                    portal.x += 2;
+                });
+                this.grupoC.children.iterate( (corazon) => {
+                    corazon.x += 2;
+                })
             }
         }
         ///////////////////////77
@@ -640,7 +660,18 @@ class Level3 extends Phaser.Scene{
                 if (this.bgs[0].x <= 0) {
                     this.bgs[0].x -= 2;
                     this.bgs[1].x -= 2;
-
+                    this.grupolava.children.iterate( (lava) => {
+                        lava.x -= 2;
+                    });
+                    this.grupolava2.children.iterate( (lava) => {
+                        lava.x -= 2;
+                    });
+                    this.grupoportal.children.iterate( (portal) => {
+                        portal.x -= 2;
+                    });
+                    this.grupoC.children.iterate( (corazon) => {
+                        corazon.x -= 2;
+                    });
                 }
             }
             // this.grupo2[0].x += 2;
